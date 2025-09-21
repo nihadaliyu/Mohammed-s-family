@@ -165,42 +165,61 @@ def display_family(name, data, ancestors=None):
         with col2:
             st.markdown(f"### {name}")
             st.markdown(f"<div class='muted'>{partner_display}</div>", unsafe_allow_html=True)
-            st.markdown(f"<div class='muted'>{data.get('description','')}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='muted'>{data.get('description', '')}</div>", unsafe_allow_html=True)
             phone = data.get("phone", "")
             if phone:
                 st.markdown(f"<div style='margin-top:6px;'><b>{phone}</b> <a class='phone-link' href='tel:{phone}'>📞 Call</a></div>", unsafe_allow_html=True)
 
-        # ADD PARTNER button
-        if not partner and not locked_partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
-            if st.button(f"Add Partner for {name}", key=f"add_partner_{key_base}"):
-                new_partner_name = st.text_input("Enter partner's name", key=f"partner_input_{key_base}")
-                if st.button("Save Partner", key=f"save_partner_{key_base}"):
-                    data["partner"] = new_partner_name
-                    save_family_data(st.session_state.family_data)
-                    st.success(f"Partner {new_partner_name} added for {name} ✅")
-                    st.experimental_rerun()
-
-        # ADD CHILD button
-        if partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
-            if st.button(f"Add Child to {name}", key=f"add_child_{key_base}"):
-                with st.form(key=f"child_form_{key_base}"):
-                    new_child_name = st.text_input("Enter child's name", key=f"child_name_{key_base}")
-                    new_child_desc = st.text_area("Enter child's description", key=f"child_desc_{key_base}")
-                    new_child_phone = st.text_input("Enter child's phone number", key=f"child_phone_{key_base}")
-                    uploaded_photo = st.file_uploader("Upload child's photo", type=["jpg", "jpeg", "png"], key=f"child_photo_{key_base}")
-
-                    if st.form_submit_button("Save Child"):
-                        child_data = {
-                            "description": new_child_desc,
-                            "children": {},
-                            "phone": new_child_phone,
-                        }
-                        if uploaded_photo is not None:
-                            child_data["photo"] = save_uploaded_photo(uploaded_photo, [name, new_child_name])
-                        data["children"][new_child_name] = child_data
+            # ADD PARTNER button
+            if not partner and not locked_partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
+                if st.button(f"Add Partner for {name}", key=f"add_partner_{key_base}"):
+                    new_partner_name = st.text_input("Enter partner's name", key=f"partner_input_{key_base}")
+                    if st.button("Save Partner", key=f"save_partner_{key_base}"):
+                        data["partner"] = new_partner_name
                         save_family_data(st.session_state.family_data)
-                        st.success(f"Child {new_child_name} added under {name} ✅")
+                        st.success(f"Partner {new_partner_name} added for {name} ✅")
                         st.experimental_rerun()
+
+            # ADD CHILD button
+            if partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
+                if st.button(f"Add Child to {name}", key=f"add_child_{key_base}"):
+                    with st.form(key=f"child_form_{key_base}"):
+                        new_child_name = st.text_input("Enter child's name", key=f"child_name_{key_base}")
+                        new_child_desc = st.text_area("Enter child's description", key=f"child_desc_{key_base}")
+                        new_child_phone = st.text_input("Enter child's phone number", key=f"child_phone_{key_base}")
+                        uploaded_photo = st.file_uploader("Upload child's photo", type=["jpg", "jpeg", "png"], key=f"child_photo_{key_base}")
+
+                        if st.form_submit_button("Save Child"):
+                            child_data = {
+                                "description": new_child_desc,
+                                "children": {},
+                                "phone": new_child_phone,
+                            }
+                            if uploaded_photo is not None:
+                                child_data["photo"] = save_uploaded_photo(uploaded_photo, [name, new_child_name])
+                            data["children"][new_child_name] = child_data
+                            save_family_data(st.session_state.family_data)
+                            st.success(f"Child {new_child_name} added under {name} ✅")
+                            st.experimental_rerun()
+
+            # Edit and Delete buttons for the current member
+            if st.button(f"✏️ Edit {name}", key=f"edit_{key_base}"):
+                with st.form(key=f"edit_form_{key_base}"):
+                    updated_description = st.text_area("Update description", value=data.get("description", ""))
+                    updated_phone = st.text_input("Update phone number", value=data.get("phone", ""))
+                    if st.form_submit_button("Save Changes"):
+                        data["description"] = updated_description
+                        data["phone"] = updated_phone
+                        save_family_data(st.session_state.family_data)
+                        st.success(f"{name} updated successfully ✅")
+                        st.experimental_rerun()
+
+            if st.button(f"🗑️ Delete {name}", key=f"delete_{key_base}"):
+                if st.button("Confirm Delete"):
+                    del st.session_state.family_data[name]
+                    save_family_data(st.session_state.family_data)
+                    st.success(f"{name} deleted successfully ✅")
+                    st.experimental_rerun()
 
         # Display children recursively
         for child_name, child_data in data.get("children", {}).items():
