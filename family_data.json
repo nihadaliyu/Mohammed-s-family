@@ -1,0 +1,178 @@
+{
+    "Shemega": {
+        "description": "Mother Shemega",
+        "photo": null,
+        "children": {
+            "Sunkemo": {
+                "description": "",
+                "photo": null,
+                "children": {
+                    "Ammar": {
+                        "description": "the first child of Sunkemo and Radiya ",
+                        "children": {},
+                        "phone": ""
+                    }
+                },
+                "partner": "Radiya Nassir"
+            },
+            "Jemal": {
+                "description": "",
+                "photo": null,
+                "children": {},
+                "partner": "Fetiya ",
+                "phone": ""
+            },
+            "Rehmet": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Bedriya": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            }
+        },
+        "partner": "mohammed",
+        "phone": ""
+    },
+    "Nurseba": {
+        "description": "Mother Nurseba",
+        "photo": null,
+        "children": {
+            "Oumer": {
+                "description": "",
+                "photo": null,
+                "children": {
+                    "ammar": {
+                        "description": "",
+                        "children": {},
+                        "phone": "0911234566"
+                    }
+                },
+                "partner": "radiya"
+            },
+            "Sefiya": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Ayro": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Reshad": {
+                "description": "",
+                "photo": null,
+                "children": {},
+                "partner": "Bedriya"
+            },
+            "Selima": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Fetiya": {
+                "description": "",
+                "photo": null,
+                "children": {
+                    "mahir": {
+                        "description": "vbn",
+                        "children": {},
+                        "phone": "096767575675"
+                    }
+                },
+                "partner": "abas muste"
+            },
+            "Sherefa": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Ali": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Neja": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            }
+        }
+    },
+    "Dilbo": {
+        "description": "Mother Dilbo",
+        "photo": null,
+        "children": {
+            "Sadik": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Behra": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Nasir": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Abdusemed": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            }
+        }
+    },
+    "Rukiya": {
+        "description": "Mother Rukiya",
+        "photo": null,
+        "children": {
+            "Beytulah": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Leyla": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Zulfa": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Ishaq": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Mubarek": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            },
+            "Hayat": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            }
+        }
+    },
+    "Nefissa": {
+        "description": "Mother Nefissa",
+        "photo": null,
+        "children": {
+            "Abdurezak": {
+                "description": "",
+                "photo": null,
+                "children": {}
+            }
+        }
+    }
+}
