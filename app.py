@@ -65,12 +65,12 @@ st.markdown(
 
 # ---------------- QUIZ ----------------
 quiz_questions = [
-    {"question": "Who is the father of kere?", "answer": "Reshad"},
+    {"question": "how many childs did sunkemo have?", "answer": "9"},
     {"question": "How many wives did Mohammed have?", "answer": "5"},
-    {"question": "first child of Nurseba?", "answer": "Oumer"},
-    {"question": "Who is the youngest mother?", "answer": "Nefissa"},
-    {"question": "Who mother of sadik?", "answer": "Dilbo"},
-    {"question": "Who is the first wife of Mohammed?", "answer": "Shemega"},
+    {"question": "how many childs did mother Shemega have ?", "answer": "5"},
+    {"question": "how many childs did mother Nurseba have?", "answer": "9"},
+    {"question": "how many childs did mother Dilbo have?", "answer": "4"},
+
 ]
 
 # ---------------- DEFAULT DATA ----------------
@@ -384,7 +384,7 @@ if "quiz_done" not in st.session_state:
     st.session_state.current_question = random.choice(quiz_questions)
 
 if not st.session_state.quiz_done:
-    st.header("📖 Family Quiz")
+    st.header("📖 Pleas answer Family Quiz to login")
     question = st.session_state.current_question["question"]
     ans = st.text_input(question, key="quiz_answer")
     if st.button("Submit Quiz"):
