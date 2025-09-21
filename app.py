@@ -16,16 +16,26 @@ PLACEHOLDER_IMAGE = "https://via.placeholder.com/150?text=No+Photo"
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemega", "Nurseba", "Dilbo", "Rukiya", "Nefissa"]
 
 # ---------------- STYLES ----------------
+
+# Improved modern style
 st.markdown(
     """
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f6f9; }
-        .card { display:flex; align-items:center; background:#fff; padding:12px; border-radius:12px; margin-bottom:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
-        .card img { border-radius:8px; width:120px; height:120px; object-fit:cover; margin-right:14px; border:3px solid #007bff; }
-        .card-details h3 { margin:0; color:#007bff; }
-        .phone-link { background:#28a745; color:white; padding:6px 10px; border-radius:8px; text-decoration:none; }
-        .muted { color:#666; font-size:13px; margin:4px 0; }
-        .section-title { color:#444; font-weight:bold; margin-top:10px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecf2; }
+        .main { background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.10); padding: 32px 24px; margin: 24px auto; max-width: 900px; }
+        .cool-header { font-size: 2.2rem; color: #007bff; font-weight: 700; margin-bottom: 18px; text-align: center; letter-spacing: 1px; }
+        .section-title { color: #222; font-size: 1.3rem; font-weight: 600; margin-top: 18px; margin-bottom: 10px; }
+        .card { display: flex; align-items: center; background: #f8fbff; padding: 18px; border-radius: 14px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: box-shadow 0.2s; }
+        .card:hover { box-shadow: 0 6px 24px rgba(0,123,255,0.10); }
+        .card img { border-radius: 10px; width: 120px; height: 120px; object-fit: cover; margin-right: 18px; border: 3px solid #007bff; background: #fff; }
+        .card-details h3 { margin: 0; color: #007bff; font-size: 1.3rem; }
+        .phone-link { background: #28a745; color: white; padding: 7px 14px; border-radius: 10px; text-decoration: none; font-size: 1rem; margin-left: 8px; }
+        .muted { color: #666; font-size: 14px; margin: 4px 0; }
+        .stButton>button, .stForm>button, .stTextInput>input, .stTextArea>textarea { border-radius: 8px !important; }
+        .stExpander { background: #f4f6fa !important; border-radius: 14px !important; margin-bottom: 18px !important; }
+        .stExpanderHeader { font-size: 1.1rem !important; font-weight: 600 !important; color: #007bff !important; }
+        .stSuccess { background: #e6f7ee !important; color: #28a745 !important; border-radius: 8px !important; }
+        .stError { background: #fff0f0 !important; color: #d32f2f !important; border-radius: 8px !important; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -263,7 +273,9 @@ def display_family(name, data, ancestors=None):
 
 
 # ---------------- MAIN ----------------
-st.title("👨‍👩‍👧 Delko's Family Data Record")
+
+st.markdown('<div class="main">', unsafe_allow_html=True)
+st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Record</div>', unsafe_allow_html=True)
 
 # Add Reset All History button (visible at all times)
 if st.button("🔄 Reset All History", key="reset_all_history"):
@@ -277,7 +289,7 @@ if st.button("🔄 Reset All History", key="reset_all_history"):
     st.experimental_rerun()
 
 if not st.session_state.quiz_done:
-    st.header("📖 Please answer Family Quiz to login")
+    st.markdown('<div class="section-title">📖 Please answer Family Quiz to login</div>', unsafe_allow_html=True)
     question = st.session_state.current_question["question"]
     if "quiz_answer" not in st.session_state:
         st.session_state.quiz_answer = ""
@@ -292,12 +304,15 @@ if not st.session_state.quiz_done:
             st.error("❌ Wrong! Try again.")
             st.session_state.current_question = random.choice(quiz_questions)
 else:
-    st.header("🌳 Family Tree by Mothers")
+    st.markdown('<div class="section-title">🌳 Family Tree by Mothers</div>', unsafe_allow_html=True)
     data = st.session_state.family_data
     for mother_name, mother_data in data.items():
         display_family(mother_name, mother_data)
+
 
     # Save button
     if st.button("💾 Save Changes"):
         save_family_data(st.session_state.family_data)
         st.success("✅ Data saved successfully")
+
+st.markdown('</div>', unsafe_allow_html=True)
