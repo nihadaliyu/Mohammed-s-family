@@ -112,6 +112,14 @@ def load_family_data():
         try:
             with open(DATA_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
+                # Ensure Mustefa is included under Shemega
+                if "Mustefa" not in data["Shemega"]["children"]:
+                    data["Shemega"]["children"]["Mustefa"] = {
+                        "description": "Child of Shemega + Mohammed",
+                        "children": {},
+                        "phone": "0911222337",
+                        "photo": "",
+                    }
         except:
             data = copy.deepcopy(default_family_data)
     else:
