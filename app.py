@@ -20,10 +20,7 @@ st.markdown(
     """
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #f4f6f9; }
-        .card {
-            display:flex; align-items:center; background:#fff; padding:12px;
-            border-radius:12px; margin-bottom:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06);
-        }
+        .card { display:flex; align-items:center; background:#fff; padding:12px; border-radius:12px; margin-bottom:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
         .card img { border-radius:8px; width:120px; height:120px; object-fit:cover; margin-right:14px; border:3px solid #007bff; }
         .card-details h3 { margin:0; color:#007bff; }
         .phone-link { background:#28a745; color:white; padding:6px 10px; border-radius:8px; text-decoration:none; }
