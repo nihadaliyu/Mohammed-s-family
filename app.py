@@ -224,7 +224,13 @@ def display_family(name, data, ancestors=None):
 
             if st.button(f"🗑️ Delete {name}", key=f"delete_{key_base}"):
                 if st.button("Confirm Delete"):
-                    del st.session_state.family_data[name]
+                    if name in st.session_state.family_data:
+                        del st.session_state.family_data[name]
+                    else:
+                        # Delete from children
+                        parent_name = ancestors[-1] if ancestors else ""
+                        if parent_name and parent_name in st.session_state.family_data:
+                        del st.session_state.family_data[parent_name]["children"][name]
                     save_family_data(st.session_state.family_data)
                     st.success(f"{name} deleted successfully ✅")
                     st.experimental_rerun()
