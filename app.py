@@ -160,6 +160,7 @@ def display_family(name, data, ancestors=None):
     path = ancestors + [name]
     key_base = "_".join(path).replace(" ", "_")
 
+
     partner = data.get("partner", "")
     locked_partner = data.get("locked_partner", False)
     partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner if partner else "Single")
@@ -182,13 +183,29 @@ def display_family(name, data, ancestors=None):
 
             # ADD PARTNER button
             if not partner and not locked_partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
-                if st.button(f"Add Partner for {name}", key=f"add_partner_{key_base}"):
+                with st.form(key=f"partner_form_{key_base}"):
                     new_partner_name = st.text_input("Enter partner's name", key=f"partner_input_{key_base}")
-                    if st.button("Save Partner", key=f"save_partner_{key_base}"):
+                    if st.form_submit_button("Save Partner"):
                         data["partner"] = new_partner_name
                         save_family_data(st.session_state.family_data)
                         st.success(f"Partner {new_partner_name} added for {name} ✅")
                         st.experimental_rerun()
+
+            # Edit Partner button
+            if partner and not locked_partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
+                with st.form(key=f"edit_partner_form_{key_base}"):
+                    updated_partner = st.text_input("Edit partner's name", value=partner, key=f"edit_partner_input_{key_base}")
+                    if st.form_submit_button("Update Partner"):
+                        data["partner"] = updated_partner
+                        save_family_data(st.session_state.family_data)
+                        st.success(f"Partner updated for {name} ✅")
+                        st.experimental_rerun()
+                # Delete Partner button
+                if st.button(f"Delete Partner for {name}", key=f"delete_partner_{key_base}"):
+                    data["partner"] = ""
+                    save_family_data(st.session_state.family_data)
+                    st.success(f"Partner deleted for {name} ✅")
+                    st.experimental_rerun()
 
             # ADD CHILD button
             if partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
@@ -213,24 +230,28 @@ def display_family(name, data, ancestors=None):
                             st.experimental_rerun()
 
             # Edit and Delete buttons for the current member
-            if st.button(f"✏️ Edit {name}", key=f"edit_{key_base}"):
-                with st.form(key=f"edit_form_{key_base}"):
-                    updated_description = st.text_area("Update description", value=data.get("description", ""))
-                    updated_phone = st.text_input("Update phone number", value=data.get("phone", ""))
-                    if st.form_submit_button("Save Changes"):
-                        data["description"] = updated_description
-                        data["phone"] = updated_phone
-                        save_family_data(st.session_state.family_data)
-                        st.success(f"{name} updated successfully ✅")
-                        st.experimental_rerun()
+            with st.form(key=f"edit_form_{key_base}"):
+                updated_description = st.text_area("Update description", value=data.get("description", ""))
+                updated_phone = st.text_input("Update phone number", value=data.get("phone", ""))
+                if st.form_submit_button("Save Changes"):
+                    data["description"] = updated_description
+                    data["phone"] = updated_phone
+                    save_family_data(st.session_state.family_data)
+                    st.success(f"{name} updated successfully ✅")
+                    st.experimental_rerun()
 
             if st.button(f"🗑️ Delete {name}", key=f"delete_{key_base}"):
-                if st.button("Confirm Delete"):
+                if st.button("Confirm Delete", key=f"confirm_delete_{key_base}"):
                     parent_name = ancestors[-1] if ancestors else ""
-                    if parent_name and parent_name in st.session_state.family_data:
-                        if name in st.session_state.family_data[parent_name]["children"]:
-                            del st.session_state.family_data[parent_name]["children"][name]
-                        else:
+                    # Traverse the tree to delete correctly
+                    if parent_name:
+                        parent_data = st.session_state.family_data
+                        for ancestor in ancestors[:-1]:
+                            parent_data = parent_data[ancestor]["children"]
+                        if name in parent_data[parent_name]["children"]:
+                            del parent_data[parent_name]["children"][name]
+                    else:
+                        if name in st.session_state.family_data:
                             del st.session_state.family_data[name]
                     save_family_data(st.session_state.family_data)
                     st.success(f"{name} deleted successfully ✅")
@@ -240,8 +261,20 @@ def display_family(name, data, ancestors=None):
         for child_name, child_data in data.get("children", {}).items():
             display_family(child_name, child_data, ancestors=path)
 
+
 # ---------------- MAIN ----------------
 st.title("👨‍👩‍👧 Delko's Family Data Record")
+
+# Add Reset All History button (visible at all times)
+if st.button("🔄 Reset All History", key="reset_all_history"):
+    reset_session_state()
+    # Reset data file to default
+    save_family_data(copy.deepcopy(default_family_data))
+    st.session_state.family_data = load_family_data()
+    st.session_state.quiz_done = False
+    st.session_state.current_question = random.choice(quiz_questions)
+    st.success("All history has been reset!")
+    st.experimental_rerun()
 
 if not st.session_state.quiz_done:
     st.header("📖 Please answer Family Quiz to login")
