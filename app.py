@@ -19,44 +19,22 @@ MOTHERS_WITH_DEFAULT_PARTNER = ["Shemega", "Nurseba", "Dilbo", "Rukiya", "Nefiss
 st.markdown(
     """
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f6f9;
-        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f6f9; }
         .card {
-            display: flex;
-            align-items: center;
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+            display: flex; align-items: center;
+            background: #ffffff; padding: 15px; border-radius: 12px;
+            margin-bottom: 12px; box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
         }
         .card img {
-            border-radius: 8px;
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            margin-right: 18px;
-            border: 3px solid #007bff;
+            border-radius: 8px; width: 120px; height: 120px;
+            object-fit: cover; margin-right: 18px; border: 3px solid #007bff;
         }
-        .card-details h3 {
-            margin: 0;
-            color: #007bff;
-        }
+        .card-details h3 { margin: 0; color: #007bff; }
         .phone-link {
-            background: #28a745;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 14px;
+            background: #28a745; color: white; padding: 6px 12px;
+            border-radius: 8px; text-decoration: none; font-size: 14px;
         }
-        .section-title {
-            color: #444;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+        .section-title { color: #444; font-weight: bold; margin-top: 10px; }
         .muted { color: #666; font-size: 13px; margin: 4px 0; }
     </style>
     """,
@@ -70,7 +48,6 @@ quiz_questions = [
     {"question": "how many childs did mother Shemega have ?", "answer": "5"},
     {"question": "how many childs did mother Nurseba have?", "answer": "9"},
     {"question": "how many childs did mother Dilbo have?", "answer": "4"},
-
 ]
 
 # ---------------- DEFAULT DATA ----------------
@@ -143,46 +120,30 @@ def load_data():
             with open(DATA_FILE, "r") as f:
                 return json.load(f)
         except Exception:
-            # corrupt or unreadable file -> overwrite with defaults
             save_data(default_family_data)
             return default_family_data
-    # first run -> save defaults
     save_data(default_family_data)
     return default_family_data
-
 
 def save_data(data):
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-
 family_data = load_data()
 
-# Ensure the five mothers always have partner = "Mohammed" and locked_partner True (without overwriting other fields)
+# Ensure the five mothers always have partner = "Mohammed" and locked_partner True
 for mom in MOTHERS_WITH_DEFAULT_PARTNER:
     if mom not in family_data:
-        family_data[mom] = {
-            "description": f"Mother {mom}",
-            "phone": "",
-            "partner": "Mohammed",
-            "locked_partner": True,
-            "photo": "",
-            "children": {},
-        }
+        family_data[mom] = default_family_data[mom]
     else:
-        # set partner if missing/empty, and ensure locked_partner True
-        if not family_data[mom].get("partner"):
-            family_data[mom]["partner"] = "Mohammed"
+        family_data[mom]["partner"] = "Mohammed"
         family_data[mom]["locked_partner"] = True
-
-# Persist any adjustments (only writes when necessary)
 save_data(family_data)
 
 # ---------------- HELPERS ----------------
 def save_uploaded_photo(uploaded_file, path_list):
     if not uploaded_file:
         return ""
-    # sanitize filename a bit
     safe_name = "_".join(path_list).replace(" ", "_")
     ext = os.path.splitext(uploaded_file.name)[1].lower()
     filename = f"{safe_name}{ext}"
@@ -191,22 +152,15 @@ def save_uploaded_photo(uploaded_file, path_list):
         out.write(uploaded_file.getbuffer())
     return filepath
 
-
 def delete_by_path(data_dict, path):
-    """
-    Delete the node at path (list) from the nested data structure.
-    Example path: ['Shemega', 'Sunkemo', 'Ammar']
-    """
     if not path:
         return False
-    # top-level
     if len(path) == 1:
         key = path[0]
         if key in data_dict:
             del data_dict[key]
             return True
         return False
-    # traverse to parent children dict
     cur = data_dict
     for p in path[:-1]:
         if p in cur:
@@ -218,7 +172,6 @@ def delete_by_path(data_dict, path):
         del cur[target]
         return True
     return False
-
 
 def handle_delete():
     if "delete_target" in st.session_state:
@@ -232,20 +185,13 @@ def handle_delete():
         del st.session_state["delete_target"]
         st.rerun()
 
-# ---------------- DISPLAY / INTERACTION ----------------
+# ---------------- DISPLAY ----------------
 def display_card(name, data):
     photo_path = data.get("photo", "")
-    if photo_path and os.path.exists(photo_path):
-        img_display = photo_path
-    else:
-        img_display = PLACEHOLDER_IMAGE
-
+    img_display = photo_path if photo_path and os.path.exists(photo_path) else PLACEHOLDER_IMAGE
     partner = data.get("partner", "")
-    # For the five mothers show "Wife of Mohammed" label
     partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (f"Partner: {partner}" if partner else "")
-
     phone_html = f"<a href='tel:{data.get('phone','')}' class='phone-link'>📞 Call</a>" if data.get("phone") else ""
-
     st.markdown(
         f"""
         <div class="card">
@@ -261,35 +207,26 @@ def display_card(name, data):
         unsafe_allow_html=True,
     )
 
-
 def display_family(name, data, ancestors=None):
-    """
-    ancestors: list of ancestor names (excluding current name)
-    """
-    if ancestors is None:
-        ancestors = []
-    path = ancestors + [name]  # full path to this node
+    if ancestors is None: ancestors = []
+    path = ancestors + [name]
     key_base = "_".join(path).replace(" ", "_")
-
     partner = data.get("partner", "")
     locked_partner = data.get("locked_partner", False)
-
-    # Expander title shows "Wife of Mohammed" for the specified mothers
     partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner if partner else "Single")
+
     with st.expander(f"{name} ({partner_display})", expanded=False):
         display_card(name, data)
 
-        # CHILDREN
         if data.get("children"):
             st.markdown(f"<p class='section-title'>👶 Children of {name}</p>", unsafe_allow_html=True)
             for child_name, child_data in data["children"].items():
                 display_family(child_name, child_data, ancestors=path)
 
-        # ADD PARTNER (only if no partner & not locked & not one of the specified mothers)
+        # Add Partner
         if not partner and not locked_partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
             if st.button(f"Add Partner for {name}", key=f"btn_partner_{key_base}"):
                 st.session_state[f"adding_partner_{key_base}"] = True
-
         if st.session_state.get(f"adding_partner_{key_base}", False):
             with st.form(f"partner_form_{key_base}"):
                 partner_name = st.text_input("Enter partner's name")
@@ -301,11 +238,10 @@ def display_family(name, data, ancestors=None):
                     st.session_state[f"adding_partner_{key_base}"] = False
                     st.rerun()
 
-        # ADD CHILD (same behavior as previous code: only for non-specified mothers and only if they have a partner)
+        # Add Child
         if name not in MOTHERS_WITH_DEFAULT_PARTNER and partner:
             if st.button(f"Add Child to {name}", key=f"btn_child_{key_base}"):
                 st.session_state[f"adding_child_{key_base}"] = True
-
         if st.session_state.get(f"adding_child_{key_base}", False):
             with st.form(f"child_form_{key_base}"):
                 new_child_name = st.text_input("Enter child name")
@@ -314,24 +250,18 @@ def display_family(name, data, ancestors=None):
                 new_child_photo = st.file_uploader("Upload photo", type=["jpg", "png", "jpeg"], key=f"uploader_child_{key_base}")
                 submit_child = st.form_submit_button("Save Child")
                 if submit_child and new_child_name:
-                    photo_path = ""
-                    if new_child_photo:
-                        photo_path = save_uploaded_photo(new_child_photo, path + [new_child_name])
+                    photo_path = save_uploaded_photo(new_child_photo, path + [new_child_name]) if new_child_photo else ""
                     data.setdefault("children", {})[new_child_name] = {
-                        "description": new_child_desc,
-                        "children": {},
-                        "phone": new_child_phone,
-                        "photo": photo_path,
+                        "description": new_child_desc, "children": {}, "phone": new_child_phone, "photo": photo_path,
                     }
                     save_data(family_data)
                     st.success(f"Child {new_child_name} added under {name} ✅")
                     st.session_state[f"adding_child_{key_base}"] = False
                     st.rerun()
 
-        # EDIT
+        # Edit
         if st.button(f"✏️ Edit {name}", key=f"btn_edit_{key_base}"):
             st.session_state[f"editing_{key_base}"] = True
-
         if st.session_state.get(f"editing_{key_base}", False):
             with st.form(f"edit_form_{key_base}"):
                 new_desc = st.text_area("Update description", value=data.get("description", ""))
@@ -343,11 +273,8 @@ def display_family(name, data, ancestors=None):
                     data["description"] = new_desc
                     data["phone"] = new_phone
                     data["partner"] = partner_input
-                    # handle uploaded photo
                     if new_photo:
-                        photo_path = save_uploaded_photo(new_photo, path)
-                        data["photo"] = photo_path
-                    # ensure mothers keep locked_partner True if they are in list
+                        data["photo"] = save_uploaded_photo(new_photo, path)
                     if name in MOTHERS_WITH_DEFAULT_PARTNER:
                         data["partner"] = "Mohammed"
                         data["locked_partner"] = True
@@ -356,13 +283,11 @@ def display_family(name, data, ancestors=None):
                     st.session_state[f"editing_{key_base}"] = False
                     st.rerun()
 
-        # DELETE (separate widget key and session-state flag to avoid Streamlit API issues)
+        # Delete
         delete_btn_key = f"btn_delete_{key_base}"
         delete_state_key = f"confirm_delete_{key_base}"
-
         if st.button(f"🗑️ Delete {name}", key=delete_btn_key):
             st.session_state[delete_state_key] = True
-
         if st.session_state.get(delete_state_key, False):
             st.warning(f"Are you sure you want to delete {name}?")
             col1, col2 = st.columns(2)
@@ -379,19 +304,20 @@ def display_family(name, data, ancestors=None):
 # ---------------- APP LAYOUT ----------------
 st.title("👨‍👩‍👧 Delko's Family Data Record")
 
-# Quiz logic (same as before)
+# Quiz flow
 if "quiz_done" not in st.session_state:
     st.session_state.quiz_done = False
+if "current_question" not in st.session_state:
     st.session_state.current_question = random.choice(quiz_questions)
 
 if not st.session_state.quiz_done:
-    st.header("📖 Pleas answer Family Quiz to login")
+    st.header("📖 Please answer Family Quiz to login")
     question = st.session_state.current_question["question"]
     ans = st.text_input(question, key="quiz_answer")
-    if st.button("Submit Quiz"):
+    if st.button("Submit Quiz", key="quiz_submit"):
         if ans.strip().lower() == st.session_state.current_question["answer"].lower():
-            st.success("✅ Correct!")
             st.session_state.quiz_done = True
+            st.success("✅ Correct!")
             st.rerun()
         else:
             st.error("❌ Wrong! Try again.")
@@ -399,6 +325,5 @@ if not st.session_state.quiz_done:
 else:
     st.header("🌳 Family Tree by Mothers")
     handle_delete()
-    # Show in the same order as data
     for mother_name, mother_data in family_data.items():
         display_family(mother_name, mother_data)
