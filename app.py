@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import random
+import json
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="Delko's Family Data Record", layout="centered")
@@ -8,6 +9,7 @@ st.set_page_config(page_title="Delko's Family Data Record", layout="centered")
 PHOTO_DIR = "photos"
 os.makedirs(PHOTO_DIR, exist_ok=True)
 
+DATA_FILE = "family_data.json"
 PLACEHOLDER_IMAGE = "https://via.placeholder.com/150?text=No+Photo"
 
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemega", "Nurseba", "Dilbo", "Rukiya", "Nefissa"]
@@ -21,7 +23,7 @@ quiz_questions = [
     {"question": "how many childs did mother Dilbo have?", "answer": "2"},
 ]
 
-# ---------------- DEFAULT FAMILY DATA ----------------
+# ---------------- DEFAULT DATA ----------------
 default_family_data = {
     "Shemega": {
         "description": "Mother Shemega",
@@ -84,9 +86,23 @@ default_family_data = {
     },
 }
 
+
+# ---------------- SAVE & LOAD ----------------
+def load_data():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return default_family_data
+
+
+def save_data(data):
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
 # ---------------- SESSION STATE ----------------
 if "family_data" not in st.session_state:
-    st.session_state.family_data = default_family_data
+    st.session_state.family_data = load_data()
 if "quiz_done" not in st.session_state:
     st.session_state.quiz_done = False
 if "current_question" not in st.session_state:
@@ -109,6 +125,7 @@ def show_member(name, data, level=0):
 def delete_member(parent, member_name):
     if member_name in family_data[parent]["children"]:
         del family_data[parent]["children"][member_name]
+        save_data(family_data)
         st.success(f"🗑️ {member_name} deleted from {parent}")
 
 
@@ -162,6 +179,7 @@ else:
                     "photo": photo_path if photo_path else "",
                     "children": {},
                 }
+                save_data(family_data)
                 st.success(f"✅ {member_name} added/updated under {parent_name}")
                 st.rerun()
             else:
