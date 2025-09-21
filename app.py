@@ -4,7 +4,6 @@ import os
 import copy
 import uuid
 import random
-import traceback
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="Delko's Family Data Record", layout="centered")
@@ -37,11 +36,11 @@ st.markdown(
 
 # ---------------- QUIZ QUESTIONS ----------------
 quiz_questions = [
-    {"question": "how many childs did sunkemo have?", "answer": "9"},
+    {"question": "how many children did sunkemo have?", "answer": "9"},
     {"question": "How many wives did Mohammed have?", "answer": "5"},
-    {"question": "how many childs did mother Shemega have ?", "answer": "5"},
-    {"question": "how many childs did mother Nurseba have?", "answer": "4"},
-    {"question": "how many childs did mother Dilbo have?", "answer": "2"},
+    {"question": "how many children did mother Shemega have?", "answer": "5"},
+    {"question": "how many children did mother Nurseba have?", "answer": "4"},
+    {"question": "how many children did mother Dilbo have?", "answer": "2"},
 ]
 
 # ---------------- DEFAULT FAMILY DATA ----------------
@@ -170,6 +169,38 @@ def display_family(name, data, ancestors=None):
             phone = data.get("phone", "")
             if phone:
                 st.markdown(f"<div style='margin-top:6px;'><b>{phone}</b> <a class='phone-link' href='tel:{phone}'>📞 Call</a></div>", unsafe_allow_html=True)
+
+        # ADD PARTNER button
+        if not partner and not locked_partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
+            if st.button(f"Add Partner for {name}", key=f"add_partner_{key_base}"):
+                new_partner_name = st.text_input("Enter partner's name", key=f"partner_input_{key_base}")
+                if st.button("Save Partner", key=f"save_partner_{key_base}"):
+                    data["partner"] = new_partner_name
+                    save_family_data(st.session_state.family_data)
+                    st.success(f"Partner {new_partner_name} added for {name} ✅")
+                    st.experimental_rerun()
+
+        # ADD CHILD button
+        if partner and name not in MOTHERS_WITH_DEFAULT_PARTNER:
+            if st.button(f"Add Child to {name}", key=f"add_child_{key_base}"):
+                with st.form(key=f"child_form_{key_base}"):
+                    new_child_name = st.text_input("Enter child's name", key=f"child_name_{key_base}")
+                    new_child_desc = st.text_area("Enter child's description", key=f"child_desc_{key_base}")
+                    new_child_phone = st.text_input("Enter child's phone number", key=f"child_phone_{key_base}")
+                    uploaded_photo = st.file_uploader("Upload child's photo", type=["jpg", "jpeg", "png"], key=f"child_photo_{key_base}")
+
+                    if st.form_submit_button("Save Child"):
+                        child_data = {
+                            "description": new_child_desc,
+                            "children": {},
+                            "phone": new_child_phone,
+                        }
+                        if uploaded_photo is not None:
+                            child_data["photo"] = save_uploaded_photo(uploaded_photo, [name, new_child_name])
+                        data["children"][new_child_name] = child_data
+                        save_family_data(st.session_state.family_data)
+                        st.success(f"Child {new_child_name} added under {name} ✅")
+                        st.experimental_rerun()
 
         # Display children recursively
         for child_name, child_data in data.get("children", {}).items():
