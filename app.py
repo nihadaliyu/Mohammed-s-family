@@ -128,7 +128,12 @@ def save_family_data(data):
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 # ---------------- SESSION STATE ----------------
+def reset_session_state():
+    for key in list(st.session_state.keys()):
+        del st.session_state[key]
+
 if "family_data" not in st.session_state:
+    reset_session_state()
     st.session_state.family_data = load_family_data()
 if "quiz_done" not in st.session_state:
     st.session_state.quiz_done = False
