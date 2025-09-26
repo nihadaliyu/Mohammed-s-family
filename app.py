@@ -68,7 +68,7 @@ quiz_questions = [
     {"question": "How many children did Sunkemo have?", "answer": "9"},
     {"question": "How many wives did Mohammed have?", "answer": "5"},
     {"question": "How many children did mother Shemega have?", "answer": "5"},
-    {"question": "How many children did mother Nurseba have?", "answer": "4"},
+    {"question": "How many children did mother Nurseba have?", "answer": "9"},
     {"question": "How many children did mother Dilbo have?", "answer": "2"},
 ]
 
