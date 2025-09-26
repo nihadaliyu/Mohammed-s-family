@@ -23,15 +23,12 @@ st.markdown(
                 padding:18px 14px; margin:14px auto; max-width:800px; }
         .cool-header { font-size:1.8rem; color:#007bff; font-weight:700; text-align:center; margin-bottom:16px; }
         .section-title { font-size:1.1rem; font-weight:600; margin:10px 0; color:#222; }
-        .card { display: flex; align-items: center; margin-bottom: 10px; }
-        .card img { width: 90px; height: 90px; border-radius: 10px; border: 2px solid #007bff; object-fit: cover; margin-right: 10px; }
         .muted { color: #555; font-size: 14px; margin: 2px 0; }
         .button-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
         .stButton>button { border-radius: 8px !important; padding: 6px 12px; font-size: 0.9rem; width: auto !important; }
         @media (max-width:600px){
             .main { padding:14px 10px; margin:8px; }
             .cool-header { font-size:1.4rem; }
-            .card img { width: 72px; height: 72px; }
             .stButton>button { font-size:0.85rem; padding:6px 10px; }
         }
     </style>
@@ -41,11 +38,11 @@ st.markdown(
 
 # ---------------- QUIZ ----------------
 quiz_questions = [
-    {"question": "how many children did sunkemo have?", "answer": "9"},
+    {"question": "How many children did Sunkemo have?", "answer": "9"},
     {"question": "How many wives did Mohammed have?", "answer": "5"},
-    {"question": "how many children did mother Shemega have?", "answer": "5"},
-    {"question": "how many children did mother Nurseba have?", "answer": "4"},
-    {"question": "how many children did mother Dilbo have?", "answer": "2"},
+    {"question": "How many children did mother Shemega have?", "answer": "5"},
+    {"question": "How many children did mother Nurseba have?", "answer": "4"},
+    {"question": "How many children did mother Dilbo have?", "answer": "2"},
 ]
 
 # ---------------- DEFAULT DATA ----------------
@@ -59,7 +56,6 @@ default_family_data = {
         "children": {
             "Sunkemo": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222333", "photo": "", "fixed_generation": True},
             "Jemal": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222334", "photo": "", "fixed_generation": True},
-            "Mustefa": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": True},
             "Rehmet": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222335", "photo": "", "fixed_generation": True},
             "Bedriya": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222336", "photo": "", "fixed_generation": True},
         },
@@ -171,116 +167,4 @@ def display_family(name, data, ancestors=None):
             st.image(img if img and os.path.exists(img) else PLACEHOLDER_IMAGE, width=100)
         with col2:
             # Name with inline buttons
-            c1, c2 = st.columns([3, 2])
-            with c1: 
-                st.markdown(f"### {name}")
-                st.markdown(f"<div class='muted'>{data.get('description','')}</div>", unsafe_allow_html=True)
-                if data.get("phone"):
-                    st.markdown(f"📞 {data['phone']}", unsafe_allow_html=True)
-            with c2:
-                if st.button(f"Edit {name}", key=f"edit_{key_base}"):
-                    st.session_state[f"edit_mode_{key_base}"] = True
-                if st.button("❌ Delete", key=f"del_{key_base}"):
-                    parent = get_parent_container(ancestors)
-                    parent.pop(name, None)
-                    save_and_rerun()
-
-            # --- Partner / Child buttons ---
-            st.markdown('<div class="button-row">', unsafe_allow_html=True)
-            # Add Partner (if not default wives, no partner yet)
-            if (not partner) and (name not in MOTHERS_WITH_DEFAULT_PARTNER) and not locked:
-                if st.button("💍 Add Partner", key=f"btn_partner_{key_base}"):
-                    st.session_state[f"partner_mode_{key_base}"] = True
-            # Add Child (only if partner exists and not fixed_generation)
-            if ((partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and not fixed):
-                if st.button("➕ Add Child", key=f"btn_child_{key_base}"):
-                    st.session_state[f"child_mode_{key_base}"] = True
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            # Inline forms
-            if st.session_state.get(f"partner_mode_{key_base}", False):
-                with st.form(f"form_partner_{key_base}"):
-                    pname = st.text_input("Partner name", key=f"pn_{key_base}")
-                    if st.form_submit_button("Save Partner"):
-                        if pname.strip():
-                            data["partner"] = pname.strip()
-                            data.setdefault("children", {})
-                            st.session_state.pop(f"partner_mode_{key_base}", None)
-                            save_and_rerun()
-                        else:
-                            st.error("Enter partner name.")
-            if st.session_state.get(f"child_mode_{key_base}", False):
-                with st.form(f"form_child_{key_base}"):
-                    cname = st.text_input("Child name")
-                    cdesc = st.text_area("Description")
-                    cphone = st.text_input("Phone")
-                    cphoto = st.file_uploader("Photo", type=["jpg", "jpeg", "png"])
-                    if st.form_submit_button("Save Child"):
-                        if not cname.strip():
-                            st.error("Name required")
-                        else:
-                            child = {"description": cdesc, "children": {}, "phone": cphone, "photo": ""}
-                            if cphoto: 
-                                child["photo"] = save_uploaded_photo(cphoto, path + [cname])
-                            data.setdefault("children", {})[cname] = child
-                            st.session_state.pop(f"child_mode_{key_base}", None)
-                            save_and_rerun()
-
-        # Edit mode
-        if st.session_state.get(f"edit_mode_{key_base}", False):
-            with st.form(f"form_edit_{key_base}"):
-                nname = st.text_input("Name", value=name)
-                desc = st.text_area("Description", value=data.get("description", ""))
-                phone = st.text_input("Phone", value=data.get("phone", ""))
-                if locked: 
-                    st.text_input("Partner", value=partner, disabled=True)
-                    pval = partner
-                else: 
-                    pval = st.text_input("Partner", value=partner)
-                photo = st.file_uploader("New photo", type=["jpg", "jpeg", "png"])
-                if st.form_submit_button("Save"):
-                    parent = get_parent_container(ancestors)
-                    if nname.strip() and (nname == name or nname not in parent):
-                        data["description"] = desc
-                        data["phone"] = phone
-                        data["partner"] = pval
-                        if photo: 
-                            data["photo"] = save_uploaded_photo(photo, path)
-                        if nname != name:
-                            parent.pop(name)
-                            parent[nname] = data
-                        save_and_rerun()
-                    else: 
-                        st.error("Invalid or duplicate name")
-
-        # Children
-        for ch, cd in list(data.get("children", {}).items()):
-            display_family(ch, cd, ancestors=path)
-
-# ---------------- MAIN ----------------
-st.markdown('<div class="main">', unsafe_allow_html=True)
-st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Record</div>', unsafe_allow_html=True)
-
-if st.button("🔄 Reset All Data"): 
-    save_family_data(copy.deepcopy(default_family_data))
-    st.session_state.clear()
-    st.experimental_rerun()
-
-if not st.session_state.quiz_done:
-    q = st.session_state.current_question
-    st.markdown('<div class="section-title">🔐 Family Quiz</div>', unsafe_allow_html=True)
-    ans = st.text_input(q["question"])
-    if st.button("Submit"):
-        if ans.strip().lower() == q["answer"].lower():
-            st.session_state.quiz_done = True
-            st.experimental_rerun()
-        else: 
-            st.error("Wrong! Try again.")
-else:
-    st.markdown('<div class="section-title">🌳 Family Tree</div>', unsafe_allow_html=True)
-    for mother, md in st.session_state.family_data.items():
-        display_family(mother, md)
-    if st.button("💾 Save Changes"):
-        save_family_data(st.session_state.family_data)
-
-st.markdown('</div>', unsafe_allow_html=True)
+            c1, c2 = st.columns([
