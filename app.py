@@ -14,73 +14,22 @@ os.makedirs(PHOTO_DIR, exist_ok=True)
 PLACEHOLDER_IMAGE = "https://via.placeholder.com/150?text=No+Photo"
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemega", "Nurseba", "Dilbo", "Rukiya", "Nefissa"]
 
-# ---------------- CSS (mobile-friendly) ----------------
+# ---------------- CSS ----------------
 st.markdown(
     """
     <style>
-        :root {
-            --brand:#0b6cff;
-            --bg:#f5f7fb;
-            --card:#ffffff;
-            --text:#222;
-            --muted:#667085;
-            --border:#e4e7ec;
-        }
-        html, body { background: var(--bg); }
-        .main {
-            background: var(--card);
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            padding: 20px 16px;
-            margin: 14px auto;
-            max-width: 860px;
-        }
-        .cool-header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background: linear-gradient(90deg, #0b6cff, #5b9bff);
-            color: #fff;
-            border-radius: 14px;
-            padding: 12px 16px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 16px;
-            letter-spacing: 0.3px;
-        }
-        .section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin: 8px 0 12px;
-            color: var(--text);
-        }
-        .muted { color: var(--muted); font-size: 14px; margin: 4px 0; }
+        body { font-family: 'Segoe UI', sans-serif; background:#f1f3f6; margin:0; padding:0; }
+        .main { background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08);
+                padding:18px 14px; margin:14px auto; max-width:800px; }
+        .cool-header { font-size:1.8rem; color:#007bff; font-weight:700; text-align:center; margin-bottom:16px; }
+        .section-title { font-size:1.1rem; font-weight:600; margin:10px 0; color:#222; }
+        .muted { color: #555; font-size: 14px; margin: 2px 0; }
         .button-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-        .stButton>button {
-            border-radius: 10px !important;
-            padding: 10px 14px;
-            font-size: 0.95rem;
-            border: 1px solid var(--border);
-            background: #fff;
-        }
-        .stButton>button:hover { border-color: var(--brand); background:#f7faff; }
-        .stTextInput>div>div>input, .stTextArea textarea {
-            border-radius: 12px;
-        }
-        .stFileUploader label { font-size: 0.95rem; }
-        .stExpander {
-            border: 1px solid var(--border);
-            border-radius: 16px !important;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-        .stExpander > div > div { padding: 8px 12px; }
-        @media (max-width: 600px) {
-            .main { padding: 16px 12px; margin: 8px; }
-            .cool-header { font-size: 1.05rem; padding: 10px; }
-            .button-row { gap: 6px; }
-            .stButton>button { width: 100% !important; padding: 12px; font-size: 1rem; }
+        .stButton>button { border-radius: 8px !important; padding: 6px 12px; font-size: 0.9rem; width: auto !important; }
+        @media (max-width:600px){
+            .main { padding:14px 10px; margin:8px; }
+            .cool-header { font-size:1.4rem; }
+            .stButton>button { font-size:0.85rem; padding:6px 10px; }
         }
     </style>
     """,
@@ -96,27 +45,72 @@ quiz_questions = [
     {"question": "How many children did mother Dilbo have?", "answer": "2"},
 ]
 
-# ---------------- DEFAULT DATA (Mustefa included; children unfixed) ----------------
+# ---------------- DEFAULT DATA ----------------
 default_family_data = {
     "Shemega": {
         "description": "Mother Shemega",
         "phone": "0911000000",
         "partner": "Mohammed",
         "locked_partner": True,
+        "locked_root": True,  # fully locked root
+        "photo": "",
+        "children": {
+            "Sunkemo": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222333", "photo": "", "fixed_generation": True},
+            "Jemal": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222334", "photo": "", "fixed_generation": True},
+            "Mustefa": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": True},
+            "Rehmet": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222335", "photo": "", "fixed_generation": True},
+            "Bedriya": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222336", "photo": "", "fixed_generation": True},
+        },
+    },
+    "Nurseba": {
+        "description": "Mother Nurseba",
+        "phone": "0911333444",
+        "partner": "Mohammed",
+        "locked_partner": True,
         "locked_root": True,
         "photo": "",
         "children": {
-            "Sunkemo": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "", "photo": "", "fixed_generation": False},
-            "Jemal":   {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "", "photo": "", "fixed_generation": False},
-            "Mustefa": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "", "photo": "", "fixed_generation": False},
-            "Rehmet":  {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "", "photo": "", "fixed_generation": False},
-            "Bedriya": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "", "photo": "", "fixed_generation": False},
+            "Oumer": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": True},
+            "Sefiya": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222338", "photo": "", "fixed_generation": True},
+            "Ayro": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222339", "photo": "", "fixed_generation": True},
+            "Reshad": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222340", "photo": "", "fixed_generation": True},
         },
     },
-    "Nurseba": {"description":"Mother Nurseba","phone":"0911333444","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
-    "Dilbo":   {"description":"Mother Dilbo","phone":"0911444555","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
-    "Rukiya":  {"description":"Mother Rukiya","phone":"0911555666","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
-    "Nefissa": {"description":"Mother Nefissa","phone":"0911666777","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
+    "Dilbo": {
+        "description": "Mother Dilbo",
+        "phone": "0911444555",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
+        "children": {
+            "Sadik": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911222341", "photo": "", "fixed_generation": True},
+            "Behra": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911222342", "photo": "", "fixed_generation": True},
+        },
+    },
+    "Rukiya": {
+        "description": "Mother Rukiya",
+        "phone": "0911555666",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
+        "children": {
+            "Beytulah": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911222343", "photo": "", "fixed_generation": True},
+            "Leyla": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911222344", "photo": "", "fixed_generation": True},
+        },
+    },
+    "Nefissa": {
+        "description": "Mother Nefissa",
+        "phone": "0911666777",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
+        "children": {
+            "Abdurezak": {"description": "Child of Nefissa + Mohammed", "children": {}, "phone": "0911222345", "photo": "", "fixed_generation": True},
+        },
+    },
 }
 
 # ---------------- Load/Save ----------------
@@ -156,31 +150,17 @@ if "quiz_done" not in st.session_state:
 if "current_question" not in st.session_state:
     st.session_state.current_question = random.choice(quiz_questions)
 
-# ---------------- Helpers ----------------
-def get_node_and_parent_children(path):
-    if not path:
-        return None, st.session_state.family_data
-    root = st.session_state.family_data
-    parent_children = root
-    node = None
-    for i, part in enumerate(path):
-        if i == 0:
-            node = root.get(part)
-            parent_children = root
-        else:
-            parent_children = node.get("children", {})
-            node = parent_children.get(part)
-        if node is None:
-            return None, st.session_state.family_data
-    return node, parent_children
-
 def get_parent_container(ancestors):
     if not ancestors:
         return st.session_state.family_data
-    node, parent_children = get_node_and_parent_children(ancestors)
+    node = st.session_state.family_data.get(ancestors[0])
     if node is None:
         return st.session_state.family_data
-    return parent_children
+    for anc in ancestors[1:]:
+        node = node.get("children", {}).get(anc)
+        if node is None:
+            return st.session_state.family_data
+    return node.setdefault("children", {})
 
 # ---------------- Display ----------------
 def display_family(name, data, ancestors=None):
@@ -189,58 +169,55 @@ def display_family(name, data, ancestors=None):
     path = ancestors + [name]
     key_base = "_".join(path).replace(" ", "_")
 
-    node, parent_children = get_node_and_parent_children(path)
-    if node is None:
-        node = data
-
-    partner_live = node.get("partner", "")
-    locked = node.get("locked_partner", False)
-    fixed = node.get("fixed_generation", False)
-    locked_root = node.get("locked_root", False)
-    partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner_live or "Single")
+    partner = data.get("partner", "")
+    locked = data.get("locked_partner", False)
+    fixed = data.get("fixed_generation", False)
+    locked_root = data.get("locked_root", False)
+    partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner or "Single")
 
     with st.expander(f"{name} ({partner_display})", expanded=False):
         col1, col2 = st.columns([1, 3])
         with col1:
-            img = node.get("photo", "")
+            img = data.get("photo", "")
             show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
             st.image(show_img, width=100)
         with col2:
             c1, c2 = st.columns([3, 2])
             with c1:
                 st.markdown(f"### {name}")
-                st.markdown(f"<div class='muted'>{node.get('description','')}</div>", unsafe_allow_html=True)
-                if node.get("phone"):
-                    st.markdown(f"📞 {node['phone']}", unsafe_allow_html=True)
+                st.markdown(f"<div class='muted'>{data.get('description','')}</div>", unsafe_allow_html=True)
+                if data.get("phone"):
+                    st.markdown(f"📞 {data['phone']}", unsafe_allow_html=True)
             with c2:
+                # Edit/Delete disabled for locked roots
                 if not locked_root:
                     if st.button(f"Edit {name}", key=f"edit_{key_base}"):
                         st.session_state[f"edit_mode_{key_base}"] = True
                         st.session_state.pop(f"partner_mode_{key_base}", None)
                         st.session_state.pop(f"child_mode_{key_base}", None)
                     if st.button("❌ Delete", key=f"del_{key_base}"):
-                        if name in parent_children:
-                            parent_children.pop(name, None)
+                        parent = get_parent_container(ancestors)
+                        if name in parent:
+                            parent.pop(name, None)
                             save_and_rerun()
 
-            # Single action spot: either Add Partner (no partner) OR Add Child (partner exists)
+            # --- Partner / Child buttons (same spot) ---
             st.markdown('<div class="button-row">', unsafe_allow_html=True)
-            show_add_partner = (not locked_root) and (not locked) and (not partner_live)
-            show_add_child = (not locked_root) and (partner_live) and (not fixed)
-
-            if show_add_partner:
-                if st.button("💍 Add partner", key=f"btn_partner_{key_base}"):
+            # Add Partner: only if not locked_root, no partner yet, and not locked
+            if (not locked_root) and (not partner) and (not locked):
+                if st.button("💍 Add Partner", key=f"btn_partner_{key_base}"):
                     st.session_state[f"partner_mode_{key_base}"] = True
                     st.session_state.pop(f"child_mode_{key_base}", None)
                     st.session_state.pop(f"edit_mode_{key_base}", None)
-            elif show_add_child:
-                if st.button("➕ Add child", key=f"btn_child_{key_base}"):
+            # Add Child: only if not locked_root, partner exists (or is default wife), and not fixed_generation
+            elif (not locked_root) and ((partner or name in MOTHERS_WITH_DEFAULT_PARTNER)) and (not fixed):
+                if st.button("➕ Add Child", key=f"btn_child_{key_base}"):
                     st.session_state[f"child_mode_{key_base}"] = True
                     st.session_state.pop(f"partner_mode_{key_base}", None)
                     st.session_state.pop(f"edit_mode_{key_base}", None)
             st.markdown('</div>', unsafe_allow_html=True)
 
-            # Partner form
+            # Inline forms
             if st.session_state.get(f"partner_mode_{key_base}", False):
                 with st.form(f"form_partner_{key_base}"):
                     pname = st.text_input("Partner name", key=f"pn_{key_base}")
@@ -254,14 +231,13 @@ def display_family(name, data, ancestors=None):
                         st.rerun()
                     if save_partner:
                         if pname.strip():
-                            node["partner"] = pname.strip()
-                            node.setdefault("children", {})
+                            data["partner"] = pname.strip()
+                            data.setdefault("children", {})
                             st.session_state.pop(f"partner_mode_{key_base}", None)
                             save_and_rerun()
                         else:
                             st.error("Enter partner name.")
 
-            # Child form
             if st.session_state.get(f"child_mode_{key_base}", False):
                 with st.form(f"form_child_{key_base}"):
                     cname = st.text_input("Child name", key=f"cn_{key_base}")
@@ -283,13 +259,49 @@ def display_family(name, data, ancestors=None):
                             child = {"description": cdesc, "children": {}, "phone": cphone, "photo": ""}
                             if cphoto:
                                 child["photo"] = save_uploaded_photo(cphoto, path + [cname])
-                            node.setdefault("children", {})[cname] = child
+                            data.setdefault("children", {})[cname] = child
                             st.session_state.pop(f"child_mode_{key_base}", None)
                             save_and_rerun()
 
-    # Children recursion
-    for ch, cd in list(node.get("children", {}).items()):
-        display_family(ch, cd, ancestors=path)
+        # Edit mode (disabled for locked roots)
+        if st.session_state.get(f"edit_mode_{key_base}", False) and not locked_root:
+            with st.form(f"form_edit_{key_base}"):
+                nname = st.text_input("Name", value=name, key=f"en_{key_base}")
+                desc = st.text_area("Description", value=data.get("description", ""), key=f"ed_{key_base}")
+                phone = st.text_input("Phone", value=data.get("phone", ""), key=f"ep_{key_base}")
+                if locked:
+                    st.text_input("Partner", value=partner, disabled=True, key=f"epl_{key_base}")
+                    pval = partner
+                else:
+                    pval = st.text_input("Partner", value=partner, key=f"epv_{key_base}")
+                photo = st.file_uploader("New photo", type=["jpg", "jpeg", "png"], key=f"eph_{key_base}")
+                cole1, cole2 = st.columns(2)
+                with cole1:
+                    save_edit = st.form_submit_button("Save")
+                with cole2:
+                    cancel_edit = st.form_submit_button("Cancel")
+                if cancel_edit:
+                    st.session_state.pop(f"edit_mode_{key_base}", None)
+                    st.rerun()
+                if save_edit:
+                    parent = get_parent_container(ancestors)
+                    if nname.strip() and (nname == name or nname not in parent):
+                        data["description"] = desc
+                        data["phone"] = phone
+                        data["partner"] = pval
+                        if photo:
+                            data["photo"] = save_uploaded_photo(photo, path)
+                        if nname != name:
+                            parent.pop(name, None)
+                            parent[nname] = data
+                        st.session_state.pop(f"edit_mode_{key_base}", None)
+                        save_and_rerun()
+                    else:
+                        st.error("Invalid or duplicate name")
+
+        # Children
+        for ch, cd in list(data.get("children", {}).items()):
+            display_family(ch, cd, ancestors=path)
 
 # ---------------- MAIN ----------------
 st.markdown('<div class="main">', unsafe_allow_html=True)
