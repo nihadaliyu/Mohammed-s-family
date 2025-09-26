@@ -49,12 +49,7 @@ st.markdown(
             margin-bottom: 16px;
             letter-spacing: 0.3px;
         }
-        .section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin: 8px 0 12px;
-            color: var(--text);
-        }
+        .section-title { font-size: 1rem; font-weight: 600; margin: 8px 0 12px; color: var(--text); }
         .muted { color: var(--muted); font-size: 14px; margin: 4px 0; }
         .button-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
         .stButton>button {
@@ -67,12 +62,7 @@ st.markdown(
         .stButton>button:hover { border-color: var(--brand); background:#f7faff; }
         .stTextInput>div>div>input, .stTextArea textarea { border-radius: 12px; }
         .stFileUploader label { font-size: 0.95rem; }
-        .stExpander {
-            border: 1px solid var(--border);
-            border-radius: 16px !important;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
+        .stExpander { border: 1px solid var(--border); border-radius: 16px !important; overflow: hidden; margin-bottom: 12px; }
         .stExpander > div > div { padding: 8px 12px; }
         @media (max-width: 600px) {
             .main { padding: 16px 12px; margin: 8px; }
