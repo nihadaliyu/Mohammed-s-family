@@ -57,55 +57,10 @@ default_family_data = {
             "Bedriya": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222336", "photo": "", "fixed_generation": False},
         },
     },
-    "Nurseba": {
-        "description": "Mother Nurseba",
-        "phone": "0911333444",
-        "partner": "Mohammed",
-        "locked_partner": True,
-        "locked_root": True,
-        "photo": "",
-        "children": {
-            "Oumer": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": False},
-            "Sefiya": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222338", "photo": "", "fixed_generation": False},
-            "Ayro": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222339", "photo": "", "fixed_generation": False},
-            "Reshad": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222340", "photo": "", "fixed_generation": False},
-        },
-    },
-    "Dilbo": {
-        "description": "Mother Dilbo",
-        "phone": "0911444555",
-        "partner": "Mohammed",
-        "locked_partner": True,
-        "locked_root": True,
-        "photo": "",
-        "children": {
-            "Sadik": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911222341", "photo": "", "fixed_generation": False},
-            "Behra": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911222342", "photo": "", "fixed_generation": False},
-        },
-    },
-    "Rukiya": {
-        "description": "Mother Rukiya",
-        "phone": "0911555666",
-        "partner": "Mohammed",
-        "locked_partner": True,
-        "locked_root": True,
-        "photo": "",
-        "children": {
-            "Beytulah": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911222343", "photo": "", "fixed_generation": False},
-            "Leyla": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911222344", "photo": "", "fixed_generation": False},
-        },
-    },
-    "Nefissa": {
-        "description": "Mother Nefissa",
-        "phone": "0911666777",
-        "partner": "Mohammed",
-        "locked_partner": True,
-        "locked_root": True,
-        "photo": "",
-        "children": {
-            "Abdurezak": {"description": "Child of Nefissa + Mohammed", "children": {}, "phone": "0911222345", "photo": "", "fixed_generation": False},
-        },
-    },
+    "Nurseba": {"description":"Mother Nurseba","phone":"0911333444","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
+    "Dilbo":   {"description":"Mother Dilbo","phone":"0911444555","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
+    "Rukiya":  {"description":"Mother Rukiya","phone":"0911555666","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
+    "Nefissa": {"description":"Mother Nefissa","phone":"0911666777","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
 }
 
 # ---------------- Load/Save ----------------
@@ -172,5 +127,45 @@ def get_parent_container(ancestors):
     return parent_children
 
 # ---------------- Display ----------------
-def display_family(name, data, ancestors=None):
-    if ancestors is
+def display_family(name, data, ancestors=None, level=0):
+    if ancestors is None:
+        ancestors = []
+    path = ancestors + [name]
+    key_base = "_".join(path).replace(" ", "_")
+
+    node, parent_children = get_node_and_parent_children(path)
+    if node is None:
+        node = data
+
+    partner_live = node.get("partner", "")
+    locked = node.get("locked_partner", False)
+    fixed = node.get("fixed_generation", False)
+    locked_root = node.get("locked_root", False)
+    partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner_live or "Single")
+
+    # --- Tree indentation wrapper ---
+    indent_px = level * 20
+    st.markdown(f"<div style='margin-left:{indent_px}px;'>", unsafe_allow_html=True)
+
+    with st.expander(f"{name} ({partner_display})", expanded=False):
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            img = node.get("photo", "")
+            show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
+            st.image(show_img, width=100)
+        with col2:
+            c1, c2 = st.columns([3, 2])
+            with c1:
+                st.markdown(f"### {name}")
+                st.markdown(f"<div class='muted'>{node.get('description','')}</div>", unsafe_allow_html=True)
+                if node.get("phone"):
+                    st.markdown(f"📞 {node['phone']}", unsafe_allow_html=True)
+            with c2:
+                if not locked_root:
+                    if st.button(f"Edit {name}", key=f"edit_{key_base}"):
+                        st.session_state[f"edit_mode_{key_base}"] = True
+                        st.session_state.pop(f"partner_mode_{key_base}", None)
+                        st.session_state.pop(f"child_mode_{key_base}", None)
+                    if st.button("❌ Delete", key=f"del_{key_base}"):
+                        if name in parent_children:
+                            parent_children.pop(name
