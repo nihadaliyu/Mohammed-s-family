@@ -14,22 +14,79 @@ os.makedirs(PHOTO_DIR, exist_ok=True)
 PLACEHOLDER_IMAGE = "https://via.placeholder.com/150?text=No+Photo"
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemega", "Nurseba", "Dilbo", "Rukiya", "Nefissa"]
 
-# ---------------- CSS ----------------
+# ---------------- CSS (mobile-friendly) ----------------
 st.markdown(
     """
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background:#f1f3f6; margin:0; padding:0; }
-        .main { background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08);
-                padding:18px 14px; margin:14px auto; max-width:800px; }
-        .cool-header { font-size:1.8rem; color:#007bff; font-weight:700; text-align:center; margin-bottom:16px; }
-        .section-title { font-size:1.1rem; font-weight:600; margin:10px 0; color:#222; }
-        .muted { color: #555; font-size: 14px; margin: 2px 0; }
+        :root {
+            --brand:#0b6cff;
+            --bg:#f5f7fb;
+            --card:#ffffff;
+            --text:#222;
+            --muted:#667085;
+            --border:#e4e7ec;
+        }
+        html, body { background: var(--bg); }
+        .main {
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 20px 16px;
+            margin: 14px auto;
+            max-width: 860px;
+        }
+        .cool-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: linear-gradient(90deg, #0b6cff, #5b9bff);
+            color: #fff;
+            border-radius: 14px;
+            padding: 12px 16px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 8px 0 12px;
+            color: var(--text);
+        }
+        .muted { color: var(--muted); font-size: 14px; margin: 4px 0; }
+        .person-card {
+            background: #fafcff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px;
+            margin: 10px 0;
+        }
         .button-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-        .stButton>button { border-radius: 8px !important; padding: 6px 12px; font-size: 0.9rem; width: auto !important; }
-        @media (max-width:600px){
-            .main { padding:14px 10px; margin:8px; }
-            .cool-header { font-size:1.4rem; }
-            .stButton>button { font-size:0.85rem; padding:6px 10px; }
+        .stButton>button {
+            border-radius: 10px !important;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+        }
+        .stButton>button:hover { border-color: var(--brand); }
+        .stButton>button:focus { outline: none !important; }
+        .stTextInput>div>div>input, .stTextArea textarea {
+            border-radius: 12px;
+        }
+        .stFileUploader label { font-size: 0.95rem; }
+        .stExpander {
+            border: 1px solid var(--border);
+            border-radius: 16px !important;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .stExpander > div > div { padding: 8px 12px; }
+        @media (max-width: 600px) {
+            .main { padding: 16px 12px; margin: 8px; }
+            .cool-header { font-size: 1.05rem; padding: 10px; }
+            .button-row { gap: 6px; }
+            .stButton>button { width: 100% !important; padding: 12px; font-size: 1rem; }
         }
     </style>
     """,
@@ -176,92 +233,96 @@ def display_family(name, data, ancestors=None):
     partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner or "Single")
 
     with st.expander(f"{name} ({partner_display})", expanded=False):
-        col1, col2 = st.columns([1, 3])
-        with col1:
-            img = data.get("photo", "")
-            show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
-            st.image(show_img, width=100)
-        with col2:
-            c1, c2 = st.columns([3, 2])
-            with c1:
-                st.markdown(f"### {name}")
-                st.markdown(f"<div class='muted'>{data.get('description','')}</div>", unsafe_allow_html=True)
-                if data.get("phone"):
-                    st.markdown(f"📞 {data['phone']}", unsafe_allow_html=True)
-            with c2:
-                # Only allow edit/delete if not a locked root
-                if not locked_root:
-                    if st.button(f"Edit {name}", key=f"edit_{key_base}"):
-                        st.session_state[f"edit_mode_{key_base}"] = True
-                        st.session_state.pop(f"partner_mode_{key_base}", None)
-                        st.session_state.pop(f"child_mode_{key_base}", None)
-                    if st.button("❌ Delete", key=f"del_{key_base}"):
-                        parent = get_parent_container(ancestors)
-                        if name in parent:
-                            parent.pop(name, None)
-                            save_and_rerun()
-
-            st.markdown('<div class="button-row">', unsafe_allow_html=True)
-            # Add Partner (only if not locked root, no partner yet, and not locked)
-            if (not partner) and (not locked_root) and (not locked):
-                if st.button("💍 Add Partner", key=f"btn_partner_{key_base}"):
-                    st.session_state[f"partner_mode_{key_base}"] = True
-                    st.session_state.pop(f"child_mode_{key_base}", None)
-                    st.session_state.pop(f"edit_mode_{key_base}", None)
-
-            # Add Child (only if not locked root, partner exists or is default wife, and not fixed_generation)
-            if ((partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and (not fixed) and (not locked_root)):
-                if st.button("➕ Add Child", key=f"btn_child_{key_base}"):
-                    st.session_state[f"child_mode_{key_base}"] = True
-                    st.session_state.pop(f"partner_mode_{key_base}", None)
-                    st.session_state.pop(f"edit_mode_{key_base}", None)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            # Inline forms
-            if st.session_state.get(f"partner_mode_{key_base}", False):
-                with st.form(f"form_partner_{key_base}"):
-                    pname = st.text_input("Partner name", key=f"pn_{key_base}")
-                    colp1, colp2 = st.columns(2)
-                    with colp1:
-                        save_partner = st.form_submit_button("Save partner")
-                    with colp2:
-                        cancel_partner = st.form_submit_button("Cancel")
-                    if cancel_partner:
-                        st.session_state.pop(f"partner_mode_{key_base}", None)
-                        st.rerun()
-                    if save_partner:
-                        if pname.strip():
-                            data["partner"] = pname.strip()
-                            data.setdefault("children", {})
+        card = st.container()
+        with card:
+            col1, col2 = st.columns([1, 3])
+            with col1:
+                img = data.get("photo", "")
+                show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
+                st.image(show_img, width=100)
+            with col2:
+                c1, c2 = st.columns([3, 2])
+                with c1:
+                    st.markdown(f"### {name}")
+                    st.markdown(f"<div class='muted'>{data.get('description','')}</div>", unsafe_allow_html=True)
+                    if data.get("phone"):
+                        st.markdown(f"📞 {data['phone']}", unsafe_allow_html=True)
+                with c2:
+                    # Only allow edit/delete if not a locked root
+                    if not locked_root:
+                        if st.button(f"Edit {name}", key=f"edit_{key_base}"):
+                            st.session_state[f"edit_mode_{key_base}"] = True
                             st.session_state.pop(f"partner_mode_{key_base}", None)
-                            save_and_rerun()
-                        else:
-                            st.error("Enter partner name.")
-
-            if st.session_state.get(f"child_mode_{key_base}", False):
-                with st.form(f"form_child_{key_base}"):
-                    cname = st.text_input("Child name", key=f"cn_{key_base}")
-                    cdesc = st.text_area("Description", key=f"cd_{key_base}")
-                    cphone = st.text_input("Phone", key=f"cp_{key_base}")
-                    cphoto = st.file_uploader("Photo", type=["jpg", "jpeg", "png"], key=f"cph_{key_base}")
-                    colc1, colc2 = st.columns(2)
-                    with colc1:
-                        save_child = st.form_submit_button("Save child")
-                    with colc2:
-                        cancel_child = st.form_submit_button("Cancel")
-                    if cancel_child:
-                        st.session_state.pop(f"child_mode_{key_base}", None)
-                        st.rerun()
-                    if save_child:
-                        if not cname.strip():
-                            st.error("Name required")
-                        else:
-                            child = {"description": cdesc, "children": {}, "phone": cphone, "photo": ""}
-                            if cphoto:
-                                child["photo"] = save_uploaded_photo(cphoto, path + [cname])
-                            data.setdefault("children", {})[cname] = child
                             st.session_state.pop(f"child_mode_{key_base}", None)
-                            save_and_rerun()
+                        if st.button("❌ Delete", key=f"del_{key_base}"):
+                            parent = get_parent_container(ancestors)
+                            if name in parent:
+                                parent.pop(name, None)
+                                save_and_rerun()
+
+                st.markdown('<div class="button-row">', unsafe_allow_html=True)
+                # Add Partner (only if not locked root, no partner yet, and not locked)
+                if (not partner) and (not locked_root) and (not locked):
+                    if st.button("💍 Add Partner", key=f"btn_partner_{key_base}"):
+                        st.session_state[f"partner_mode_{key_base}"] = True
+                        st.session_state.pop(f"child_mode_{key_base}", None)
+                        st.session_state.pop(f"edit_mode_{key_base}", None)
+
+                # Add Child (only if not locked root, partner exists (or is default wife), and not fixed_generation)
+                if ((partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and (not fixed) and (not locked_root)):
+                    if st.button("➕ Add Child", key=f"btn_child_{key_base}"):
+                        st.session_state[f"child_mode_{key_base}"] = True
+                        st.session_state.pop(f"partner_mode_{key_base}", None)
+                        st.session_state.pop(f"edit_mode_{key_base}", None)
+                st.markdown('</div>', unsafe_allow_html=True)
+
+                # Inline forms
+                if st.session_state.get(f"partner_mode_{key_base}", False):
+                    with st.form(f"form_partner_{key_base}"):
+                        pname = st.text_input("Partner name", key=f"pn_{key_base}")
+                        colp1, colp2 = st.columns(2)
+                        with colp1:
+                            save_partner = st.form_submit_button("Save partner")
+                        with colp2:
+                            cancel_partner = st.form_submit_button("Cancel")
+                        if cancel_partner:
+                            st.session_state.pop(f"partner_mode_{key_base}", None)
+                            st.rerun()
+                        if save_partner:
+                            if pname.strip():
+                                data["partner"] = pname.strip()
+                                data.setdefault("children", {})
+                                # Immediately open Add Child form after saving partner
+                                st.session_state.pop(f"partner_mode_{key_base}", None)
+                                st.session_state[f"child_mode_{key_base}"] = True
+                                save_and_rerun()
+                            else:
+                                st.error("Enter partner name.")
+
+                if st.session_state.get(f"child_mode_{key_base}", False):
+                    with st.form(f"form_child_{key_base}"):
+                        cname = st.text_input("Child name", key=f"cn_{key_base}")
+                        cdesc = st.text_area("Description", key=f"cd_{key_base}")
+                        cphone = st.text_input("Phone", key=f"cp_{key_base}")
+                        cphoto = st.file_uploader("Photo", type=["jpg", "jpeg", "png"], key=f"cph_{key_base}")
+                        colc1, colc2 = st.columns(2)
+                        with colc1:
+                            save_child = st.form_submit_button("Save child")
+                        with colc2:
+                            cancel_child = st.form_submit_button("Cancel")
+                        if cancel_child:
+                            st.session_state.pop(f"child_mode_{key_base}", None)
+                            st.rerun()
+                        if save_child:
+                            if not cname.strip():
+                                st.error("Name required")
+                            else:
+                                child = {"description": cdesc, "children": {}, "phone": cphone, "photo": ""}
+                                if cphoto:
+                                    child["photo"] = save_uploaded_photo(cphoto, path + [cname])
+                                data.setdefault("children", {})[cname] = child
+                                st.session_state.pop(f"child_mode_{key_base}", None)
+                                save_and_rerun()
 
         # Edit mode (only if not locked root)
         if st.session_state.get(f"edit_mode_{key_base}", False) and not locked_root:
