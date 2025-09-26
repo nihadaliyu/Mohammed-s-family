@@ -135,7 +135,8 @@ def save_uploaded_photo(uploaded_file, path_list):
     _, ext = os.path.splitext(uploaded_file.name)
     fname = f"{safe_base}_{uuid.uuid4().hex[:6]}{ext or '.jpg'}"
     filepath = os.path.join(PHOTO_DIR, fname)
-    with open(filepath, "wb") as f: f.write(uploaded_file.getbuffer())
+    with open(filepath, "wb") as f:
+        f.write(uploaded_file.getbuffer())
     return filepath
 
 # ---------------- Init ----------------
@@ -191,8 +192,9 @@ def display_family(name, data, ancestors=None):
             if (not partner) and (name not in MOTHERS_WITH_DEFAULT_PARTNER) and not locked:
                 if st.button("💍 Add Partner", key=f"btn_partner_{key_base}"):
                     st.session_state[f"partner_mode_{key_base}"] = True
+
             # Add Child (only if partner exists and not fixed_generation)
-            if ((partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and not fixed):
+            if partner and not fixed:
                 if st.button("➕ Add Child", key=f"btn_child_{key_base}"):
                     st.session_state[f"child_mode_{key_base}"] = True
             st.markdown('</div>', unsafe_allow_html=True)
@@ -209,6 +211,7 @@ def display_family(name, data, ancestors=None):
                             save_and_rerun()
                         else:
                             st.error("Enter partner name.")
+
             if st.session_state.get(f"child_mode_{key_base}", False):
                 with st.form(f"form_child_{key_base}"):
                     cname = st.text_input("Child name")
