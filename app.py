@@ -55,13 +55,6 @@ st.markdown(
             color: var(--text);
         }
         .muted { color: var(--muted); font-size: 14px; margin: 4px 0; }
-        .person-card {
-            background: #fafcff;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 12px;
-            margin: 10px 0;
-        }
         .button-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
         .stButton>button {
             border-radius: 10px !important;
@@ -292,9 +285,8 @@ def display_family(name, data, ancestors=None):
                             if pname.strip():
                                 data["partner"] = pname.strip()
                                 data.setdefault("children", {})
-                                # Immediately open Add Child form after saving partner
+                                # Close partner form, do NOT auto-open child form
                                 st.session_state.pop(f"partner_mode_{key_base}", None)
-                                st.session_state[f"child_mode_{key_base}"] = True
                                 save_and_rerun()
                             else:
                                 st.error("Enter partner name.")
