@@ -52,10 +52,12 @@ default_family_data = {
         "phone": "0911000000",
         "partner": "Mohammed",
         "locked_partner": True,
+        "locked_root": True,   # fully locked root
         "photo": "",
         "children": {
             "Sunkemo": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222333", "photo": "", "fixed_generation": True},
             "Jemal": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222334", "photo": "", "fixed_generation": True},
+            "Mustefa": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": True},
             "Rehmet": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222335", "photo": "", "fixed_generation": True},
             "Bedriya": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222336", "photo": "", "fixed_generation": True},
         },
@@ -65,6 +67,7 @@ default_family_data = {
         "phone": "0911333444",
         "partner": "Mohammed",
         "locked_partner": True,
+        "locked_root": True,
         "photo": "",
         "children": {
             "Oumer": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": True},
@@ -78,6 +81,7 @@ default_family_data = {
         "phone": "0911444555",
         "partner": "Mohammed",
         "locked_partner": True,
+        "locked_root": True,
         "photo": "",
         "children": {
             "Sadik": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911222341", "photo": "", "fixed_generation": True},
@@ -89,6 +93,7 @@ default_family_data = {
         "phone": "0911555666",
         "partner": "Mohammed",
         "locked_partner": True,
+        "locked_root": True,
         "photo": "",
         "children": {
             "Beytulah": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911222343", "photo": "", "fixed_generation": True},
@@ -100,6 +105,7 @@ default_family_data = {
         "phone": "0911666777",
         "partner": "Mohammed",
         "locked_partner": True,
+        "locked_root": True,
         "photo": "",
         "children": {
             "Abdurezak": {"description": "Child of Nefissa + Mohammed", "children": {}, "phone": "0911222345", "photo": "", "fixed_generation": True},
@@ -123,7 +129,7 @@ def save_family_data(data):
 
 def save_and_rerun():
     save_family_data(st.session_state.family_data)
-    st.rerun()  # Updated from st.experimental_rerun
+    st.rerun()
 
 def save_uploaded_photo(uploaded_file, path_list):
     if not uploaded_file:
@@ -145,7 +151,6 @@ if "current_question" not in st.session_state:
     st.session_state.current_question = random.choice(quiz_questions)
 
 def get_parent_container(ancestors):
-    # Safely walk down the path; if any node missing, return top-level to avoid crashes
     if not ancestors:
         return st.session_state.family_data
     node = st.session_state.family_data.get(ancestors[0])
@@ -167,17 +172,16 @@ def display_family(name, data, ancestors=None):
     partner = data.get("partner", "")
     locked = data.get("locked_partner", False)
     fixed = data.get("fixed_generation", False)
+    locked_root = data.get("locked_root", False)
     partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner or "Single")
 
     with st.expander(f"{name} ({partner_display})", expanded=False):
         col1, col2 = st.columns([1, 3])
         with col1:
             img = data.get("photo", "")
-            # Show local photo if exists, otherwise placeholder URL
             show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
             st.image(show_img, width=100)
         with col2:
-            # Name with inline buttons
             c1, c2 = st.columns([3, 2])
             with c1:
                 st.markdown(f"### {name}")
@@ -185,27 +189,28 @@ def display_family(name, data, ancestors=None):
                 if data.get("phone"):
                     st.markdown(f"📞 {data['phone']}", unsafe_allow_html=True)
             with c2:
-                if st.button(f"Edit {name}", key=f"edit_{key_base}"):
-                    st.session_state[f"edit_mode_{key_base}"] = True
-                    # Close other modes on this node to avoid collisions
-                    st.session_state.pop(f"partner_mode_{key_base}", None)
-                    st.session_state.pop(f"child_mode_{key_base}", None)
-                if st.button("❌ Delete", key=f"del_{key_base}"):
-                    parent = get_parent_container(ancestors)
-                    if name in parent:
-                        parent.pop(name, None)
-                        save_and_rerun()
+                # Only allow edit/delete if not a locked root
+                if not locked_root:
+                    if st.button(f"Edit {name}", key=f"edit_{key_base}"):
+                        st.session_state[f"edit_mode_{key_base}"] = True
+                        st.session_state.pop(f"partner_mode_{key_base}", None)
+                        st.session_state.pop(f"child_mode_{key_base}", None)
+                    if st.button("❌ Delete", key=f"del_{key_base}"):
+                        parent = get_parent_container(ancestors)
+                        if name in parent:
+                            parent.pop(name, None)
+                            save_and_rerun()
 
-            # --- Partner / Child buttons ---
             st.markdown('<div class="button-row">', unsafe_allow_html=True)
-            # Add Partner (if not default wives, no partner yet, and not locked)
-            if (not partner) and (name not in MOTHERS_WITH_DEFAULT_PARTNER) and (not locked):
+            # Add Partner (only if not locked root, no partner yet, and not locked)
+            if (not partner) and (not locked_root) and (not locked):
                 if st.button("💍 Add Partner", key=f"btn_partner_{key_base}"):
                     st.session_state[f"partner_mode_{key_base}"] = True
                     st.session_state.pop(f"child_mode_{key_base}", None)
                     st.session_state.pop(f"edit_mode_{key_base}", None)
-            # Add Child (only if partner exists or is a default wife, and not fixed_generation)
-            if ((partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and not fixed):
+
+            # Add Child (only if not locked root, partner exists or is default wife, and not fixed_generation)
+            if ((partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and (not fixed) and (not locked_root)):
                 if st.button("➕ Add Child", key=f"btn_child_{key_base}"):
                     st.session_state[f"child_mode_{key_base}"] = True
                     st.session_state.pop(f"partner_mode_{key_base}", None)
@@ -258,8 +263,8 @@ def display_family(name, data, ancestors=None):
                             st.session_state.pop(f"child_mode_{key_base}", None)
                             save_and_rerun()
 
-        # Edit mode
-        if st.session_state.get(f"edit_mode_{key_base}", False):
+        # Edit mode (only if not locked root)
+        if st.session_state.get(f"edit_mode_{key_base}", False) and not locked_root:
             with st.form(f"form_edit_{key_base}"):
                 nname = st.text_input("Name", value=name, key=f"en_{key_base}")
                 desc = st.text_area("Description", value=data.get("description", ""), key=f"ed_{key_base}")
@@ -287,7 +292,6 @@ def display_family(name, data, ancestors=None):
                         if photo:
                             data["photo"] = save_uploaded_photo(photo, path)
                         if nname != name:
-                            # Rename key safely
                             parent.pop(name, None)
                             parent[nname] = data
                         st.session_state.pop(f"edit_mode_{key_base}", None)
