@@ -57,55 +57,10 @@ default_family_data = {
             "Bedriya": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222336", "photo": "", "fixed_generation": False},
         },
     },
-    "Nurseba": {
-        "description": "Mother Nurseba",
-        "phone": "0911333444",
-        "partner": "Mohammed",
-        "locked_partner": True,
-        "locked_root": True,
-        "photo": "",
-        "children": {
-            "Oumer": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": False},
-            "Sefiya": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222338", "photo": "", "fixed_generation": False},
-            "Ayro": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222339", "photo": "", "fixed_generation": False},
-            "Reshad": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911222340", "photo": "", "fixed_generation": False},
-        },
-    },
-    "Dilbo": {
-        "description": "Mother Dilbo",
-        "phone": "0911444555",
-        "partner": "Mohammed",
-        "locked_partner": True,
-        "locked_root": True,
-        "photo": "",
-        "children": {
-            "Sadik": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911222341", "photo": "", "fixed_generation": False},
-            "Behra": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911222342", "photo": "", "fixed_generation": False},
-        },
-    },
-    "Rukiya": {
-        "description": "Mother Rukiya",
-        "phone": "0911555666",
-        "partner": "Mohammed",
-        "locked_partner": True,
-        "locked_root": True,
-        "photo": "",
-        "children": {
-            "Beytulah": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911222343", "photo": "", "fixed_generation": False},
-            "Leyla": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911222344", "photo": "", "fixed_generation": False},
-        },
-    },
-    "Nefissa": {
-        "description": "Mother Nefissa",
-        "phone": "0911666777",
-        "partner": "Mohammed",
-        "locked_partner": True,
-        "locked_root": True,
-        "photo": "",
-        "children": {
-            "Abdurezak": {"description": "Child of Nefissa + Mohammed", "children": {}, "phone": "0911222345", "photo": "", "fixed_generation": False},
-        },
-    },
+    "Nurseba": {"description":"Mother Nurseba","phone":"0911333444","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
+    "Dilbo":   {"description":"Mother Dilbo","phone":"0911444555","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
+    "Rukiya":  {"description":"Mother Rukiya","phone":"0911555666","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
+    "Nefissa": {"description":"Mother Nefissa","phone":"0911666777","partner":"Mohammed","locked_partner":True,"locked_root":True,"photo":"","children":{}},
 }
 
 # ---------------- Load/Save ----------------
@@ -188,11 +143,11 @@ def display_family(name, data, ancestors=None, level=0):
     locked_root = node.get("locked_root", False)
     partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner_live or "Single")
 
-    # --- Tree indentation wrapper ---
     indent_px = level * 20
     st.markdown(f"<div style='margin-left:{indent_px}px;'>", unsafe_allow_html=True)
 
     with st.expander(f"{name} ({partner_display})", expanded=False):
+        # Person info
         col1, col2 = st.columns([1, 3])
         with col1:
             img = node.get("photo", "")
@@ -216,101 +171,6 @@ def display_family(name, data, ancestors=None, level=0):
                             parent_children.pop(name, None)
                             save_and_rerun()
 
-            # Single action spot: Add Partner OR Add Child
+            # Action spot
             st.markdown('<div class="button-row">', unsafe_allow_html=True)
-            show_add_partner = (not locked_root) and (not locked) and (not partner_live)
-            show_add_child = (not locked_root) and (partner_live) and (not fixed)
-
-            if show_add_partner:
-                if st.button("💍 Add partner", key=f"btn_partner_{key_base}"):
-                    st.session_state[f"partner_mode_{key_base}"] = True
-                    st.session_state.pop(f"child_mode_{key_base}", None)
-                    st.session_state.pop(f"edit_mode_{key_base}", None)
-            elif show_add_child:
-                if st.button("➕ Add child", key=f"btn_child_{key_base}"):
-                    st.session_state[f"child_mode_{key_base}"] = True
-                    st.session_state.pop(f"partner_mode_{key_base}", None)
-                    st.session_state.pop(f"edit_mode_{key_base}", None)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            # Partner form
-            if st.session_state.get(f"partner_mode_{key_base}", False):
-                with st.form(f"form_partner_{key_base}"):
-                    pname = st.text_input("Partner name", key=f"pn_{key_base}")
-                    colp1, colp2 = st.columns(2)
-                    with colp1:
-                        save_partner = st.form_submit_button("Save partner")
-                    with colp2:
-                        cancel_partner = st.form_submit_button("Cancel")
-                    if cancel_partner:
-                        st.session_state.pop(f"partner_mode_{key_base}", None)
-                        st.rerun()
-                    if save_partner:
-                        if pname.strip():
-                            node["partner"] = pname.strip()
-                            node.setdefault("children", {})
-                            st.session_state.pop(f"partner_mode_{key_base}", None)
-                            save_and_rerun()
-                        else:
-                            st.error("Enter partner name.")
-
-            # Child form
-            if st.session_state.get(f"child_mode_{key_base}", False):
-                with st.form(f"form_child_{key_base}"):
-                    cname = st.text_input("Child name", key=f"cn_{key_base}")
-                    cdesc = st.text_area("Description", key=f"cd_{key_base}")
-                    cphone = st.text_input("Phone", key=f"cp_{key_base}")
-                    cphoto = st.file_uploader("Photo", type=["jpg", "jpeg", "png"], key=f"cph_{key_base}")
-                    colc1, colc2 = st.columns(2)
-                    with colc1:
-                        save_child = st.form_submit_button("Save child")
-                    with colc2:
-                        cancel_child = st.form_submit_button("Cancel")
-                    if cancel_child:
-                        st.session_state.pop(f"child_mode_{key_base}", None)
-                        st.rerun()
-                    if save_child:
-                        if not cname.strip():
-                            st.error("Name required")
-                        else:
-                            child = {"description": cdesc, "children": {}, "phone": cphone, "photo": ""}
-                            if cphoto:
-                                child["photo"] = save_uploaded_photo(cphoto, path + [cname])
-                            node.setdefault("children", {})[cname] = child
-                            st.session_state.pop(f"child_mode_{key_base}", None)
-                            save_and_rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)  # close indent wrapper
-
-    # --- Recurse into children ---
-    for ch, cd in list(node.get("children", {}).items()):
-        display_family(ch, cd, ancestors=path, level=level + 1)
-
-# ---------------- MAIN ----------------
-st.markdown('<div class="main">', unsafe_allow_html=True)
-st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Record</div>', unsafe_allow_html=True)
-
-if st.button("🔄 Reset All Data", key="reset_all"):
-    save_family_data(copy.deepcopy(default_family_data))
-    st.session_state.clear()
-    st.rerun()
-
-if not st.session_state.quiz_done:
-    q = st.session_state.current_question
-    st.markdown('<div class="section-title">🔐 Family Quiz</div>', unsafe_allow_html=True)
-    ans = st.text_input(q["question"], key="quiz_answer")
-    if st.button("Submit", key="quiz_submit"):
-        if ans.strip().lower() == q["answer"].lower():
-            st.session_state.quiz_done = True
-            st.rerun()
-        else:
-            st.error("Wrong! Try again.")
-else:
-    st.markdown('<div class="section-title">🌳 Family Tree</div>', unsafe_allow_html=True)
-    for mother, md in st.session_state.family_data.items():
-        display_family(mother, md, ancestors=[], level=0)
-    if st.button("💾 Save Changes", key="save_changes"):
-        save_family_data(st.session_state.family_data)
-        st.success("Changes saved.")
-
-st.markdown('</div>', unsafe_allow_html=True)
+            show_add
