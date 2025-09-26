@@ -5,7 +5,6 @@ import copy
 import uuid
 import random
 
-# Set up the app layout
 st.set_page_config(page_title="Delko's Family Data Record", layout="centered")
 
 DATA_FILE = "family_data.json"
@@ -15,7 +14,7 @@ os.makedirs(PHOTO_DIR, exist_ok=True)
 PLACEHOLDER_IMAGE = "https://via.placeholder.com/150?text=No+Photo"
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemega", "Nurseba", "Dilbo", "Rukiya", "Nefissa"]
 
-# CSS for styling
+# ---------------- CSS ----------------
 st.markdown(
     """
     <style>
@@ -40,7 +39,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Quiz questions
+# ---------------- QUIZ ----------------
 quiz_questions = [
     {"question": "how many children did sunkemo have?", "answer": "9"},
     {"question": "How many wives did Mohammed have?", "answer": "5"},
@@ -49,7 +48,7 @@ quiz_questions = [
     {"question": "how many children did mother Dilbo have?", "answer": "2"},
 ]
 
-# Default family data
+# ---------------- DEFAULT DATA ----------------
 default_family_data = {
     "Shemega": {
         "description": "Mother Shemega",
@@ -112,7 +111,7 @@ default_family_data = {
     },
 }
 
-# Load and save functions
+# ---------------- Load/Save ----------------
 def load_family_data():
     if os.path.exists(DATA_FILE):
         try:
@@ -136,11 +135,10 @@ def save_uploaded_photo(uploaded_file, path_list):
     _, ext = os.path.splitext(uploaded_file.name)
     fname = f"{safe_base}_{uuid.uuid4().hex[:6]}{ext or '.jpg'}"
     filepath = os.path.join(PHOTO_DIR, fname)
-    with open(filepath, "wb") as f:
-        f.write(uploaded_file.getbuffer())
+    with open(filepath, "wb") as f: f.write(uploaded_file.getbuffer())
     return filepath
 
-# Initialize session state
+# ---------------- Init ----------------
 if "family_data" not in st.session_state:
     st.session_state.family_data = load_family_data()
 if "quiz_done" not in st.session_state:
@@ -155,7 +153,7 @@ def get_parent_container(ancestors):
         node = node.get("children", {}).get(anc)
     return node.setdefault("children", {})
 
-# Display family members
+# ---------------- Display ----------------
 def display_family(name, data, ancestors=None):
     if ancestors is None: ancestors = []
     path = ancestors + [name]
@@ -193,9 +191,8 @@ def display_family(name, data, ancestors=None):
             if (not partner) and (name not in MOTHERS_WITH_DEFAULT_PARTNER) and not locked:
                 if st.button("💍 Add Partner", key=f"btn_partner_{key_base}"):
                     st.session_state[f"partner_mode_{key_base}"] = True
-
             # Add Child (only if partner exists and not fixed_generation)
-            if partner and not fixed:
+            if ((partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and not fixed):
                 if st.button("➕ Add Child", key=f"btn_child_{key_base}"):
                     st.session_state[f"child_mode_{key_base}"] = True
             st.markdown('</div>', unsafe_allow_html=True)
@@ -212,7 +209,6 @@ def display_family(name, data, ancestors=None):
                             save_and_rerun()
                         else:
                             st.error("Enter partner name.")
-
             if st.session_state.get(f"child_mode_{key_base}", False):
                 with st.form(f"form_child_{key_base}"):
                     cname = st.text_input("Child name")
