@@ -5,6 +5,7 @@ import copy
 import uuid
 import random
 
+# Set up the app layout
 st.set_page_config(page_title="Delko's Family Data Record", layout="centered")
 
 DATA_FILE = "family_data.json"
@@ -14,7 +15,7 @@ os.makedirs(PHOTO_DIR, exist_ok=True)
 PLACEHOLDER_IMAGE = "https://via.placeholder.com/150?text=No+Photo"
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemega", "Nurseba", "Dilbo", "Rukiya", "Nefissa"]
 
-# ---------------- CSS ----------------
+# CSS for styling
 st.markdown(
     """
     <style>
@@ -39,7 +40,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ---------------- QUIZ ----------------
+# Quiz questions
 quiz_questions = [
     {"question": "how many children did sunkemo have?", "answer": "9"},
     {"question": "How many wives did Mohammed have?", "answer": "5"},
@@ -48,7 +49,7 @@ quiz_questions = [
     {"question": "how many children did mother Dilbo have?", "answer": "2"},
 ]
 
-# ---------------- DEFAULT DATA ----------------
+# Default family data
 default_family_data = {
     "Shemega": {
         "description": "Mother Shemega",
@@ -111,7 +112,7 @@ default_family_data = {
     },
 }
 
-# ---------------- Load/Save ----------------
+# Load and save functions
 def load_family_data():
     if os.path.exists(DATA_FILE):
         try:
@@ -139,7 +140,7 @@ def save_uploaded_photo(uploaded_file, path_list):
         f.write(uploaded_file.getbuffer())
     return filepath
 
-# ---------------- Init ----------------
+# Initialize session state
 if "family_data" not in st.session_state:
     st.session_state.family_data = load_family_data()
 if "quiz_done" not in st.session_state:
@@ -154,7 +155,7 @@ def get_parent_container(ancestors):
         node = node.get("children", {}).get(anc)
     return node.setdefault("children", {})
 
-# ---------------- Display ----------------
+# Display family members
 def display_family(name, data, ancestors=None):
     if ancestors is None: ancestors = []
     path = ancestors + [name]
