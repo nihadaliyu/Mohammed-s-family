@@ -14,7 +14,7 @@ os.makedirs(PHOTO_DIR, exist_ok=True)
 PLACEHOLDER_IMAGE = "https://via.placeholder.com/150?text=No+Photo"
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemega", "Nurseba", "Dilbo", "Rukiya", "Nefissa"]
 
-# ---------------- CSS (mobile-friendly) ----------------
+# ---------------- CSS ----------------
 st.markdown(
     """
     <style>
@@ -40,7 +40,7 @@ quiz_questions = [
     {"question": "How many children did mother Dilbo have?", "answer": "2"},
 ]
 
-# ---------------- DEFAULT DATA (Mustefa included; children unfixed) ----------------
+# ---------------- DEFAULT DATA ----------------
 default_family_data = {
     "Shemega": {
         "description": "Mother Shemega",
@@ -145,7 +145,7 @@ if "quiz_done" not in st.session_state:
 if "current_question" not in st.session_state:
     st.session_state.current_question = random.choice(quiz_questions)
 
-# Helper: walk path and return the exact dict reference for the node and its parent children dict
+# ---------------- Helpers ----------------
 def get_node_and_parent_children(path):
     if not path:
         return None, st.session_state.family_data
@@ -173,183 +173,4 @@ def get_parent_container(ancestors):
 
 # ---------------- Display ----------------
 def display_family(name, data, ancestors=None):
-    if ancestors is None:
-        ancestors = []
-    path = ancestors + [name]
-    key_base = "_".join(path).replace(" ", "_")
-
-    node, _ = get_node_and_parent_children(path)
-    if node is None:
-        node = data
-
-    partner_live = node.get("partner", "")
-    locked = node.get("locked_partner", False)
-    fixed = node.get("fixed_generation", False)
-    locked_root = node.get("locked_root", False)
-    partner_display = "Wife of Mohammed" if name in MOTHERS_WITH_DEFAULT_PARTNER else (partner_live or "Single")
-
-    with st.expander(f"{name} ({partner_display})", expanded=False):
-        col1, col2 = st.columns([1, 3])
-        with col1:
-            img = node.get("photo", "")
-            show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
-            st.image(show_img, width=100)
-        with col2:
-            c1, c2 = st.columns([3, 2])
-            with c1:
-                st.markdown(f"### {name}")
-                st.markdown(f"<div class='muted'>{node.get('description','')}</div>", unsafe_allow_html=True)
-                if node.get("phone"):
-                    st.markdown(f"📞 {node['phone']}", unsafe_allow_html=True)
-            with c2:
-                if not locked_root:
-                    if st.button(f"Edit {name}", key=f"edit_{key_base}"):
-                        st.session_state[f"edit_mode_{key_base}"] = True
-                        st.session_state.pop(f"partner_mode_{key_base}", None)
-                        st.session_state.pop(f"child_mode_{key_base}", None)
-                    if st.button("❌ Delete", key=f"del_{key_base}"):
-                        _, parent_children = get_node_and_parent_children(path)
-                        if name in parent_children:
-                            parent_children.pop(name, None)
-                            save_and_rerun()
-
-            # Single action spot: either Add Partner (no partner) OR Add Child (partner exists)
-            st.markdown('<div class="button-row">', unsafe_allow_html=True)
-            show_add_partner = (not locked_root) and (not locked) and (not partner_live)
-            show_add_child = (not locked_root) and (partner_live) and (not fixed)
-
-            if show_add_partner:
-                if st.button("💍 Add partner", key=f"btn_partner_{key_base}"):
-                    st.session_state[f"partner_mode_{key_base}"] = True
-                    st.session_state.pop(f"child_mode_{key_base}", None)
-                    st.session_state.pop(f"edit_mode_{key_base}", None)
-            elif show_add_child:
-                if st.button("➕ Add child", key=f"btn_child_{key_base}"):
-                    st.session_state[f"child_mode_{key_base}"] = True
-                    st.session_state.pop(f"partner_mode_{key_base}", None)
-                    st.session_state.pop(f"edit_mode_{key_base}", None)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            # Partner form
-            if st.session_state.get(f"partner_mode_{key_base}", False):
-                with st.form(f"form_partner_{key_base}"):
-                    pname = st.text_input("Partner name", key=f"pn_{key_base}")
-                    colp1, colp2 = st.columns(2)
-                    with colp1:
-                        save_partner = st.form_submit_button("Save partner")
-                    with colp2:
-                        cancel_partner = st.form_submit_button("Cancel")
-                    if cancel_partner:
-                        st.session_state.pop(f"partner_mode_{key_base}", None)
-                        st.rerun()
-                    if save_partner:
-                        if pname.strip():
-                            live_node, _ = get_node_and_parent_children(path)
-                            if live_node is not None:
-                                live_node["partner"] = pname.strip()
-                                live_node.setdefault("children", {})
-                            else:
-                                data["partner"] = pname.strip()
-                                data.setdefault("children", {})
-                            st.session_state.pop(f"partner_mode_{key_base}", None)
-                            save_and_rerun()
-                        else:
-                            st.error("Enter partner name.")
-
-            # Child form
-            if st.session_state.get(f"child_mode_{key_base}", False):
-                with st.form(f"form_child_{key_base}"):
-                    cname = st.text_input("Child name", key=f"cn_{key_base}")
-                    cdesc = st.text_area("Description", key=f"cd_{key_base}")
-                    cphone = st.text_input("Phone", key=f"cp_{key_base}")
-                    cphoto = st.file_uploader("Photo", type=["jpg", "jpeg", "png"], key=f"cph_{key_base}")
-                    colc1, colc2 = st.columns(2)
-                    with colc1:
-                        save_child = st.form_submit_button("Save child")
-                    with colc2:
-                        cancel_child = st.form_submit_button("Cancel")
-                    if cancel_child:
-                        st.session_state.pop(f"child_mode_{key_base}", None)
-                        st.rerun()
-                    if save_child:
-                        if not cname.strip():
-                            st.error("Name required")
-                        else:
-                            live_node, _ = get_node_and_parent_children(path)
-                            if live_node is None:
-                                live_node = data
-                            child = {"description": cdesc, "children": {}, "phone": cphone, "photo": ""}
-                            if cphoto:
-                                child["photo"] = save_uploaded_photo(cphoto, path + [cname])
-                            live_node.setdefault("children", {})[cname] = child
-                            st.session_state.pop(f"child_mode_{key_base}", None)
-                            save_and_rerun()
-
-    # Edit mode (only if not locked root)
-    if st.session_state.get(f"edit_mode_{key_base}", False) and not node.get("locked_root", False):
-        with st.form(f"form_edit_{key_base}"):
-            nname = st.text_input("Name", value=name, key=f"en_{key_base}")
-            desc = st.text_area("Description", value=data.get("description", ""), key=f"ed_{key_base}")
-            phone = st.text_input("Phone", value=data.get("phone", ""), key=f"ep_{key_base}")
-            if node.get("locked_partner", False):
-                st.text_input("Partner", value=node.get("partner", ""), disabled=True, key=f"epl_{key_base}")
-                pval = node.get("partner", "")
-            else:
-                pval = st.text_input("Partner", value=node.get("partner", ""), key=f"epv_{key_base}")
-            photo = st.file_uploader("New photo", type=["jpg", "jpeg", "png"], key=f"eph_{key_base}")
-            cole1, cole2 = st.columns(2)
-            with cole1:
-                save_edit = st.form_submit_button("Save")
-            with cole2:
-                cancel_edit = st.form_submit_button("Cancel")
-            if cancel_edit:
-                st.session_state.pop(f"edit_mode_{key_base}", None)
-                st.rerun()
-            if save_edit:
-                parent_children = get_parent_container(ancestors)
-                if nname.strip() and (nname == name or nname not in parent_children):
-                    node["description"] = desc
-                    node["phone"] = phone
-                    node["partner"] = pval
-                    if photo:
-                        node["photo"] = save_uploaded_photo(photo, path)
-                    if nname != name:
-                        parent_children.pop(name, None)
-                        parent_children[nname] = node
-                    st.session_state.pop(f"edit_mode_{key_base}", None)
-                    save_and_rerun()
-                else:
-                    st.error("Invalid or duplicate name")
-
-    # Children recursion
-    for ch, cd in list(node.get("children", {}).items()):
-        display_family(ch, cd, ancestors=path)
-
-# ---------------- MAIN ----------------
-st.markdown('<div class="main">', unsafe_allow_html=True)
-st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Record</div>', unsafe_allow_html=True)
-
-if st.button("🔄 Reset All Data", key="reset_all"):
-    save_family_data(copy.deepcopy(default_family_data))
-    st.session_state.clear()
-    st.rerun()
-
-if not st.session_state.quiz_done:
-    q = st.session_state.current_question
-    st.markdown('<div class="section-title">🔐 Family Quiz</div>', unsafe_allow_html=True)
-    ans = st.text_input(q["question"], key="quiz_answer")
-    if st.button("Submit", key="quiz_submit"):
-        if ans.strip().lower() == q["answer"].lower():
-            st.session_state.quiz_done = True
-            st.rerun()
-        else:
-            st.error("Wrong! Try again.")
-else:
-    st.markdown('<div class="section-title">🌳 Family Tree</div>', unsafe_allow_html=True)
-    for mother, md in st.session_state.family_data.items():
-        display_family(mother, md)
-    if st.button("💾 Save Changes", key="save_changes"):
-        save_family_data(st.session_state.family_data)
-        st.success("Changes saved.")
-
-st.markdown('</div>', unsafe_allow_html=True)
+    if ancestors is
