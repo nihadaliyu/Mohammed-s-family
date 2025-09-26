@@ -30,6 +30,7 @@ st.markdown("""
   .stButton>button { font-size:0.8rem; padding:4px 8px; }
 }
 .muted { color:#666; font-size:14px; margin:2px 0; }
+.add-buttons { margin-top:6px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -88,11 +89,10 @@ def save_uploaded_photo(file,path):
     return filepath
 
 def save_and_rerun(): save_family_data(st.session_state.family_data); st.experimental_rerun()
-
-def reset_session_state():
+def reset_session_state(): 
     for key in list(st.session_state.keys()): del st.session_state[key]
 
-# ---------------- SESSION STATE ----------------
+# ---------------- SESSION ----------------
 if "family_data" not in st.session_state: st.session_state.family_data = load_family_data()
 if "quiz_done" not in st.session_state: st.session_state.quiz_done = False
 if "current_question" not in st.session_state: st.session_state.current_question=random.choice(quiz_questions)
@@ -109,40 +109,45 @@ def display_family(name,data,ancestors=[]):
     with st.expander(f"{name} ({partner_display})",expanded=False):
         col1,col2=st.columns([1,3])
         with col1:
-            st.image(data.get("photo") if data.get("photo") and os.path.exists(data.get("photo")) else PLACEHOLDER_IMAGE,width=80)
+            st.image(data.get("photo") if data.get("photo") and os.path.exists(data.get("photo")) else PLACEHOLDER_IMAGE, width=80)
         with col2:
             st.markdown(f"**{data.get('description','')}**")
-            st.markdown(f"<div class='muted'>{partner_display}</div>",unsafe_allow_html=True)
-            if data.get("phone"): st.markdown(f"<div class='muted'>📞 {data['phone']}</div>",unsafe_allow_html=True)
+            st.markdown(f"<div class='muted'>{partner_display}</div>", unsafe_allow_html=True)
+            if data.get("phone"): st.markdown(f"<div class='muted'>📞 {data['phone']}</div>", unsafe_allow_html=True)
             st.markdown('<div class="person-actions">',unsafe_allow_html=True)
-            if st.button(f"Edit {name}",key=f"edit_{key}"): st.session_state[f"edit_{key}"]=True
-            if st.button("❌ Delete",key=f"del_{key}"):
-                parent=st.session_state.family_data
-                for anc in ancestors: parent=parent[anc]["children"]
-                parent.pop(name,None); save_and_rerun()
-            if name not in FIRST_FIXED_CHILDREN and not partner:
-                if st.button("💍 Add Partner",key=f"partner_{key}"): st.session_state[f"partner_{key}"]=True
-            if (partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and name not in FIRST_FIXED_CHILDREN:
-                if st.button("➕ Add Child",key=f"child_{key}"): st.session_state[f"child_{key}"]=True
+            if st.button(f"Edit {name}", key=f"edit_{key}"): st.session_state[f"edit_{key}"] = True
+            if st.button("❌ Delete", key=f"del_{key}"):
+                parent = st.session_state.family_data
+                for anc in ancestors: parent = parent[anc]["children"]
+                parent.pop(name, None)
+                save_and_rerun()
             st.markdown('</div>',unsafe_allow_html=True)
-            # Forms
-            if st.session_state.get(f"partner_{key}",False):
-                with st.form(f"form_partner_{key}"):
-                    pname=st.text_input("Partner name")
-                    if st.form_submit_button("Save Partner"):
-                        if pname.strip(): data["partner"]=pname.strip(); st.session_state.pop(f"partner_{key}"); save_and_rerun()
-            if st.session_state.get(f"child_{key}",False):
-                with st.form(f"form_child_{key}"):
-                    cname=st.text_input("Child name")
-                    cdesc=st.text_area("Description")
-                    cphone=st.text_input("Phone")
-                    cphoto=st.file_uploader("Photo",type=["jpg","jpeg","png"])
-                    if st.form_submit_button("Save Child"):
-                        if cname.strip():
-                            child={"description":cdesc,"children":{},"phone":cphone,"photo":""}
-                            if cphoto: child["photo"]=save_uploaded_photo(cphoto,path+[cname])
-                            data.setdefault("children",{})[cname]=child
-                            st.session_state.pop(f"child_{key}"); save_and_rerun()
+
+            # Add Partner / Add Child buttons below description
+            if name not in FIRST_FIXED_CHILDREN and name not in MOTHERS_WITH_DEFAULT_PARTNER and not partner:
+                if st.button("💍 Add Partner", key=f"partner_{key}"): st.session_state[f"partner_{key}"]=True
+            if (partner or name in MOTHERS_WITH_DEFAULT_PARTNER) and name not in FIRST_FIXED_CHILDREN:
+                if st.button("➕ Add Child", key=f"child_{key}"): st.session_state[f"child_{key}"]=True
+
+        # Forms
+        if st.session_state.get(f"partner_{key}",False):
+            with st.form(f"form_partner_{key}"):
+                pname=st.text_input("Partner name")
+                if st.form_submit_button("Save Partner"):
+                    if pname.strip(): data["partner"]=pname.strip(); st.session_state.pop(f"partner_{key}"); save_and_rerun()
+        if st.session_state.get(f"child_{key}",False):
+            with st.form(f"form_child_{key}"):
+                cname=st.text_input("Child name")
+                cdesc=st.text_area("Description")
+                cphone=st.text_input("Phone")
+                cphoto=st.file_uploader("Photo",type=["jpg","jpeg","png"])
+                if st.form_submit_button("Save Child"):
+                    if cname.strip():
+                        child={"description":cdesc,"children":{},"phone":cphone,"photo":""}
+                        if cphoto: child["photo"]=save_uploaded_photo(cphoto,path+[cname])
+                        data.setdefault("children",{})[cname]=child
+                        st.session_state.pop(f"child_{key}"); save_and_rerun()
+
         # Edit mode
         if st.session_state.get(f"edit_{key}",False):
             with st.form(f"form_edit_{key}"):
@@ -154,6 +159,7 @@ def display_family(name,data,ancestors=[]):
                     data["description"]=desc; data["phone"]=phone; data["partner"]=partner_val
                     if photo: data["photo"]=save_uploaded_photo(photo,path)
                     st.session_state.pop(f"edit_{key}"); save_and_rerun()
+
         # Recurse children
         for ch,cd in list(data.get("children",{}).items()): display_family(ch,cd,path)
 
