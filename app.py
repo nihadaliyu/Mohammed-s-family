@@ -91,6 +91,90 @@ quiz_questions = [
 ]
 
 # ---------------- DEFAULT DATA ----------------
+default_family_data = {
+    "Shemega": {
+        "description": "Mother Shemega",
+        "phone": "0911000000",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
+        "children": {
+            "Sunkemo": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222333", "photo": "", "fixed_generation": False},
+            "Jemal": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222334", "photo": "", "fixed_generation": False},
+            "Mustefa": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": False},
+            "Rehmet": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222335", "photo": "", "fixed_generation": False},
+            "Bedriya": {"description": "Child of Shemega + Mohammed", "children": {}, "phone": "0911222336", "photo": "", "fixed_generation": False},
+        },
+    },
+    "Nurseba": {"description": "Mother Nurseba", "phone": "0911333444", "partner": "Mohammed", "locked_partner": True, "locked_root": True, "photo": "", "children": {}},
+    "Dilbo": {"description": "Mother Dilbo", "phone": "0911444555", "partner": "Mohammed", "locked_partner": True, "locked_root": True, "photo": "", "children": {}},
+    "Rukiya": {"description": "Mother Rukiya", "phone": "0911555666", "partner": "Mohammed", "locked_partner": True, "locked_root": True, "photo": "", "children": {}},
+    "Nefissa": {"description": "Mother Nefissa", "phone": "0911666777", "partner": "Mohammed", "locked_partner": True, "locked_root": True, "photo": "", "children": {}},
+}
+
+# ---------------- Load / Save helpers ----------------
+def load_family_data():
+    if os.path.exists(DATA_FILE):
+        try:
+            with open(DATA_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return copy.deepcopy(default_family_data)
+    return copy.deepcopy(default_family_data)
+
+def save_family_data(data):
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+
+def save_and_rerun():
+    save_family_data(st.session_state.family_data)
+    st.rerun()
+
+def save_uploaded_photo(uploaded_file, path_list):
+    if not uploaded_file:
+        return ""
+    safe_base = "_".join(path_list).replace(" ", "_")
+    _, ext = os.path.splitext(uploaded_file.name)
+    fname = f"{safe_base}_{uuid.uuid4().hex[:6]}{ext or '.jpg'}"
+    filepath = os.path.join(PHOTO_DIR, fname)
+    with open(filepath, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    return filepath
+
+# ---------------- Init session state ----------------
+if "family_data" not in st.session_state:
+    st.session_state.family_data = load_family_data()
+if "quiz_done" not in st.session_state:
+    st.session_state.quiz_done = False
+if "current_question" not in st.session_state:
+    st.session_state.current_question = random.choice(quiz_questions)
+
+def get_node_and_parent_children(path):
+    if not path:
+        return None, st.session_state.family_data
+    root = st.session_state.family_data
+    parent_children = root
+    node = None
+    for i, part in enumerate(path):
+        if i == 0:
+            node = root.get(part)
+            parent_children = root
+        else:
+            parent_children = node.get("children", {})
+            node = parent_children.get(part)
+        if node is None:
+            return None, st.session_state.family_data
+    return node, parent_children
+
+def get_parent_container(ancestors):
+    if not ancestors:
+        return st.session_state.family_data
+    node, parent_children = get_node_and_parent_children(ancestors)
+    if node is None:
+        return st.session_state.family_data
+    return parent_children
+# ---------------- Display ----------------
 def display_family(name, data, ancestors=None, level=0):
     if ancestors is None:
         ancestors = []
@@ -222,7 +306,6 @@ def display_family(name, data, ancestors=None, level=0):
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-
 # ---------------- MAIN ----------------
 st.markdown('<div class="main">', unsafe_allow_html=True)
 st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Record</div>', unsafe_allow_html=True)
@@ -243,7 +326,7 @@ if not st.session_state.quiz_done:
             st.rerun()
         else:
             st.error("Wrong! Try again.")
-    st.stop()  # Prevent tree from rendering until quiz is passed
+    st.stop()
 
 # Family tree (only shown after quiz passed)
 st.markdown('<div class="section-title">🌳 Family Tree</div>', unsafe_allow_html=True)
@@ -255,3 +338,26 @@ if st.button("💾 Save Changes", key="save_changes"):
     st.success("Changes saved.")
 
 st.markdown('</div>', unsafe_allow_html=True)
+
+# ---------------- JS: tag buttons for CSS coloring ----------------
+components.html("""
+<script>
+(function () {
+  const map = {
+    "💍 Add Partner": "partner",
+    "➕ Add Child": "child",
+    "❌ Delete": "delete",
+    "✏️ Edit": "edit"
+  };
+  function tagButtons() {
+    document.querySelectorAll('button').forEach(btn => {
+      const txt = (btn.innerText || '').trim();
+      if (map[txt]) btn.classList.add(map[txt]);
+    });
+  }
+  setTimeout(tagButtons, 150);
+  const obs = new MutationObserver(() => setTimeout(tagButtons, 50));
+  obs.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+""", height=0, scrolling=False)
