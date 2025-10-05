@@ -93,7 +93,7 @@ quiz_questions = [
 # ---------------- DEFAULT DATA ----------------
 default_family_data = {
     "Shemege": {
-        "description": "Mother Shemega", "phone": "0911000000", "partner": "Mohammed",
+        "description": "Mother Shemega", "phone": "may Allah grant her jenahh", "partner": "Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
             "Sunkemo": {"description": "Child of Shemege + Mohammed", "children": {}, "phone": "0911222333", "photo": "", "fixed_generation": False},
@@ -126,7 +126,7 @@ default_family_data = {
 
 
     "Dilbo":{
-        "description": "Mother Dilbo", "phone": "0911333444", "partner": "Mohammed",
+        "description": "Mother Dilbo", "phone": "may Allah grant her jennahh", "partner": "Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
             "Sadik": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
