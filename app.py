@@ -310,10 +310,15 @@ def display_family(name, data, ancestors=None, level=0):
 st.markdown('<div class="main">', unsafe_allow_html=True)
 st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Record</div>', unsafe_allow_html=True)
 
-if st.button("🔄 Reset All Data", key="reset_all"):
-    save_family_data(copy.deepcopy(default_family_data))
-    st.session_state.clear()
-    st.rerun()
+
+#           reset button
+
+# if st.button("🔄 Reset All Data", key="reset_all"):
+#     save_family_data(copy.deepcopy(default_family_data))
+#     st.session_state.clear()
+#     st.rerun()
+
+
 
 # Quiz gate — block everything until answered correctly
 if not st.session_state.quiz_done:
@@ -333,9 +338,14 @@ st.markdown('<div class="section-title">🌳 Family Tree</div>', unsafe_allow_ht
 for mother, md in st.session_state.family_data.items():
     display_family(mother, md, ancestors=[], level=0)
 
-if st.button("💾 Save Changes", key="save_changes"):
-    save_family_data(st.session_state.family_data)
-    st.success("Changes saved.")
+
+#             save button
+
+# if st.button("💾 Save Changes", key="save_changes"):
+#     save_family_data(st.session_state.family_data)
+#     st.success("Changes saved.")
+
+
 
 st.markdown('</div>', unsafe_allow_html=True)
 
