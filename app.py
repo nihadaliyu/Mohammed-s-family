@@ -6,7 +6,7 @@ import copy
 import uuid
 import random
 
-st.set_page_config(page_title="Delko's Family Data Record", layout="centered")
+st.set_page_config(page_title="Mohammed's Family Data Record", layout="centered")
 
 DATA_FILE = "family_data.json"
 PHOTO_DIR = "photos"
