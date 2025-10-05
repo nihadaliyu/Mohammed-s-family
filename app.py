@@ -97,7 +97,7 @@ default_family_data = {
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
             "Sunkemo": {"description": "Child of Shemege + Mohammed", "children": {}, "phone": "0911222333", "photo": "", "fixed_generation": False},
-            "Aliyu": {"description": "Child of Shemege + Mohammed", "children": {}, "phone": "0911222333", "photo": "", "fixed_generation": False},
+            # "Aliyu": {"description": "Child of Shemege + Mohammed", "children": {}, "phone": "0911222333", "photo": "", "fixed_generation": False},
             "Bedriya": {"description": "Child of Shemege + Mohammed", "children": {}, "phone": "0911222334", "photo": "", "fixed_generation": False},
             "Rahmet": {"description": "Child of Shemege + Mohammed", "children": {}, "phone": "0911222337", "photo": "", "fixed_generation": False},
             "Mustefa": {"description": "Child of Shemege + Mohammed", "children": {}, "phone": "0911222335", "photo": "", "fixed_generation": False},
