@@ -86,8 +86,8 @@ quiz_questions = [
     {"question": "How many children did Sunkemo have?", "answer": "9"},
     {"question": "How many wives did Mohammed have?", "answer": "5"},
     {"question": "How many children did mother Shemega have?", "answer": "5"},
-    {"question": "How many children did mother Nurseba have?", "answer": "4"},
-    {"question": "How many children did mother Dilbo have?", "answer": "2"},
+    {"question": "How many children did mother Nurseba have?", "answer": "9"},
+    {"question": "How many children did mother Dilbo have?", "answer": "4"},
 ]
 
 # ---------------- DEFAULT DATA ----------------
@@ -110,14 +110,13 @@ default_family_data = {
         "description": "Mother Nurseba", "phone": "0911333444", "partner": "Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
-            "Madiya": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
+          
             "Sefiya": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Oumer": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Ayro": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Selima": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Reshad": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Fetiya": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
-            "Sherefa": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Aliyu": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Neja": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
 
@@ -131,7 +130,7 @@ default_family_data = {
         "children": {
             "Sadik": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
             "Bahredin": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
-            "Aysha": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
+            # "Aysha": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Nasir": {"description": "Child of Dilbo + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Abdusemed": {"description": "Child of Nurseba + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
 
@@ -143,9 +142,9 @@ default_family_data = {
         "description": "Mother Dilbo", "phone": "0911333444", "partner": "Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
-            "Maeruf": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
-            "Tofik": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
-            "Wesila": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
+            # "Maeruf": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
+            # "Tofik": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
+            # "Wesila": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Beytulah": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Leyla": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "","fixed_generation": False},
             "Zulfa": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
@@ -367,10 +366,10 @@ st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Re
 
 #         reset button
 
-# if st.button("🔄 Reset All Data", key="reset_all"):
-#     save_family_data(copy.deepcopy(default_family_data))
-#     st.session_state.clear()
-#     st.rerun()
+if st.button("🔄 Reset All Data", key="reset_all"):
+    save_family_data(copy.deepcopy(default_family_data))
+    st.session_state.clear()
+    st.rerun()
 
 
 
