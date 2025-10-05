@@ -361,15 +361,15 @@ def display_family(name, data, ancestors=None, level=0):
 
 # ---------------- MAIN ----------------
 st.markdown('<div class="main">', unsafe_allow_html=True)
-st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Record</div>', unsafe_allow_html=True)
+st.markdown('<div class="cool-header">👨‍👩‍👧 Mohammeds\'s Family Data Record</div>', unsafe_allow_html=True)
 
 
 #         reset button
 
-# if st.button("🔄 Reset All Data", key="reset_all"):
-#     save_family_data(copy.deepcopy(default_family_data))
-#     st.session_state.clear()
-#     st.rerun()
+if st.button("🔄 Reset All Data", key="reset_all"):
+    save_family_data(copy.deepcopy(default_family_data))
+    st.session_state.clear()
+    st.rerun()
 
 
 
