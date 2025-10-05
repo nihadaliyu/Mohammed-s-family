@@ -220,11 +220,12 @@ def display_family(name, data, ancestors=None, level=0):
             st.markdown(f"<div class='person-name'>{name}</div>", unsafe_allow_html=True)
 
             desc_col, btn_col = st.columns([3, 2], gap="small")
-            with desc_col:
+           with desc_col:
                 st.markdown(f"<div class='muted'>{node.get('description','')}</div>", unsafe_allow_html=True)
                 if node.get("phone"):
                     phone = node.get("phone")
-                    st.markdown(f"<div class='phone-link'>📞 <a href='tel:{phone}'>Call now</a></div>", unsafe_allow_html=True)
+                    st.markdown(f"<div class='phone-link'><a href='tel:{phone}'>{phone}</a></div>", unsafe_allow_html=True)
+
             with btn_col:
                 if not locked_root:
                     if st.button("✏️ Edit", key=f"edit_{key_base}"):
