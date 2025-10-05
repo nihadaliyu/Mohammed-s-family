@@ -366,10 +366,10 @@ st.markdown('<div class="cool-header">👨‍👩‍👧 Delko\'s Family Data Re
 
 #         reset button
 
-if st.button("🔄 Reset All Data", key="reset_all"):
-    save_family_data(copy.deepcopy(default_family_data))
-    st.session_state.clear()
-    st.rerun()
+# if st.button("🔄 Reset All Data", key="reset_all"):
+#     save_family_data(copy.deepcopy(default_family_data))
+#     st.session_state.clear()
+#     st.rerun()
 
 
 
