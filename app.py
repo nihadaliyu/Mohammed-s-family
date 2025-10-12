@@ -67,7 +67,7 @@ default_family_data = {
         },
     },
     "Nursebe": {
-        "description": "Mother Nursebe", "phone": "0941832034", "partner": "imam Mohammed",
+        "description": "Mother Nursebe", "phone": "0911333444", "partner": "imam Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
             "Sefiya": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
@@ -452,10 +452,10 @@ with hcol2:
 
 
 # Reset
-# if st.button("🔄 Reset All Data", key="reset_all"):
-#     save_family_data(copy.deepcopy(default_family_data))
-#     st.session_state.clear()
-#     st.rerun()
+if st.button("🔄 Reset All Data", key="reset_all"):
+    save_family_data(copy.deepcopy(default_family_data))
+    st.session_state.clear()
+    st.rerun()
 
 # Quiz gate
 if not st.session_state.quiz_done:
