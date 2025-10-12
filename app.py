@@ -7,10 +7,7 @@ def display_about():
     st.sidebar.header("About This App")
     st.sidebar.info("""
     This family tree application allows users to visualize and manage their family trees.
-
-    Developed by [Your Name] - a passionate developer dedicated to creating intuitive and engaging applications.
-
-    If you have any questions or feedback, feel free to reach out!
+    If you have any questions or feedback, feel free to reach out! here @abduselam_abas or nihad_aliyu
     """)
 
 display_about()
@@ -70,7 +67,7 @@ default_family_data = {
         },
     },
     "Nursebe": {
-        "description": "Mother Nursebe", "phone": "0911333444", "partner": "imam Mohammed",
+        "description": "Mother Nursebe", "phone": "0941832034", "partner": "imam Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
             "Sefiya": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
