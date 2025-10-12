@@ -455,10 +455,10 @@ with hcol2:
 
 
 # Reset
-if st.button("🔄 Reset All Data", key="reset_all"):
-    save_family_data(copy.deepcopy(default_family_data))
-    st.session_state.clear()
-    st.rerun()
+# if st.button("🔄 Reset All Data", key="reset_all"):
+#     save_family_data(copy.deepcopy(default_family_data))
+#     st.session_state.clear()
+#     st.rerun()
 
 # Quiz gate
 if not st.session_state.quiz_done:
