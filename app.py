@@ -507,10 +507,10 @@ st.markdown("""
 </div>
 """.format(m=rep["gen1"], c=rep["gen2"], g=rep["gen3"], gr=rep["gen4"], t=rep["total_descendants"]), unsafe_allow_html=True)
 
-# # Save button
-# if st.button("💾 Save Changes", key="save_changes"):
-#     save_family_data(st.session_state.family_data)
-#     st.success("Changes saved successfully!")
+# Save button
+if st.button("💾 Save Changes", key="save_changes"):
+    save_family_data(st.session_state.family_data)
+    st.success("Changes saved successfully!")
 
 st.markdown('</div>', unsafe_allow_html=True)
 
