@@ -70,7 +70,7 @@ default_family_data = {
         "description": "Mother Nursebe", "phone": "0911333444", "partner": "imam Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
-            "Sefiya": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
+            "Sefiya": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "09445545", "photo": "", "fixed_generation": False},
             "Oumer": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
             "Ayro": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
             "Selima": {"description": "Child of Nursebe + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
