@@ -94,7 +94,7 @@ default_family_data = {
         "description": "Mother Rukiya", "phone": "0911333444", "partner": "imam Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
-            "Beytulah": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
+            "Beytulah": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "09694615", "photo": "", "fixed_generation": False},
             "Leyla": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
             "Zulfa": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
             "Ishak": {"description": "Child of Rukiya + Mohammed", "children": {}, "phone": "0911555555", "photo": "", "fixed_generation": False},
