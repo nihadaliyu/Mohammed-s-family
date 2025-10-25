@@ -380,7 +380,7 @@ if menu_choice == "🔐 አገባብ ይለዩ":
         if st.button("🚪 Logout"):
             for key in ["is_admin", "login_role", "email", "must_change_password"]:
                 st.session_state.pop(key, None)
-            st.success("Logged out successfully.")
+            st.success("እንደ ቤተሰብ አባል ገብተዋል.")
             st.rerun()
     else:
         st.write("እባኮትን መግብያ ይምረጡ:")
