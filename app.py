@@ -26,7 +26,7 @@ DISPLAY_NAME = {
     "Shemege": "ሸመጌ",
     "Nursebe": "ኑርሰቤ",
     "Dilbo": "ዲልቦ",
-    "Rukiya": "ሩኪያ",
+    "Rukiya": "ሩቂያ",
     "Nefissa": "ነፊሳ",
     "Sunkemo": "ሱንከሞ",
     "Bedriya": "በድሪያ",
