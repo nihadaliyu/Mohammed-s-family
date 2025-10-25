@@ -376,11 +376,11 @@ if menu_choice == "🔐 አገባብ ይለዩ":
             st.success("Logged out successfully.")
             st.rerun()
     elif st.session_state.get("login_role") == "Guest":
-        st.info("🟢 Logged in as Guest")
+        st.info("🟢 እንደ ቤተሰብ አባል ገብተዋል")
         if st.button("🚪 Logout"):
             for key in ["is_admin", "login_role", "email", "must_change_password"]:
                 st.session_state.pop(key, None)
-            st.success("እንደ ቤተሰብ አባል ገብተዋል.")
+            st.success("logged out succesfully.")
             st.rerun()
     else:
         st.write("እባኮትን መግብያ ይምረጡ:")
