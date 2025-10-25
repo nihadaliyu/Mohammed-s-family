@@ -384,7 +384,7 @@ if menu_choice == "🔐 አገባብ ይለዩ":
             st.rerun()
     else:
         st.write("እባኮትን መግብያ ይምረጡ:")
-        role = st.radio("አንዱን በመረት ይቀጥሉ:", ["Guest", "Admin"], horizontal=True)
+        role = st.radio("አንዱን በመምረጥ ይቀጥሉ:", ["Guest", "Admin"], horizontal=True)
 
         if role == "Guest":
             if st.button("እንደ ቤተሰብ አባል ይቀጥሉ"):
