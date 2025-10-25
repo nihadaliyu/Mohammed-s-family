@@ -383,7 +383,7 @@ if menu_choice == "🔐 አገባብ ይለዩ":
             st.success("Logged out successfully.")
             st.rerun()
     else:
-        st.write("Choose your access type:")
+        st.write("እባኮትን መግብያ ይምረጡ:")
         role = st.radio("Access as:", ["Guest", "Admin"], horizontal=True)
 
         if role == "Guest":
