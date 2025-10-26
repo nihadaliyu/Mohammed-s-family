@@ -648,7 +648,7 @@ def display_family(name, data, ancestors=None, level=0):
                 # Add Partner button (shown to guests too)
                 if not node.get("locked_partner", False) and not node.get("partner", ""):
                     if is_admin or allow_guest_add:
-                        if st.button("➕ ባል/ሚስት", key=f"btn_partner_{key_base}"):
+                        if st.button("➕ ባል/ሚስት መዝግብ", key=f"btn_partner_{key_base}"):
                             st.session_state[f"partner_mode_{key_base}"] = True
                             st.session_state.pop(f"child_mode_{key_base}", None)
                             st.session_state.pop(f"edit_mode_{key_base}", None)
@@ -656,7 +656,7 @@ def display_family(name, data, ancestors=None, level=0):
                 # Add Child button (skip for default wives)
                 if name not in MOTHERS_WITH_DEFAULT_PARTNER and node.get("partner", "") and not node.get("fixed_generation", False):
                     if is_admin or allow_guest_add:
-                        if st.button("👶 ልጅ", key=f"btn_child_{key_base}"):
+                        if st.button("👶 ልጅ መዝግብ", key=f"btn_child_{key_base}"):
                             st.session_state[f"child_mode_{key_base}"] = True
                             st.session_state.pop(f"partner_mode_{key_base}", None)
                             st.session_state.pop(f"edit_mode_{key_base}", None)
