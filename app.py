@@ -180,7 +180,7 @@ default_family_data = {
     },
     "Dilbo": {
         "description": "እናት ዲልቦ",
-        "phone": "0910000002",
+        "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት",
         "partner": "Mohammed",
         "locked_partner": True,
         "locked_root": True,
