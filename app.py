@@ -210,7 +210,7 @@ default_family_data = {
     },
     "Nefissa": {
         "description": "እናት ነፊሳ",
-        "phone": "0911333444",
+        "phone": "091040404",
         "partner": "Mohammed",
         "locked_partner": True,
         "locked_root": True,
