@@ -983,37 +983,61 @@ def generate_pdf_bytes(family_data):
     pdf_canvas.save()
     buf.seek(0)
     return buf.getvalue()
-
 def admin_bottom_bar():
-    # Allow guests to access reset button for recovery
+    """
+    Bottom admin bar — only visible to admins.
+
+    Replaces the previous admin_bottom_bar() in app.py.
+    Guests will not see the bar or any buttons.
+    """
     is_admin = st.session_state.get("is_admin", False)
+
+    # Only render the pinned bottom bar for admins
+    if not is_admin:
+        return
+
     st.markdown('<div class="fixed-bottom-bar"><div class="fixed-bottom-inner">', unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([1,1,1])
+    col1, col2, col3 = st.columns([1, 1, 1])
+
+    # Reset (admins only)
     with col1:
         if st.button("🔄 Reset All Data (for recovery)", key="reset_all_bottom"):
+            # Reset in-memory and persist default data to persistent DATA_FILE
             st.session_state.family_data = copy.deepcopy(default_family_data)
             save_family_data(st.session_state.family_data)
-            # also reset auth data to defaults - fix: remove correct auth file
-            if os.path.exists(AUTH_FILE):
-                os.remove(AUTH_FILE)
+            # also reset auth data to defaults by removing the persisted auth file if present
+            try:
+                if os.path.exists(AUTH_FILE):
+                    os.remove(AUTH_FILE)
+            except Exception:
+                pass
             st.success("✅ App reset to defaults. Please refresh and log in again.")
+            # clear admin session and rerun
             st.session_state.is_admin = False
-            st.rerun()
+            st.session_state.login_role = None
+            st.session_state.email = ""
+            st.experimental_rerun()
+
+    # Save changes (admins only)
     with col2:
-        if is_admin and st.button("💾 Save Changes", key="save_changes_bottom"):
+        if st.button("💾 Save Changes", key="save_changes_bottom"):
+            # Persist the in-memory family_data to persistent DATA_FILE
             save_family_data(st.session_state.family_data)
-            st.success("Changes saved successfully.")
-            st.rerun()
+            st.success(f"Changes saved to {DATA_FILE}")
+            # keep current session and refresh UI
+            st.experimental_rerun()
+
+    # Export PDF (admins only)
     with col3:
-        if is_admin:
-            if st.button("📤 Export PDF", key="export_pdf_bottom"):
-                pdf_bytes = generate_pdf_bytes(st.session_state.family_data)
-                st.download_button(
-                    label="⬇️ Download PDF",
-                    data=pdf_bytes,
-                    file_name="family_report.pdf",
-                    mime="application/pdf"
-                )
+        if st.button("📤 Export PDF", key="export_pdf_bottom"):
+            pdf_bytes = generate_pdf_bytes(st.session_state.family_data)
+            st.download_button(
+                label="⬇️ Download PDF",
+                data=pdf_bytes,
+                file_name="family_report.pdf",
+                mime="application/pdf"
+            )
+
     st.markdown('</div></div>', unsafe_allow_html=True)
 
 # render bottom admin bar (pinned)
