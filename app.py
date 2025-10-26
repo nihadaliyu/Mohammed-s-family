@@ -983,6 +983,7 @@ def generate_pdf_bytes(family_data):
     pdf_canvas.save()
     buf.seek(0)
     return buf.getvalue()
+    
 def admin_bottom_bar():
     """
     Bottom admin bar — only visible to admins.
