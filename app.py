@@ -248,7 +248,25 @@ def load_family_data():
     return d
 
 def save_family_data(data):
-    atomic_save_json(DATA_FILE, data)
+    """
+    Persist family data to DATA_FILE. Returns True on success, False on failure.
+    Performs an atomic write (write to .tmp then replace).
+    """
+    tmp = DATA_FILE + ".tmp"
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        os.replace(tmp, DATA_FILE)
+        return True
+    except Exception as e:
+        # cleanup and log error for debugging
+        try:
+            if os.path.exists(tmp):
+                os.remove(tmp)
+        except Exception:
+            pass
+        print("Error saving", DATA_FILE, e)
+        return False
 
 # ---------------- AUTH (hashed passwords) ----------------
 def hash_password(password: str) -> str:
@@ -987,9 +1005,7 @@ def generate_pdf_bytes(family_data):
 def admin_bottom_bar():
     """
     Bottom admin bar — only visible to admins.
-
-    Replaces the previous admin_bottom_bar() in app.py.
-    Guests will not see the bar or any buttons.
+    Save/Reset/Export visible only when st.session_state['is_admin'] is True.
     """
     is_admin = st.session_state.get("is_admin", False)
 
@@ -1003,17 +1019,23 @@ def admin_bottom_bar():
     # Reset (admins only)
     with col1:
         if st.button("🔄 Reset All Data (for recovery)", key="reset_all_bottom"):
-            # Reset in-memory and persist default data to persistent DATA_FILE
-            st.session_state.family_data = copy.deepcopy(default_family_data)
-            save_family_data(st.session_state.family_data)
-            # also reset auth data to defaults by removing the persisted auth file if present
             try:
+                st.session_state.family_data = copy.deepcopy(default_family_data)
+                ok = save_family_data(st.session_state.family_data)
+                # also reset auth file
                 if os.path.exists(AUTH_FILE):
-                    os.remove(AUTH_FILE)
-            except Exception:
-                pass
-            st.success("✅ App reset to defaults. Please refresh and log in again.")
-            # clear admin session and rerun
+                    try:
+                        os.remove(AUTH_FILE)
+                    except Exception as e:
+                        st.error(f"Could not remove auth file: {e}")
+                if ok:
+                    st.success("✅ App reset to defaults and persisted to disk. Signing out...")
+                else:
+                    st.error("❌ Reset applied in session but failed to persist to disk.")
+            except Exception as e:
+                st.error(f"Error during reset: {e}")
+                print("Reset error:", e)
+            # clear admin session and rerun to apply defaults
             st.session_state.is_admin = False
             st.session_state.login_role = None
             st.session_state.email = ""
@@ -1022,22 +1044,37 @@ def admin_bottom_bar():
     # Save changes (admins only)
     with col2:
         if st.button("💾 Save Changes", key="save_changes_bottom"):
-            # Persist the in-memory family_data to persistent DATA_FILE
-            save_family_data(st.session_state.family_data)
-            st.success(f"Changes saved to {DATA_FILE}")
-            # keep current session and refresh UI
-            st.rerun()
+            try:
+                ok = save_family_data(st.session_state.family_data)
+                if ok:
+                    st.success(f"✅ Changes saved to {DATA_FILE}")
+                    # store a last-saved timestamp in session so UI can show it
+                    st.session_state["last_saved"] = str(round(random.random(), 6))  # cheap change to session; could be timestamp
+                else:
+                    st.error("❌ Failed to save changes. Check server logs or file permissions.")
+                    print("save_family_data returned False.")
+            except Exception as e:
+                st.error(f"❌ Exception while saving: {e}")
+                print("Exception saving data:", e)
 
     # Export PDF (admins only)
     with col3:
         if st.button("📤 Export PDF", key="export_pdf_bottom"):
-            pdf_bytes = generate_pdf_bytes(st.session_state.family_data)
-            st.download_button(
-                label="⬇️ Download PDF",
-                data=pdf_bytes,
-                file_name="family_report.pdf",
-                mime="application/pdf"
-            )
+            try:
+                pdf_bytes = generate_pdf_bytes(st.session_state.family_data)
+                if isinstance(pdf_bytes, (bytes, bytearray)):
+                    st.download_button(
+                        label="⬇️ Download PDF",
+                        data=pdf_bytes,
+                        file_name="family_report.pdf",
+                        mime="application/pdf"
+                    )
+                else:
+                    # generate_pdf_bytes may return an error message string when reportlab not installed
+                    st.error("Could not generate PDF: PDF libs not available on server.")
+            except Exception as e:
+                st.error(f"Error generating PDF: {e}")
+                print("PDF generation error:", e)
 
     st.markdown('</div></div>', unsafe_allow_html=True)
 
