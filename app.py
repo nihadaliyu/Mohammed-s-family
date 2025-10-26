@@ -1016,7 +1016,7 @@ def admin_bottom_bar():
             st.session_state.is_admin = False
             st.session_state.login_role = None
             st.session_state.email = ""
-            st.experimental_rerun()
+            st.rerun()
 
     # Save changes (admins only)
     with col2:
@@ -1025,7 +1025,7 @@ def admin_bottom_bar():
             save_family_data(st.session_state.family_data)
             st.success(f"Changes saved to {DATA_FILE}")
             # keep current session and refresh UI
-            st.experimental_rerun()
+            st.rerun()
 
     # Export PDF (admins only)
     with col3:
