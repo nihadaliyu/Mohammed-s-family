@@ -160,8 +160,8 @@ default_family_data = {
         "description": "እናት ኑርሰቤ", "phone": "0941832034", "partner": "Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
-            "Sefiya": {"description": "የ ኑርሰቤ የመጀመሪያ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት", "photo": "", "fixed_generatio[...]
-            "Oumer": {"description": "የ ኑርሰቤ ሁለተኛ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቀው", "photo": "", "fixed_generation": Fal[...]
+            "Sefiya": {"description": "የ ኑርሰቤ የመጀመሪያ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት", "photo": "","fixed_generation": False},
+            "Oumer": {"description": "የ ኑርሰቤ ሁለተኛ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቀው", "photo": "", "fixed_generation": False},
             "Ayro": {"description": "የ ኑርሰቤ ሶስተኛ ልጅ", "children": {}, "phone": "0912854001", "photo": "", "fixed_generation": False},
             "Selima": {"description": "የ ኑርሰቤ አራተኛ ልጅ", "children": {}, "phone": "0963835660", "photo": "", "fixed_generation": False},
             "Reshad": {"description": "የ ኑርሰቤ አምስተኛ ልጅ", "children": {}, "phone": "0911154225", "photo": "", "fixed_generation": False},
