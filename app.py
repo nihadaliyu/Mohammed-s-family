@@ -953,36 +953,48 @@ def generate_pdf_bytes(family_data):
     buf.seek(0)
     return buf.getvalue()
 
+# ---------------- MAIN: Admin bottom bar rendering and actions ----------------
 def admin_bottom_bar():
-    # Allow guests to access reset button for recovery
-    is_admin = st.session_state.get("is_admin", False)
+    # Only render for admins
+    if not st.session_state.get("is_admin", False):
+        return None
+
+    # Buttons via columns inside a container; CSS will pin the wrapper to bottom
     st.markdown('<div class="fixed-bottom-bar"><div class="fixed-bottom-inner">', unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1,1,1])
     with col1:
-        if st.button("🔄 Reset All Data (for recovery)", key="reset_all_bottom"):
+        if st.button("🔄 ሁሉንም አጥፋ", key="reset_all_bottom"):
+            admin_email = st.session_state.get("email", "")
             st.session_state.family_data = copy.deepcopy(default_family_data)
             save_family_data(st.session_state.family_data)
-            # also reset auth data to defaults
-            if os.path.exists("auth.json"):
-                os.remove("auth.json")
-            st.success("✅ App reset to defaults. Please refresh and log in again.")
-            st.session_state.is_admin = False
+            st.session_state.email = admin_email
+            st.success("ለውጦቹ ወደ መጀመሪያው ተመልሶዋል ")
             st.rerun()
     with col2:
-        if is_admin and st.button("💾 Save Changes", key="save_changes_bottom"):
+        if st.button("💾 ሁሉንም መዝግብ", key="save_changes_bottom"):
             save_family_data(st.session_state.family_data)
-            st.success("Changes saved successfully.")
+            st.success("ለውጦቹ በትክክል ተመዝግቦዋል።")
             st.rerun()
     with col3:
-        if is_admin:
-            if st.button("📤 Export PDF", key="export_pdf_bottom"):
+        # Generate PDF bytes on demand and provide download button
+        pdf_bytes = None
+        pdf_ready = False
+        if st.button("📤 export pdf", key="export_pdf_bottom"):
+            try:
                 pdf_bytes = generate_pdf_bytes(st.session_state.family_data)
-                st.download_button(
-                    label="⬇️ Download PDF",
-                    data=pdf_bytes,
-                    file_name="family_report.pdf",
-                    mime="application/pdf"
-                )
+                pdf_ready = True
+            except Exception as e:
+                st.error(f"PDF generation failed: {e}")
+                pdf_ready = False
+        # If pdf_bytes ready, show download
+        if pdf_ready and pdf_bytes:
+            st.download_button(
+                label="⬇️ download pdf",
+                data=pdf_bytes,
+                file_name="family_report.pdf",
+                mime="application/pdf",
+                key=f"download_pdf_{uuid.uuid4().hex}"
+            )
     st.markdown('</div></div>', unsafe_allow_html=True)
 
 # render bottom admin bar (pinned)
