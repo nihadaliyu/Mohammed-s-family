@@ -71,14 +71,14 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 body { font-family: 'Poppins', sans-serif; background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2); padding-bottom: 120px; }
 .main { background: rgba(255, 255, 255, 0.95); border-radius: 10px; padding: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.cool-header { display:flex; align-items:center; justify-content:space-between; gap:12px; text-align: left; font-size: 1.5rem; color: #3f72af; background-color: #dbe2ef; padding: 0.5rem 0.8rem; border-radius: 10px; margin-bottom: 1rem; }
+.cool-header { display:flex; align-items:center; justify-content:space-between; gap:12px; text-align: left; font-size: 1.5rem; color: #3f72af; background-color: #dbe2ef; padding: 0.5rem 0.8rem; border[...]
 .header-title { font-weight:600; }
 .section-title { color: #112d4e; border-left: 4px solid #3f72af; padding-left: 8px; font-size: 1.2rem; margin-top: 1rem; }
 .person-name { font-weight: 600; font-size: 1rem; color: #112d4e; }
 .muted { color: #3f3f3f; font-size: 0.85rem; }
 .phone-link a { color: #3f72af; text-decoration: none; font-weight: bold; }
 .phone-link a:hover { text-decoration: underline; }
-button[data-baseweb="button"] { background: linear-gradient(45deg, #3f72af, #112d4e) !important; color: white !important; border: none !important; border-radius: 8px !important; padding: 0.5rem 1rem; transition: 0.3s; }
+button[data-baseweb="button"] { background: linear-gradient(45deg, #3f72af, #112d4e) !important; color: white !important; border: none !important; border-radius: 8px !important; padding: 0.5rem 1rem; [...]
 button[data-baseweb="button"]:hover { background: linear-gradient(45deg, #112d4e, #3f72af) !important; transform: scale(1.05); }
 .stTextInput > div > div > input, .stNumberInput input, .stTextArea textarea { border-radius: 8px; border: 1px solid #ccc; padding: 0.5rem; }
 .report-box { border: 1px solid #e6eefc; padding: 10px; border-radius: 8px; background: #f7fbff; margin-top: 10px; }
@@ -160,8 +160,8 @@ default_family_data = {
         "description": "እናት ኑርሰቤ", "phone": "0941832034", "partner": "Mohammed",
         "locked_partner": True, "locked_root": True, "photo": "",
         "children": {
-            "Sefiya": {"description": "የ ኑርሰቤ የመጀመሪያ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት", "photo": "", "fixed_generation": False},
-            "Oumer": {"description": "የ ኑርሰቤ ሁለተኛ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቀው", "photo": "", "fixed_generation": False},
+            "Sefiya": {"description": "የ ኑርሰቤ የመጀመሪያ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት", "photo": "", "fixed_generatio[...]
+            "Oumer": {"description": "የ ኑርሰቤ ሁለተኛ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቀው", "photo": "", "fixed_generation": Fal[...]
             "Ayro": {"description": "የ ኑርሰቤ ሶስተኛ ልጅ", "children": {}, "phone": "0912854001", "photo": "", "fixed_generation": False},
             "Selima": {"description": "የ ኑርሰቤ አራተኛ ልጅ", "children": {}, "phone": "0963835660", "photo": "", "fixed_generation": False},
             "Reshad": {"description": "የ ኑርሰቤ አምስተኛ ልጅ", "children": {}, "phone": "0911154225", "photo": "", "fixed_generation": False},
@@ -340,13 +340,13 @@ with st.sidebar:
         st.info("""
         **የእርዳታ መመሪያ**
 
-በዚህ መተግበሪያ ውስጥ፣ ቤተሰባችን ሁሉ በአንድ ቦታ ተያይዞ መቀመጥ ይችላል። እያንዳንዱ አባል ያለውን መረጃ በቀላሉ ማየትና ማካፈል ይችላል።
+በዚህ መተግበሪያ ውስጥ፣ ቤተሰባችን ሁሉ በአንድ ቦታ ተያይዞ መቀመጥ ይችላል። እያንዳንዱ አባል ያለውን መረጃ በቀላሉ ማ��[...]
 
-* 👑 **አድሚኖች** የቤተሰብ መረጃ መጨመር፣ ማስተካከል ወይም ማጥፋት ይችላሉ። ቤተሰቡን በተደራጀ መንገድ ለማስተዳደር እነርሱ ዋና ኃላፊዎች ናቸው።
+* 👑 **አድሚኖች** የቤተሰብ መረጃ መጨመር፣ ማስተካከል ወይም ማጥፋት ይችላሉ። ቤተሰቡን በተደራጀ መንገድ ለማስተዳደር እነ[...]
 * 👨‍👩‍👧‍👦 **እንግዶች** የቤተሰብ መረጃን ማየትና የትዳር አጋር እና የልጆች መረጃ መጨመር ይችላሉ።
 * 🔐 እንደ **አድሚን** ለመግባት፣ *Login* የሚለውን ይንኩ እና መለያ መረጃዎን ያስገቡ።
 
-መተግበሪያውን ሲጠቀሙ ምንም አይነት ችግር ካገጠሞት አልያም አስተያያት ካሎት ከታች ባለው መስፈንጠሪያ አድሚኖችን ያነጋግሩ፦
+መተግበሪያውን ሲጠቀሙ ምንም አይነት ችግር ካገጠሞት አልያም አስተያያት ካሎት ከታች ባለው መስፈንጠሪያ አድሚኖችን ያነጋ�[...]
 👉 [@ibn_abas](https://t.me/ibn_abas) እና [@nihad_aliyu](https://t.me/nihad_aliyu)
  """)
 
@@ -354,11 +354,11 @@ with st.sidebar:
         st.success("""
         **የኢማም መሐመድ የቤተሰብ መረጃ መዝገብ**
 
-ይህ የመረጃ መዝገብ የኢማም መሐመድ ቤተሰብን የትውልድ ትውልድ ታሪክና ዘር በመጠበቅ እና በዘመናዊ መንገድ ለማቅረብ የተቋቋመ ነው።
-በዚህ መድረክ ላይ የቤተሰቡ አባላት የተለያዩ የዘር ግንኙነቶችን ማየት፣ የታሪክ መረጃ ማካፈል እና በቀላሉ እርስ በእርሳቸው መገናኘት ይችላሉ።
+ይህ የመረጃ መዝገብ የኢማም መሐመድ ቤተሰብን የትውልድ ትውልድ ታሪክና ዘር በመጠበቅ እና በዘመናዊ መንገድ ለማቅረብ የተ��[...]
+በዚህ መድረክ ላይ የቤተሰቡ አባላት የተለያዩ የዘር ግንኙነቶችን ማየት፣ የታሪክ መረጃ ማካፈል እና በቀላሉ እርስ በእርሳ��[...]
 ይህ ፕሮጀክት የቤተሰብ መረጃ እንዳይጠፋ እና ለወደፊት ትውልድ እንዲቀጥል በመሰረታዊ መንገድ ተሠርቷል።
 
-በዚህ ስራ ላይ በትልቅ ድጋፍና በመንፈስ እንዲሁም በሃላፊነት ሲያግዘኝ ለነበረው የ አክስቴ ልጅ አቡዱሰላም ታላቅ ክብር እና ምስጋና ማቅረብ እውዳለው። የቤተሰቡን ሥራ በተዋህዶ መንፈስ የሚያበረታታ የእርሱን ድጋፍ እንከብራለን።
+በዚህ ስራ ላይ በትልቅ ድጋፍና በመንፈስ እንዲሁም በሃላፊነት ሲያግዘኝ ለነበረው የ አክስቴ ልጅ አቡዱሰላም ታላቅ ክብር እ�[...]
 
 💬 ስለ ቤተሰቡ ወቅታዊ መረጃ ለማግኘት እባክዎን በዚህ የተለግራም ሊንክ ያግኙን፦ [@imam_mohammed_delko](https://t.me/imam_mohammed_delko)
  """)
@@ -527,8 +527,8 @@ def display_search_results(results):
         path_disp = " → ".join(disp_name(p) for p in path)
         name_disp = disp_name(path[-1])
         rep = count_levels(node)
-        st.markdown(f"<div class='search-result'><b>{name_disp}</b> <div style='font-size:0.9rem;color:#555;'>መንገድ: {path_disp} — ውጤት ውህድ: {score:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='margin-top:6px;'>📞 {node.get('phone','-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b> &nbsp; ታላቅ የልጆች ልጆች: <b>{rep['gen4']}</b></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='search-result'><b>{name_disp}</b> <div style='font-size:0.9rem;color:#555;'>መንገድ: {path_disp} — ውጤት ውህድ: {score:.2f}</div>", unsafe_allow_html=T[...]
+        st.markdown(f"<div style='margin-top:6px;'>📞 {node.get('phone','-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b> &nbsp; ታላቅ የ[...]
         col1, col2 = st.columns([1, 4])
         with col1:
             if st.button("በዝርር አሳይ", key=f"show_in_tree_{i}_{'_'.join(path)}"):
@@ -648,6 +648,15 @@ def display_family(name, data, ancestors=None, level=0):
                             save_family_data(st.session_state.family_data)
                             st.rerun()
 
+                # Report toggle button (visible to guests and admins)
+                if is_admin or allow_guest_add:
+                    if st.button("📊 ሪፖርት", key=f"report_{key_base}"):
+                        cur = st.session_state.get(f"report_mode_{key_base}", False)
+                        st.session_state[f"report_mode_{key_base}"] = not cur
+                        # no permanent data change required, but save to persist session-based toggles if desired
+                        save_family_data(st.session_state.family_data)
+                        st.rerun()
+
             # Partner form
             if st.session_state.get(f"partner_mode_{key_base}", False):
                 with st.form(f"form_partner_{key_base}"):
@@ -719,6 +728,19 @@ def display_family(name, data, ancestors=None, level=0):
                             st.session_state.pop(f"edit_mode_{key_base}", None)
                             save_family_data(st.session_state.family_data)
                             st.rerun()
+
+            # Per-node report display (toggleable)
+            if st.session_state.get(f"report_mode_{key_base}", False):
+                # count_levels works for node/subtree as passed
+                rep_node = count_levels(node)
+                # Display a compact report box for this subtree
+                st.markdown("<div class='report-box' style='margin-top:8px;'>", unsafe_allow_html=True)
+                st.markdown(f"<div style='font-weight:700; color:#0b6cff; margin-bottom:6px;'>📊 {disp_name(name)} የንዑስ ሪፖርት</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='report-item'>ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen2']}</span></div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='report-item'>የልጆች ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen3']}</span></div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='report-item'>የልጅ ልጅ ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen4']}</span></div>", unsafe_allow_html=True)
+                st.markdown(f"<hr><div class='report-item'>ጠቅላላ: <span style='font-weight:900; color:#111;'>{rep_node['total_descendants']}</span></div>", unsafe_allow_html=True)
+                st.markdown("</div>", unsafe_allow_html=True)
 
         for ch, cd in list(node.get("children", {}).items()):
             display_family(ch, cd, ancestors=path, level=level + 1)
@@ -953,48 +975,37 @@ def generate_pdf_bytes(family_data):
     buf.seek(0)
     return buf.getvalue()
 
-# ---------------- MAIN: Admin bottom bar rendering and actions ----------------
 def admin_bottom_bar():
-    # Only render for admins
-    if not st.session_state.get("is_admin", False):
-        return None
-
-    # Buttons via columns inside a container; CSS will pin the wrapper to bottom
+    # Allow guests to access reset button for recovery
+    is_admin = st.session_state.get("is_admin", False)
     st.markdown('<div class="fixed-bottom-bar"><div class="fixed-bottom-inner">', unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1,1,1])
     with col1:
-        if st.button("🔄 ሁሉንም አጥፋ", key="reset_all_bottom"):
-            admin_email = st.session_state.get("email", "")
+        if st.button("🔄 Reset All Data (for recovery)", key="reset_all_bottom"):
             st.session_state.family_data = copy.deepcopy(default_family_data)
             save_family_data(st.session_state.family_data)
-            st.session_state.email = admin_email
-            st.success("ለውጦቹ ወደ መጀመሪያው ተመልሶዋል ")
+            # also reset auth data to defaults
+            # FIX: remove correct auth file (was previously "auth.json")
+            if os.path.exists(AUTH_FILE):
+                os.remove(AUTH_FILE)
+            st.success("✅ App reset to defaults. Please refresh and log in again.")
+            st.session_state.is_admin = False
             st.rerun()
     with col2:
-        if st.button("💾 ሁሉንም መዝግብ", key="save_changes_bottom"):
+        if is_admin and st.button("💾 Save Changes", key="save_changes_bottom"):
             save_family_data(st.session_state.family_data)
-            st.success("ለውጦቹ በትክክል ተመዝግቦዋል።")
+            st.success("Changes saved successfully.")
             st.rerun()
     with col3:
-        # Generate PDF bytes on demand and provide download button
-        pdf_bytes = None
-        pdf_ready = False
-        if st.button("📤 export pdf", key="export_pdf_bottom"):
-            try:
+        if is_admin:
+            if st.button("📤 Export PDF", key="export_pdf_bottom"):
                 pdf_bytes = generate_pdf_bytes(st.session_state.family_data)
-                pdf_ready = True
-            except Exception as e:
-                st.error(f"PDF generation failed: {e}")
-                pdf_ready = False
-        # If pdf_bytes ready, show download
-        if pdf_ready and pdf_bytes:
-            st.download_button(
-                label="⬇️ download pdf",
-                data=pdf_bytes,
-                file_name="family_report.pdf",
-                mime="application/pdf",
-                key=f"download_pdf_{uuid.uuid4().hex}"
-            )
+                st.download_button(
+                    label="⬇️ Download PDF",
+                    data=pdf_bytes,
+                    file_name="family_report.pdf",
+                    mime="application/pdf"
+                )
     st.markdown('</div></div>', unsafe_allow_html=True)
 
 # render bottom admin bar (pinned)
