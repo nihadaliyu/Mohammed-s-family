@@ -71,14 +71,14 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 body { font-family: 'Poppins', sans-serif; background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2); padding-bottom: 120px; }
 .main { background: rgba(255, 255, 255, 0.95); border-radius: 10px; padding: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.cool-header { display:flex; align-items:center; justify-content:space-between; gap:12px; text-align: left; font-size: 1.5rem; color: #3f72af; background-color: #dbe2ef; padding: 0.5rem 0.8rem; border[...]
+.cool-header { display:flex; align-items:center; justify-content:space-between; gap:12px; text-align: left; font-size: 1.5rem; color: #3f72af; background-color: #dbe2ef; padding: 0.5rem 0.8rem; border-radius:8px; }
 .header-title { font-weight:600; }
 .section-title { color: #112d4e; border-left: 4px solid #3f72af; padding-left: 8px; font-size: 1.2rem; margin-top: 1rem; }
 .person-name { font-weight: 600; font-size: 1rem; color: #112d4e; }
 .muted { color: #3f3f3f; font-size: 0.85rem; }
 .phone-link a { color: #3f72af; text-decoration: none; font-weight: bold; }
 .phone-link a:hover { text-decoration: underline; }
-button[data-baseweb="button"] { background: linear-gradient(45deg, #3f72af, #112d4e) !important; color: white !important; border: none !important; border-radius: 8px !important; padding: 0.5rem 1rem; [...]
+button[data-baseweb="button"] { background: linear-gradient(45deg, #3f72af, #112d4e) !important; color: white !important; border: none !important; border-radius: 8px !important; padding: 0.5rem 1rem; }
 button[data-baseweb="button"]:hover { background: linear-gradient(45deg, #112d4e, #3f72af) !important; transform: scale(1.05); }
 .stTextInput > div > div > input, .stNumberInput input, .stTextArea textarea { border-radius: 8px; border: 1px solid #ccc; padding: 0.5rem; }
 .report-box { border: 1px solid #e6eefc; padding: 10px; border-radius: 8px; background: #f7fbff; margin-top: 10px; }
@@ -146,8 +146,12 @@ quiz_questions = [
 # ---------------- DEFAULT DATA ----------------
 default_family_data = {
     "Shemege": {
-        "description": "እናት ሸመጌ", "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት", "partner": "Mohammed",
-        "locked_partner": True, "locked_root": True, "photo": "",
+        "description": "እናት ሸመጌ",
+        "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
         "children": {
             "Sunkemo": {"description": "የ የ ሸመጌ የመጀመሪያ ልጅ", "children": {}, "phone": "0920138830", "photo": "", "fixed_generation": False},
             "Bedriya": {"description": "የ ሸመጌ ሁለተኛ ልጅ", "children": {}, "phone": "0913558013", "photo": "", "fixed_generation": False},
@@ -157,11 +161,15 @@ default_family_data = {
         },
     },
     "Nursebe": {
-        "description": "እናት ኑርሰቤ", "phone": "0941832034", "partner": "Mohammed",
-        "locked_partner": True, "locked_root": True, "photo": "",
+        "description": "እናት ኑርሰቤ",
+        "phone": "0941832034",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
         "children": {
-            "Sefiya": {"description": "የ ኑርሰቤ የመጀመሪያ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት", "photo": "","fixed_generation": False},
-            "Oumer": {"description": "የ ኑርሰቤ ሁለተኛ ልጅ", "children": {}, "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቀው", "photo": "", "fixed_generation": False},
+            "Sefiya": {"description": "የ ኑርሰቤ የመጀመሪያ ልጅ", "children": {}, "phone": "0910000000", "photo": "", "fixed_generation": False},
+            "Oumer": {"description": "የ ኑርሰቤ ሁለተኛ ልጅ", "children": {}, "phone": "0910000001", "photo": "", "fixed_generation": False},
             "Ayro": {"description": "የ ኑርሰቤ ሶስተኛ ልጅ", "children": {}, "phone": "0912854001", "photo": "", "fixed_generation": False},
             "Selima": {"description": "የ ኑርሰቤ አራተኛ ልጅ", "children": {}, "phone": "0963835660", "photo": "", "fixed_generation": False},
             "Reshad": {"description": "የ ኑርሰቤ አምስተኛ ልጅ", "children": {}, "phone": "0911154225", "photo": "", "fixed_generation": False},
@@ -171,8 +179,12 @@ default_family_data = {
         },
     },
     "Dilbo": {
-        "description": "እናት ዲልቦ", "phone": "አላህ ጀነት-አል ፊርደውስ ይወፍቃት", "partner": "Mohammed",
-        "locked_partner": True, "locked_root": True, "photo": "",
+        "description": "እናት ዲልቦ",
+        "phone": "0910000002",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
         "children": {
             "Sadik": {"description": "የ የመጀመሪያ ልጅ", "children": {}, "phone": "0953098207", "photo": "", "fixed_generation": False},
             "Bahredin": {"description": "የ ዲልቦ ሁለተኛ ልጅ", "children": {}, "phone": "0913064107", "photo": "", "fixed_generation": False},
@@ -181,8 +193,12 @@ default_family_data = {
         },
     },
     "Rukiya": {
-        "description": "እናት ሩቂያ", "phone": "0911333444", "partner": "Mohammed",
-        "locked_partner": True, "locked_root": True, "photo": "",
+        "description": "እናት ሩቂያ",
+        "phone": "0911333444",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
         "children": {
             "Beytulah": {"description": "የ ሩቂያ አንደኛ ልጅ", "children": {}, "phone": "0919062619", "photo": "", "fixed_generation": False},
             "Leyla": {"description": "የ ሩቂያ ሁለተኛ ልጅ", "children": {}, "phone": "0939145817", "photo": "", "fixed_generation": False},
@@ -193,14 +209,19 @@ default_family_data = {
         },
     },
     "Nefissa": {
-        "description": "እናት ነፊሳ", "phone": "0911333444", "partner": "Mohammed",
-        "locked_partner": True, "locked_root": True, "photo": "",
+        "description": "እናት ነፊሳ",
+        "phone": "0911333444",
+        "partner": "Mohammed",
+        "locked_partner": True,
+        "locked_root": True,
+        "photo": "",
         "children": {
             "Abdurezak": {"description": "የ ነፊሳ የመጀመሪያ ልጅ", "children": {}, "phone": "0912868786", "photo": "", "fixed_generation": False},
         },
     }
 }
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemege", "Nursebe", "Dilbo", "Rukiya", "Nefissa"]
+
 # ---------------- UTILS: atomic save/load ----------------
 def load_json_file(path, fallback=None):
     if os.path.exists(path):
@@ -222,7 +243,6 @@ def atomic_save_json(path, data):
 
 def load_family_data():
     d = load_json_file(DATA_FILE, fallback=default_family_data)
-    # ensure correct structure fallback
     if not isinstance(d, dict):
         return copy.deepcopy(default_family_data)
     return d
@@ -286,7 +306,6 @@ def _localpart_default(email):
     local = email.split("@")[0] if "@" in email else email
     return f"{local}123"
 
-# If no auth data, create defaults for allowed admin emails
 _initial_auth = load_auth_data()
 if not _initial_auth:
     new_auth = {}
@@ -296,7 +315,7 @@ if not _initial_auth:
             "password_hash": hash_password(default_pw),
             "is_admin": True,
             "must_change": True,
-            "default_plain": default_pw  # kept briefly for convenience (not required); won't be displayed
+            "default_plain": default_pw
         }
     save_auth_data(new_auth)
     st.session_state.auth_data = new_auth
@@ -328,9 +347,6 @@ if detected_email:
         st.session_state.quiz_done = True
 
 # ---------------- SIDEBAR: role selection and login ----------------
-# ------------------- SIDEBAR + LOGIN SYSTEM -------------------
-
-# Sidebar menu (click ☰ to open)
 with st.sidebar:
     st.markdown("## 📋 መግቢያ")
 
@@ -340,28 +356,21 @@ with st.sidebar:
         st.info("""
         **የእርዳታ መመሪያ**
 
-በዚህ መተግበሪያ ውስጥ፣ ቤተሰባችን ሁሉ በአንድ ቦታ ተያይዞ መቀመጥ ይችላል። እያንዳንዱ አባል ያለውን መረጃ በቀላሉ ማ��[...]
+በዚህ መተግበሪያ ውስጥ፣ ቤተሰባችን ሁሉ በአንድ ቦታ ተያይዞ መቀመጥ ይችላል። እያንዳንዱ አባል ያለውን መረጃ በቀላሉ ማስተካከል ይችላሉ።
 
-* 👑 **አድሚኖች** የቤተሰብ መረጃ መጨመር፣ ማስተካከል ወይም ማጥፋት ይችላሉ። ቤተሰቡን በተደራጀ መንገድ ለማስተዳደር እነ[...]
+* 👑 **አድሚኖች** የቤተሰብ መረጃ መጨመር፣ ማስተካከል ወይም ማጥፋት ይችላሉ።
 * 👨‍👩‍👧‍👦 **እንግዶች** የቤተሰብ መረጃን ማየትና የትዳር አጋር እና የልጆች መረጃ መጨመር ይችላሉ።
-* 🔐 እንደ **አድሚን** ለመግባት፣ *Login* የሚለውን ይንኩ እና መለያ መረጃዎን ያስገቡ።
+* 🔐 እንደ **አድሚን** ለመግባት፣ Login የሚለውን ይጫኑ እና መለያ መረጃዎን ያስገቡ።
 
-መተግበሪያውን ሲጠቀሙ ምንም አይነት ችግር ካገጠሞት አልያም አስተያያት ካሎት ከታች ባለው መስፈንጠሪያ አድሚኖችን ያነጋ�[...]
-👉 [@ibn_abas](https://t.me/ibn_abas) እና [@nihad_aliyu](https://t.me/nihad_aliyu)
- """)
+👉 @ibn_abas እና @nihad_aliyu
+        """)
 
     elif menu_choice == "👨‍👩‍👦 ስለ እኛ ያንብቡ":
         st.success("""
         **የኢማም መሐመድ የቤተሰብ መረጃ መዝገብ**
 
-ይህ የመረጃ መዝገብ የኢማም መሐመድ ቤተሰብን የትውልድ ትውልድ ታሪክና ዘር በመጠበቅ እና በዘመናዊ መንገድ ለማቅረብ የተ��[...]
-በዚህ መድረክ ላይ የቤተሰቡ አባላት የተለያዩ የዘር ግንኙነቶችን ማየት፣ የታሪክ መረጃ ማካፈል እና በቀላሉ እርስ በእርሳ��[...]
-ይህ ፕሮጀክት የቤተሰብ መረጃ እንዳይጠፋ እና ለወደፊት ትውልድ እንዲቀጥል በመሰረታዊ መንገድ ተሠርቷል።
-
-በዚህ ስራ ላይ በትልቅ ድጋፍና በመንፈስ እንዲሁም በሃላፊነት ሲያግዘኝ ለነበረው የ አክስቴ ልጅ አቡዱሰላም ታላቅ ክብር እ�[...]
-
-💬 ስለ ቤተሰቡ ወቅታዊ መረጃ ለማግኘት እባክዎን በዚህ የተለግራም ሊንክ ያግኙን፦ [@imam_mohammed_delko](https://t.me/imam_mohammed_delko)
- """)
+ይህ መዝገብ የቤተሰብ ታሪክና ዘርን ለማስተናገድ የተዘጋጅቷ ነው።
+        """)
 
 # -------------- LOGIN PANEL (Enhanced with Default Password + Change Flow) --------------
 if menu_choice == "🔐 አገባብ ይለዩ":
@@ -411,11 +420,11 @@ if menu_choice == "🔐 አገባብ ይለዩ":
                 else:
                     record = auth_data.get(email.lower())
 
-                    # If no record exists yet, create one with default password
+                    # If no record exists yet, create one with default password placeholder
                     if not record:
                         record = {
                             "password_hash": None,
-                            "default_plain": "imam123",  # Default password
+                            "default_plain": "imam123",
                             "must_change": False
                         }
                         auth_data[email.lower()] = record
@@ -450,7 +459,6 @@ if menu_choice == "🔐 አገባብ ይለዩ":
                     else:
                         st.error("Invalid password.")
 
-
 # Sidebar role badges
 if st.session_state.get("is_admin", False):
     st.sidebar.success(f"Signed in as Admin: {st.session_state.get('email','')}")
@@ -463,13 +471,18 @@ else:
 def count_levels(node):
     counts = {"gen1": 0, "gen2": 0, "gen3": 0, "gen4": 0}
     def dfs(child_node, depth):
-        if not isinstance(child_node, dict): return
-        if depth == 1: counts["gen2"] += 1
-        elif depth == 2: counts["gen3"] += 1
-        elif depth == 3: counts["gen4"] += 1
+        if not isinstance(child_node, dict):
+            return
+        if depth == 1:
+            counts["gen2"] += 1
+        elif depth == 2:
+            counts["gen3"] += 1
+        elif depth == 3:
+            counts["gen4"] += 1
         if depth < 3:
             for sub in child_node.get("children", {}).values():
                 dfs(sub, depth+1)
+    # Determine if the node is the top-level family_data dict
     is_top = isinstance(node, dict) and any(isinstance(v, dict) and ("description" in v or "children" in v) for v in node.values())
     if is_top:
         roots = [v for v in node.values() if isinstance(v, dict)]
@@ -527,8 +540,12 @@ def display_search_results(results):
         path_disp = " → ".join(disp_name(p) for p in path)
         name_disp = disp_name(path[-1])
         rep = count_levels(node)
-        st.markdown(f"<div class='search-result'><b>{name_disp}</b> <div style='font-size:0.9rem;color:#555;'>መንገድ: {path_disp} — ውጤት ውህድ: {score:.2f}</div>", unsafe_allow_html=T[...]
-        st.markdown(f"<div style='margin-top:6px;'>📞 {node.get('phone','-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b> &nbsp; ታላቅ የ[...]
+        st.markdown(
+            f"<div class='search-result'><b>{name_disp}</b>"
+            f"<div style='font-size:0.9rem;color:#555;'>መንገድ: {path_disp} — ውጤት ውህድ: {score:.2f}</div>",
+            unsafe_allow_html=True
+        )
+        st.markdown(f"<div style='margin-top:6px;'>📞 {node.get('phone','-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>", unsafe_allow_html=True)
         col1, col2 = st.columns([1, 4])
         with col1:
             if st.button("በዝርር አሳይ", key=f"show_in_tree_{i}_{'_'.join(path)}"):
@@ -653,7 +670,7 @@ def display_family(name, data, ancestors=None, level=0):
                     if st.button("📊 ሪፖርት", key=f"report_{key_base}"):
                         cur = st.session_state.get(f"report_mode_{key_base}", False)
                         st.session_state[f"report_mode_{key_base}"] = not cur
-                        # no permanent data change required, but save to persist session-based toggles if desired
+                        # session-only toggle; persisting family data isn't necessary, but harmless
                         save_family_data(st.session_state.family_data)
                         st.rerun()
 
@@ -731,9 +748,7 @@ def display_family(name, data, ancestors=None, level=0):
 
             # Per-node report display (toggleable)
             if st.session_state.get(f"report_mode_{key_base}", False):
-                # count_levels works for node/subtree as passed
                 rep_node = count_levels(node)
-                # Display a compact report box for this subtree
                 st.markdown("<div class='report-box' style='margin-top:8px;'>", unsafe_allow_html=True)
                 st.markdown(f"<div style='font-weight:700; color:#0b6cff; margin-bottom:6px;'>📊 {disp_name(name)} የንዑስ ሪፖርት</div>", unsafe_allow_html=True)
                 st.markdown(f"<div class='report-item'>ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen2']}</span></div>", unsafe_allow_html=True)
@@ -742,6 +757,7 @@ def display_family(name, data, ancestors=None, level=0):
                 st.markdown(f"<hr><div class='report-item'>ጠቅላላ: <span style='font-weight:900; color:#111;'>{rep_node['total_descendants']}</span></div>", unsafe_allow_html=True)
                 st.markdown("</div>", unsafe_allow_html=True)
 
+        # recurse into children
         for ch, cd in list(node.get("children", {}).items()):
             display_family(ch, cd, ancestors=path, level=level + 1)
 
@@ -769,9 +785,6 @@ with hcol2:
             st.session_state.show_search = not st.session_state.show_search
 
 # ---------------- ADMIN CONTROLS (moved to bottom) ----------------
-# We removed the earlier duplicate export sections and instead add a pinned bottom bar
-# which renders at the bottom of the page (admin-only controls appear there).
-
 # Quiz gate (admin bypasses)
 if not st.session_state.get("is_admin", False):
     if not st.session_state.quiz_done:
@@ -792,8 +805,10 @@ else:
 if st.session_state.show_search:
     st.markdown('<div class="section-title">🔎 ፈልግ</div>', unsafe_allow_html=True)
     with st.form("search_form"):
-        search_query = st.text_input("የ እንግሊዘኛ ፊደላትን በመጥቀም በስም ወይም በመግለጫ ይፈልጉ ",
-                                     value=st.session_state.get('last_search', ''))
+        search_query = st.text_input(
+            "የ እንግሊዘኛ ፊደላትን በመጥቀም በስም ወይም በመግለጫ ይፈልጉ ",
+            value=st.session_state.get('last_search', '')
+        )
         search_submit = st.form_submit_button("ፈልግ")
         if search_submit:
             st.session_state.last_search = search_query
@@ -811,7 +826,7 @@ st.markdown('<div class="section-title">🌳 የቤተሰብ ዝርዝር</div>'
 for mother, md in st.session_state.family_data.items():
     display_family(mother, md, ancestors=[], level=0)
 
-# ---------------- FAMILY REPORT ----------------
+# ---------------- FAMILY REPORT (overall) ----------------
 rep = count_levels(st.session_state.family_data)
 st.markdown(f"""
     <div class="report-box">
@@ -826,28 +841,25 @@ st.markdown(f"""
     """, unsafe_allow_html=True)
 
 # ---------------- PDF GENERATION (Summary + Full Tree, include photos where available) ----------------
-def build_tree_lines(data, indent=0, lines=None, parent_name=None):
+def build_tree_lines(data, indent=0, lines=None):
     if lines is None:
         lines = []
     for name, node in data.items():
-        prefix = "  " * indent + ("- " if indent >=0 else "")
+        prefix = "  " * indent + "- "
         partner = node.get("partner", "")
         partner_disp = f" ({disp_name(partner)})" if partner else ""
         lines.append(f"{prefix}{disp_name(name)}{partner_disp} — {node.get('description','')}")
-        # include phone if available
         if node.get("phone"):
             lines.append("  " * (indent+1) + f"📞 {node.get('phone')}")
-        # process children
         children = node.get("children", {})
         if children:
-            build_tree_lines(children, indent+1, lines, parent_name=name)
+            build_tree_lines(children, indent+1, lines)
     return lines
 
 def generate_pdf_bytes(family_data):
     """Return bytes of a PDF containing summary report + full family tree and photos where available."""
     buf = BytesIO()
     if not REPORTLAB_AVAILABLE:
-        # fallback: simple text-based PDF via plain BytesIO (not ideal)
         buf.write("PDF generation libs not available on server.\n".encode("utf-8"))
         return buf.getvalue()
 
@@ -895,14 +907,11 @@ def generate_pdf_bytes(family_data):
 
     lines = build_tree_lines(family_data)
     for line in lines:
-        # Wrap long lines
         max_width = PAGE_WIDTH - 2 * margin
-        # simple wrap
         if pdf_canvas.stringWidth(line, "Helvetica", 10) <= max_width:
             pdf_canvas.drawString(margin, y, line)
             y -= 12
         else:
-            # naive wrap by words
             words = line.split()
             cur = ""
             for w in words:
@@ -930,7 +939,6 @@ def generate_pdf_bytes(family_data):
     pdf_canvas.setFont("Helvetica", 10)
 
     def draw_member_with_photo(name, node, cur_y):
-        # draw image (if available) and text beside it
         img_path = node.get("photo", "")
         text = f"{disp_name(name)} — {node.get('description','')} ({node.get('phone','-')})"
         img_w = 70
@@ -943,28 +951,23 @@ def generate_pdf_bytes(family_data):
                 pdf_canvas.drawImage(ir, margin, cur_y - img_h, width=img_w, height=img_h)
                 pdf_canvas.drawString(margin + img_w + 8, cur_y - 14, text)
             except Exception:
-                # if image loading fails, just draw text
                 pdf_canvas.drawString(margin, cur_y - 14, text)
         else:
             pdf_canvas.drawString(margin, cur_y - 14, text)
         return cur_y - max(img_h + 10, 20)
 
-    # traverse tree and draw photos with spacing
     for mother_name, mother_node in family_data.items():
         y = draw_member_with_photo(mother_name, mother_node, y)
-        # children
         for child_name, child_node in mother_node.get("children", {}).items():
             if y < margin + 100:
                 pdf_canvas.showPage()
                 y = PAGE_HEIGHT - margin
             y = draw_member_with_photo(child_name, child_node, y)
-            # grandchildren
             for gc_name, gc_node in child_node.get("children", {}).items():
                 if y < margin + 100:
                     pdf_canvas.showPage()
                     y = PAGE_HEIGHT - margin
                 y = draw_member_with_photo(gc_name, gc_node, y)
-                # Great-grandchildren
                 for ggc_name, ggc_node in gc_node.get("children", {}).items():
                     if y < margin + 100:
                         pdf_canvas.showPage()
@@ -984,8 +987,7 @@ def admin_bottom_bar():
         if st.button("🔄 Reset All Data (for recovery)", key="reset_all_bottom"):
             st.session_state.family_data = copy.deepcopy(default_family_data)
             save_family_data(st.session_state.family_data)
-            # also reset auth data to defaults
-            # FIX: remove correct auth file (was previously "auth.json")
+            # also reset auth data to defaults - fix: remove correct auth file
             if os.path.exists(AUTH_FILE):
                 os.remove(AUTH_FILE)
             st.success("✅ App reset to defaults. Please refresh and log in again.")
@@ -1012,7 +1014,6 @@ def admin_bottom_bar():
 admin_bottom_bar()
 
 # ---------------- Change-password flow (when admin uses default password) ----------------
-# This is shown in main area when admin logged in and must change password
 if st.session_state.get("is_admin", False) and st.session_state.get("email"):
     auth_data = st.session_state.get("auth_data", {})
     rec = auth_data.get(st.session_state["email"].lower())
@@ -1028,10 +1029,8 @@ if st.session_state.get("is_admin", False) and st.session_state.get("email"):
             elif new_pw != confirm_pw:
                 st.error("Passwords do not match.")
             else:
-                # update persisted auth data
                 auth_data[st.session_state["email"].lower()]["password_hash"] = hash_password(new_pw)
                 auth_data[st.session_state["email"].lower()]["must_change"] = False
-                # remove plain default if present
                 if "default_plain" in auth_data[st.session_state["email"].lower()]:
                     auth_data[st.session_state["email"].lower()].pop("default_plain", None)
                 save_auth_data(auth_data)
