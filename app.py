@@ -137,10 +137,10 @@ button[data-baseweb="button"]:hover { background: linear-gradient(45deg, #112d4e
 # ---------------- QUIZ ----------------
 quiz_questions = [
     {"question": "ሱንከሞ ስንት ልጆች አሉት?", "answer": "9"},
-    {"question": "ሙሀመድ ስንት ሚስቶች ነበሩት?", "answer": "5"},
+    {"question": "ኢማም ሙሀመድ ስንት ሚስቶች ነበሯቸው?", "answer": "5"},
     {"question": "እናት ሸመጌ ስንት ልጆች ነበራት?", "answer": "5"},
-    {"question": "እናት ኑርሰቤ ስንት ልጆች ነበሩ?", "answer": "9"},
-    {"question": "እናት ዲልቦ ስንት ልጆች ነበሩ?", "answer": "4"},
+    {"question": "እናት ኑርሰቤ ስንት ልጆች አላት?", "answer": "8"},
+    {"question": "እናት ዲልቦ ስንት ልጆች ነበራት?", "answer": "4"},
 ]
 
 # ---------------- DEFAULT DATA ----------------
