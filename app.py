@@ -16,6 +16,7 @@ try:
     from reportlab.lib.pagesizes import A4
     from reportlab.lib.utils import ImageReader
     from PIL import Image
+
     REPORTLAB_AVAILABLE = True
 except Exception:
     REPORTLAB_AVAILABLE = False
@@ -53,8 +54,11 @@ DISPLAY_NAME = {
     "Hayat": "ሃያት",
     "Abdurezak": "አብዱረዛቅ"
 }
+
+
 def disp_name(key):
     return DISPLAY_NAME.get(key, key)
+
 
 # ---------------- CONFIG & FILES ----------------
 st.set_page_config(page_title="የኢማም ሙሀመድ የቤተሰብ ማዕከል", layout="centered")
@@ -216,11 +220,16 @@ default_family_data = {
         "locked_root": True,
         "photo": "",
         "children": {
-            "Sunkemo": {"description": "የ የ ሸመጌ የመጀመሪያ ልጅ", "children": {}, "phone": "0920138830", "photo": "", "fixed_generation": False},
-            "Bedriya": {"description": "የ ሸመጌ ሁለተኛ ልጅ", "children": {}, "phone": "0913558013", "photo": "", "fixed_generation": False},
-            "Rahmet": {"description": "የ ሸመጌ ሶስተኛ ልጅ", "children": {}, "phone": "0921610321", "photo": "", "fixed_generation": False},
-            "Mustefa": {"description": "የ ሸመጌ አራተኛ ልጅ", "children": {}, "phone": "0911626138", "photo": "", "fixed_generation": False},
-            "Jemal": {"description": "የ ሸመጌ የመጨረሻ ልጅ", "children": {}, "phone": "0977922700", "photo": "", "fixed_generation": False},
+            "Sunkemo": {"description": "የ የ ሸመጌ የመጀመሪያ ልጅ", "children": {}, "phone": "0920138830", "photo": "",
+                        "fixed_generation": False},
+            "Bedriya": {"description": "የ ሸመጌ ሁለተኛ ልጅ", "children": {}, "phone": "0913558013", "photo": "",
+                        "fixed_generation": False},
+            "Rahmet": {"description": "የ ሸመጌ ሶስተኛ ልጅ", "children": {}, "phone": "0921610321", "photo": "",
+                       "fixed_generation": False},
+            "Mustefa": {"description": "የ ሸመጌ አራተኛ ልጅ", "children": {}, "phone": "0911626138", "photo": "",
+                        "fixed_generation": False},
+            "Jemal": {"description": "የ ሸመጌ የመጨረሻ ልጅ", "children": {}, "phone": "0977922700", "photo": "",
+                      "fixed_generation": False},
         },
     },
     "Nursebe": {
@@ -231,14 +240,22 @@ default_family_data = {
         "locked_root": True,
         "photo": "",
         "children": {
-            "Sefiya": {"description": "የ ኑርሰቤ የመጀመሪያ ልጅ", "children": {}, "phone": "0910000000", "photo": "", "fixed_generation": False},
-            "Oumer": {"description": "የ ኑርሰቤ ሁለተኛ ልጅ", "children": {}, "phone": "0910000001", "photo": "", "fixed_generation": False},
-            "Ayro": {"description": "የ ኑርሰቤ ሶስተኛ ልጅ", "children": {}, "phone": "0912854001", "photo": "", "fixed_generation": False},
-            "Selima": {"description": "የ ኑርሰቤ አራተኛ ልጅ", "children": {}, "phone": "0963835660", "photo": "", "fixed_generation": False},
-            "Reshad": {"description": "የ ኑርሰቤ አምስተኛ ልጅ", "children": {}, "phone": "0911154225", "photo": "", "fixed_generation": False},
-            "Fetiya": {"description": "የ ኑርሰቤ ስድስተኛ ልጅ", "children": {}, "phone": "0966046176", "photo": "", "fixed_generation": False},
-            "Aliyu": {"description": "የ ኑርሰቤ ሰባተኛ ልጅ", "children": {}, "phone": "0911287428", "photo": "", "fixed_generation": False},
-            "Neja": {"description": "የ ኑርሰቤ የመጨረሻ ልጅ", "children": {}, "phone": "0911441196", "photo": "", "fixed_generation": False},
+            "Sefiya": {"description": "የ ኑርሰቤ የመጀመሪያ ልጅ", "children": {}, "phone": "0910000000", "photo": "",
+                       "fixed_generation": False},
+            "Oumer": {"description": "የ ኑርሰቤ ሁለተኛ ልጅ", "children": {}, "phone": "0910000001", "photo": "",
+                      "fixed_generation": False},
+            "Ayro": {"description": "የ ኑርሰቤ ሶስተኛ ልጅ", "children": {}, "phone": "0912854001", "photo": "",
+                     "fixed_generation": False},
+            "Selima": {"description": "የ ኑርሰቤ አራተኛ ልጅ", "children": {}, "phone": "0963835660", "photo": "",
+                       "fixed_generation": False},
+            "Reshad": {"description": "የ ኑርሰቤ አምስተኛ ልጅ", "children": {}, "phone": "0911154225", "photo": "",
+                       "fixed_generation": False},
+            "Fetiya": {"description": "የ ኑርሰቤ ስድስተኛ ልጅ", "children": {}, "phone": "0966046176", "photo": "",
+                       "fixed_generation": False},
+            "Aliyu": {"description": "የ ኑርሰቤ ሰባተኛ ልጅ", "children": {}, "phone": "0911287428", "photo": "",
+                      "fixed_generation": False},
+            "Neja": {"description": "የ ኑርሰቤ የመጨረሻ ልጅ", "children": {}, "phone": "0911441196", "photo": "",
+                     "fixed_generation": False},
         },
     },
     "Dilbo": {
@@ -249,10 +266,14 @@ default_family_data = {
         "locked_root": True,
         "photo": "",
         "children": {
-            "Sadik": {"description": "የ የመጀመሪያ ልጅ", "children": {}, "phone": "0953098207", "photo": "", "fixed_generation": False},
-            "Bahredin": {"description": "የ ዲልቦ ሁለተኛ ልጅ", "children": {}, "phone": "0913064107", "photo": "", "fixed_generation": False},
-            "Nasir": {"description": "የ ዲልቦ ሶስተኛ ልጅ", "children": {}, "phone": "0913956015", "photo": "", "fixed_generation": False},
-            "Abdusemed": {"description": "የ ዲልቦ የመጨረሻ ልጅ", "children": {}, "phone": "0912765901", "photo": "", "fixed_generation": False},
+            "Sadik": {"description": "የ የመጀመሪያ ልጅ", "children": {}, "phone": "0953098207", "photo": "",
+                      "fixed_generation": False},
+            "Bahredin": {"description": "የ ዲልቦ ሁለተኛ ልጅ", "children": {}, "phone": "0913064107", "photo": "",
+                         "fixed_generation": False},
+            "Nasir": {"description": "የ ዲልቦ ሶስተኛ ልጅ", "children": {}, "phone": "0913956015", "photo": "",
+                      "fixed_generation": False},
+            "Abdusemed": {"description": "የ ዲልቦ የመጨረሻ ልጅ", "children": {}, "phone": "0912765901", "photo": "",
+                          "fixed_generation": False},
         },
     },
     "Rukiya": {
@@ -263,12 +284,18 @@ default_family_data = {
         "locked_root": True,
         "photo": "",
         "children": {
-            "Beytulah": {"description": "የ ሩቂያ አንደኛ ልጅ", "children": {}, "phone": "0919062619", "photo": "", "fixed_generation": False},
-            "Leyla": {"description": "የ ሩቂያ ሁለተኛ ልጅ", "children": {}, "phone": "0939145817", "photo": "", "fixed_generation": False},
-            "Zulfa": {"description": "የ ሩቂያ ሶስተኛ ልጅ", "children": {}, "phone": "0937100577", "photo": "", "fixed_generation": False},
-            "Ishak": {"description": "የ ሩቂያ አራትኛ ልጅ", "children": {}, "phone": "0927983682", "photo": "", "fixed_generation": False},
-            "Mubarek": {"description": "የ ሩቂያ አምስተኛ ልጅ", "children": {}, "phone": "0923547118", "photo": "", "fixed_generation": False},
-            "Hayat": {"description": "የ ሩቂያ የመጨረሻ ልጅ", "children": {}, "phone": "0988088017", "photo": "", "fixed_generation": False},
+            "Beytulah": {"description": "የ ሩቂያ አንደኛ ልጅ", "children": {}, "phone": "0919062619", "photo": "",
+                         "fixed_generation": False},
+            "Leyla": {"description": "የ ሩቂያ ሁለተኛ ልጅ", "children": {}, "phone": "0939145817", "photo": "",
+                      "fixed_generation": False},
+            "Zulfa": {"description": "የ ሩቂያ ሶስተኛ ልጅ", "children": {}, "phone": "0937100577", "photo": "",
+                      "fixed_generation": False},
+            "Ishak": {"description": "የ ሩቂያ አራትኛ ልጅ", "children": {}, "phone": "0927983682", "photo": "",
+                      "fixed_generation": False},
+            "Mubarek": {"description": "የ ሩቂያ አምስተኛ ልጅ", "children": {}, "phone": "0923547118", "photo": "",
+                        "fixed_generation": False},
+            "Hayat": {"description": "የ ሩቂያ የመጨረሻ ልጅ", "children": {}, "phone": "0988088017", "photo": "",
+                      "fixed_generation": False},
         },
     },
     "Nefissa": {
@@ -279,11 +306,13 @@ default_family_data = {
         "locked_root": True,
         "photo": "",
         "children": {
-            "Abdurezak": {"description": "የ ነፊሳ የመጀመሪያ ልጅ", "children": {}, "phone": "0912868786", "photo": "", "fixed_generation": False},
+            "Abdurezak": {"description": "የ ነፊሳ የመጀመሪያ ልጅ", "children": {}, "phone": "0912868786", "photo": "",
+                          "fixed_generation": False},
         },
     }
 }
 MOTHERS_WITH_DEFAULT_PARTNER = ["Shemege", "Nursebe", "Dilbo", "Rukiya", "Nefissa"]
+
 
 # ---------------- UTILS: atomic save/load ----------------
 def load_json_file(path, fallback=None):
@@ -295,6 +324,7 @@ def load_json_file(path, fallback=None):
             print("Error reading", path, e)
     return copy.deepcopy(fallback) if fallback is not None else {}
 
+
 def atomic_save_json(path, data):
     tmp = path + ".tmp"
     try:
@@ -304,11 +334,13 @@ def atomic_save_json(path, data):
     except Exception as e:
         print("Error saving", path, e)
 
+
 def load_family_data():
     d = load_json_file(DATA_FILE, fallback=default_family_data)
     if not isinstance(d, dict):
         return copy.deepcopy(default_family_data)
     return d
+
 
 def save_family_data(data):
     """
@@ -331,14 +363,17 @@ def save_family_data(data):
         print("Error saving", DATA_FILE, e)
         return False
 
+
 # ---------------- AUTH (hashed passwords) ----------------
 def hash_password(password: str) -> str:
     return hashlib.sha256(password.encode("utf-8")).hexdigest()
+
 
 def check_password(stored_hash: str, entered_password: str) -> bool:
     if not stored_hash:
         return False
     return stored_hash == hash_password(entered_password)
+
 
 def load_auth_data():
     d = load_json_file(AUTH_FILE, fallback={})
@@ -346,10 +381,12 @@ def load_auth_data():
         return {}
     return d
 
+
 def save_auth_data(d):
     if not isinstance(d, dict):
         return
     atomic_save_json(AUTH_FILE, d)
+
 
 # ---------------- SESSION STATE ----------------
 if "family_data" not in st.session_state:
@@ -382,10 +419,12 @@ if "tried_local_email_detect" not in st.session_state:
 # Allowed admin emails (from you)
 ALLOWED_ADMIN_EMAILS = {"abdilselamabas@gmail.com", "nihadaliyu@gmail.com"}
 
+
 # ---------------- Initialize auth_data with unique default passwords if empty ----------------
 def _localpart_default(email):
     local = email.split("@")[0] if "@" in email else email
     return f"{local}123"
+
 
 _initial_auth = load_auth_data()
 if not _initial_auth:
@@ -549,15 +588,17 @@ if menu_choice == "🔐 አገባብ ይለዩ":
 
 # Sidebar role badges
 if st.session_state.get("is_admin", False):
-    st.sidebar.success(f"Signed in as Admin: {st.session_state.get('email','')}")
+    st.sidebar.success(f"Signed in as Admin: {st.session_state.get('email', '')}")
 elif st.session_state.get("login_role") == "Guest":
     st.sidebar.info("Signed in as Guest () — quiz required")
 else:
     st.sidebar.info("Please choose role")
 
+
 # ---------------- COUNTING / REPORT ----------------
 def count_levels(node):
     counts = {"gen1": 0, "gen2": 0, "gen3": 0, "gen4": 0}
+
     def dfs(child_node, depth):
         if not isinstance(child_node, dict):
             return
@@ -569,9 +610,11 @@ def count_levels(node):
             counts["gen4"] += 1
         if depth < 3:
             for sub in child_node.get("children", {}).values():
-                dfs(sub, depth+1)
+                dfs(sub, depth + 1)
+
     # Determine if the node is the top-level family_data dict
-    is_top = isinstance(node, dict) and any(isinstance(v, dict) and ("description" in v or "children" in v) for v in node.values())
+    is_top = isinstance(node, dict) and any(
+        isinstance(v, dict) and ("description" in v or "children" in v) for v in node.values())
     if is_top:
         roots = [v for v in node.values() if isinstance(v, dict)]
         counts["gen1"] = len(roots)
@@ -585,17 +628,20 @@ def count_levels(node):
     counts["total_descendants"] = counts["gen2"] + counts["gen3"] + counts["gen4"]
     return counts
 
+
 # ---------------- SEARCH (fuzzy) ----------------
 def fuzzy_score(a, b):
     if not a or not b:
         return 0.0
     return difflib.SequenceMatcher(None, a, b).ratio()
 
+
 def find_nodes_by_name_fuzzy(query, max_results=50, threshold=0.45):
     q = (query or "").strip().lower()
     results = []
     if not q:
         return results
+
     def _dfs(node, path):
         if not isinstance(node, dict):
             return
@@ -614,10 +660,12 @@ def find_nodes_by_name_fuzzy(query, max_results=50, threshold=0.45):
             results.append((combined, path.copy(), node))
         for child_name, child_node in node.get("children", {}).items():
             _dfs(child_node, path + [child_name])
+
     for root_name, root_node in st.session_state.family_data.items():
         _dfs(root_node, [root_name])
     results.sort(key=lambda x: x[0], reverse=True)
     return results[:max_results]
+
 
 def display_search_results(results):
     if not results:
@@ -633,7 +681,9 @@ def display_search_results(results):
             f"<div style='font-size:0.9rem;color:#555;'>መንገድ: {path_disp} — ውጤት ውህድ: {score:.2f}</div>",
             unsafe_allow_html=True
         )
-        st.markdown(f"<div style='margin-top:6px;'>📞 {node.get('phone','-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div style='margin-top:6px;'>📞 {node.get('phone', '-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>",
+            unsafe_allow_html=True)
         col1, col2 = st.columns([1, 4])
         with col1:
             if st.button("በዝርር አሳይ", key=f"show_in_tree_{i}_{'_'.join(path)}"):
@@ -641,10 +691,11 @@ def display_search_results(results):
                 save_family_data(st.session_state.family_data)
                 st.rerun()
         with col2:
-            img = node.get('photo','')
+            img = node.get('photo', '')
             show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
             st.image(show_img, width=80)
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 # ---------------- TREE HELPERS / UI ----------------
 def get_node_and_parent_children(path):
@@ -664,6 +715,7 @@ def get_node_and_parent_children(path):
             return None, st.session_state.family_data
     return node, parent_children
 
+
 def get_parent_container(ancestors):
     if not ancestors:
         return st.session_state.family_data
@@ -671,6 +723,7 @@ def get_parent_container(ancestors):
     if node is None:
         return st.session_state.family_data
     return parent_children
+
 
 def display_family(name, data, ancestors=None, level=0):
     """Display node with inline add buttons; guest-safe; no add-child for default wives."""
@@ -717,9 +770,13 @@ def display_family(name, data, ancestors=None, level=0):
             # Inline row: name/desc on left, action buttons on right
             ncol, bcol = st.columns([3, 2])
             with ncol:
-                st.markdown(f"<div class='family-card'><b style='font-size:1.03rem'>{disp_name(name)}</b><div style='color:#556;margin-top:6px'>{node.get('description','')}</div></div>", unsafe_allow_html=True)
+                st.markdown(
+                    f"<div class='family-card'><b style='font-size:1.03rem'>{disp_name(name)}</b><div style='color:#556;margin-top:6px'>{node.get('description', '')}</div></div>",
+                    unsafe_allow_html=True)
                 if node.get("phone"):
-                    st.markdown(f"📞 <a href='tel:{node['phone']}' style='color:var(--accent-2);font-weight:600;text-decoration:none'>{node['phone']}</a>", unsafe_allow_html=True)
+                    st.markdown(
+                        f"📞 <a href='tel:{node['phone']}' style='color:var(--accent-2);font-weight:600;text-decoration:none'>{node['phone']}</a>",
+                        unsafe_allow_html=True)
 
             with bcol:
                 allow_guest_add = True
@@ -734,7 +791,8 @@ def display_family(name, data, ancestors=None, level=0):
                             st.session_state.pop(f"edit_mode_{key_base}", None)
 
                 # Add Child button (skip for default wives)
-                if name not in MOTHERS_WITH_DEFAULT_PARTNER and node.get("partner", "") and not node.get("fixed_generation", False):
+                if name not in MOTHERS_WITH_DEFAULT_PARTNER and node.get("partner", "") and not node.get(
+                        "fixed_generation", False):
                     if is_admin or allow_guest_add:
                         if st.button("👶 ልጅ መዝግብ", key=f"btn_child_{key_base}"):
                             st.session_state[f"child_mode_{key_base}"] = True
@@ -786,7 +844,8 @@ def display_family(name, data, ancestors=None, level=0):
                         if not cname.strip():
                             st.error("ስም ያስፈልጋል።")
                         else:
-                            child = {"description": cdesc, "children": {}, "phone": cphone, "photo": "", "fixed_generation": False}
+                            child = {"description": cdesc, "children": {}, "phone": cphone, "photo": "",
+                                     "fixed_generation": False}
                             if cphoto:
                                 safe_base = "_".join(path + [cname]).replace(" ", "_")
                                 _, ext = os.path.splitext(cphoto.name)
@@ -836,10 +895,18 @@ def display_family(name, data, ancestors=None, level=0):
             if st.session_state.get(f"report_mode_{key_base}", False):
                 rep_node = count_levels(node)
                 st.markdown("<div class='report-box' style='margin-top:8px;'>", unsafe_allow_html=True)
-                st.markdown(f"<div style='font-weight:700; color:var(--accent-2); margin-bottom:6px;'>📊 {disp_name(name)} የንዑስ ሪፖርት</div>", unsafe_allow_html=True)
-                st.markdown(f"<div style='font-weight:600'>ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen2']}</span></div>", unsafe_allow_html=True)
-                st.markdown(f"<div style='font-weight:600'>የልጆች ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen3']}</span></div>", unsafe_allow_html=True)
-                st.markdown(f"<div style='font-weight:600'>የልጅ ልጅ ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen4']}</span></div>", unsafe_allow_html=True)
+                st.markdown(
+                    f"<div style='font-weight:700; color:var(--accent-2); margin-bottom:6px;'>📊 {disp_name(name)} የንዑስ ሪፖርት</div>",
+                    unsafe_allow_html=True)
+                st.markdown(
+                    f"<div style='font-weight:600'>ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen2']}</span></div>",
+                    unsafe_allow_html=True)
+                st.markdown(
+                    f"<div style='font-weight:600'>የልጆች ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen3']}</span></div>",
+                    unsafe_allow_html=True)
+                st.markdown(
+                    f"<div style='font-weight:600'>የልጅ ልጅ ልጆች: <span style='font-weight:800; color:#111;'>{rep_node['gen4']}</span></div>",
+                    unsafe_allow_html=True)
                 st.markdown("</div>", unsafe_allow_html=True)
 
         # recurse into children
@@ -848,156 +915,310 @@ def display_family(name, data, ancestors=None, level=0):
 
     st.markdown("</div>", unsafe_allow_html=True)
 
+
 # ---------------- MAIN APP ----------------
 st.markdown('<div class="main">', unsafe_allow_html=True)
 
-# header area with stylish search button on the right (title in Amharic)
-st.markdown(f'''
-    <div class="cool-header">
-      <div class="header-title">👨‍👩‍👧 የኢማም ሙሀመድ የቤተሰብ ማዕከል</div>
-      <div></div>
-    </div>
-    ''', unsafe_allow_html=True)
+# NOTE: Header removed per request - no title block above the carousel.
 
-# ---------------- Enhanced Sliding Carousel (already mobile-friendly) ----------------
-carousel_html = r"""
+# ---------------- Sliding Carousel (fixed pixel height, card fills container) ----------------
+# Set exact pixel height for the carousel and make the card fill its container so there is no free space at bottom.
+CAROUSEL_PX_HEIGHT = 360  # change this number to increase/decrease visible height (px)
+
+carousel_html = """
+<!-- Self-contained carousel snippet: paste into components.html(...) in Streamlit.
+   When embedding in Streamlit, call components.html(carousel_html, height: 360, scrolling=False)
+-->
 <style>
-:root{ --accent: #ff6b6b; --muted: #556; --bg: linear-gradient(90deg,#ffffffee,#f0f7ff); }
-#family-carousel-container{
-  width:100%; max-width:980px; margin: 18px auto; border-radius: 14px;
-  background: var(--bg); box-shadow: 0 14px 36px rgba(11,108,255,0.04); position: relative; height: 220px;
-}
-#family-carousel-viewport{ width:100%; height:100%; overflow:hidden; border-radius:12px; padding:8px; box-sizing:border-box; }
-#family-carousel-track{ display:flex; height:100%; transition: transform 1200ms cubic-bezier(.2,.9,.28,1); will-change:transform; }
-.family-carousel-slide{ flex:0 0 100%; display:flex; align-items:center; justify-content:center; padding: 10px; box-sizing:border-box; }
-.family-carousel-card{ width:100%; max-width:860px; background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95)); border-radius:12px; padding:16px; box-shadow: 0 10px 30px rgba(17,45,78,0.05); text-align:center; transform: scale(.98); opacity:.94; transition: transform 700ms, opacity 700ms; border-left:6px solid rgba(255,255,255,0); }
-.family-carousel-card.active{ transform: scale(1); opacity:1; border-left-color:var(--accent); box-shadow: 0 16px 40px rgba(255,107,107,0.12); }
-.family-carousel-title{ font-size:1.25rem; color:var(--accent); font-weight:700; margin-bottom:6px; }
-.family-carousel-quote{ font-size:1.02rem; color:#0e2738; line-height:1.45; }
-.family-carousel-footer{ margin-top:10px; color:var(--muted); font-size:0.92rem; }
+  :root {
+    --accent-blue: #0b6cff;
+    --accent-dark: #0747c5;
+    --muted: #556;
+    --card-bg: linear-gradient(180deg, #ffffff, #f2f8ff);
+  }
 
-/* controls and dots */
-.carousel-arrow{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.95); border:none; width:40px;height:40px;border-radius:50%; box-shadow:0 6px 18px rgba(17,45,78,0.08); cursor:pointer; z-index:9; color:#123a57; font-weight:700; }
-#carousel-prev{ left:12px; } #carousel-next{ right:12px; }
-.family-carousel-dots{ position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:9; }
-.family-carousel-dot{ width:12px;height:12px;border-radius:50%; background: rgba(11,108,255,0.12); border:none; cursor:pointer; transition:all 260ms; }
-.family-carousel-dot.active{ background:var(--accent); transform:scale(1.12); box-shadow: 0 6px 18px rgba(255,107,107,0.18); }
+  /* container: responsive width, fixed visual height (adjust as needed) */
+  #family-carousel-container {
+    width: 100%;
+    max-width: 980px;
+    margin: 18px auto;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(11,108,255,0.06), rgba(11,108,255,0.02));
+    box-shadow: 0 18px 48px rgba(11,108,255,0.08);
+    position: relative;
+    height: 360px;              /* override when embedding if you want larger/smaller */
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 12px;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  }
 
-/* reduce motion */
-@media (prefers-reduced-motion: reduce){ #family-carousel-track { transition:none !important; } .family-carousel-card { transition:none !important; } }
-@media (max-width:760px){ #family-carousel-container{ height:170px; } .family-carousel-title{ font-size:1.05rem; } .family-carousel-quote{ font-size:0.98rem; } }
+  /* viewport/track */
+  #family-carousel-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+  #family-carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 700ms cubic-bezier(.2,.9,.28,1);
+    will-change: transform;
+  }
+
+  /* slide & card */
+  .family-carousel-slide {
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;    /* vertical centering */
+    justify-content: center;/* horizontal centering */
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  .family-carousel-card {
+    width: 100%;
+    max-width: 860px;
+    height: calc(100% - 8px);
+    border-radius: 12px;
+    background: var(--card-bg);
+    padding: 24px 28px;
+    box-shadow: 0 14px 40px rgba(6,43,120,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    color: #07243f;
+    border: 1px solid rgba(11,108,255,0.08);
+  }
+
+  .family-carousel-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+
+  .family-carousel-quote {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #0e2738;
+    margin: 0;
+    max-width: 86%;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+
+  .family-carousel-footer {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  /* arrows */
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(180deg, #ffffff, rgba(255,255,255,0.95));
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--accent-dark);
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s;
+  }
+  .carousel-arrow:hover { transform: translateY(-50%) scale(1.04); box-shadow: 0 12px 28px rgba(2,6,23,0.12); }
+  #carousel-prev { left: 14px; }
+  #carousel-next { right: 14px; }
+
+  /* dots */
+  .family-carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display:flex;
+    gap:10px;
+  }
+  .family-carousel-dot {
+    width:12px; height:12px; border-radius:50%;
+    background: rgba(11,108,255,0.18);
+    border: none;
+    cursor: pointer;
+    transition: transform .18s, background .18s, box-shadow .18s;
+  }
+  .family-carousel-dot.active {
+    background: var(--accent-blue);
+    transform: scale(1.25);
+    box-shadow: 0 8px 20px rgba(11,108,255,0.18);
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    #family-carousel-track { transition: none !important; }
+  }
+
+  /* responsive tweaks */
+  @media (max-width: 760px) {
+    #family-carousel-container { height: 300px; padding: 10px; }
+    .family-carousel-card { padding: 16px; }
+    .family-carousel-title { font-size: 1.05rem; }
+    .family-carousel-quote { font-size: 0.98rem; max-width: 92%; }
+    .carousel-arrow { width:40px; height:40px; font-size:20px; }
+  }
 </style>
 
-<div id="family-carousel-container" role="region" aria-label="Welcome carousel">
-  <div id="family-carousel-viewport" tabindex="0">
-    <div id="family-carousel-track" aria-live="polite"></div>
+<div id="family-carousel-container" role="region" aria-label="Blue themed centered text carousel">
+  <div id="family-carousel-viewport" tabindex="0" aria-live="polite">
+    <div id="family-carousel-track"></div>
   </div>
 
   <button class="carousel-arrow" id="carousel-prev" aria-label="Previous slide">‹</button>
   <button class="carousel-arrow" id="carousel-next" aria-label="Next slide">›</button>
 
-  <div class="family-carousel-dots" id="family-carousel-dots" role="tablist" aria-hidden="false"></div>
+  <div class="family-carousel-dots" id="family-carousel-dots" role="tablist"></div>
 </div>
 
 <script>
-(function(){
+(function () {
+  // Edit these slides to change content
   const slides = [
     { title: "እንኳን ደህና መጡ", text: "Welcome to Imam Mohammed family hub" },
-    { title: "ልምድ አንድ", text: "Family is the compass that guides us." },
-    { title: "ልምድ ሁለት", text: "Roots run deep — remember your elders." },
-    { title: "ልምድ ሶስት", text: "Share stories — keep memories alive." },
-    { title: "አመሰግናለሁ", text: "Thank you — እናመሰግናለን" }
+    { title: "Family Compass", text: "Family is the compass that guides us — keep traditions alive and tell the stories of your elders." },
+    { title: "Rooted in History", text: "Roots run deep. Remember your elders: share their stories, learn from them, and pass their memory on to the next generation." },
+    { title: "Share & Remember", text: "Share stories, photos, and memories to preserve family history for years to come." }
   ];
 
   const track = document.getElementById('family-carousel-track');
   const dotsContainer = document.getElementById('family-carousel-dots');
   const prevBtn = document.getElementById('carousel-prev');
   const nextBtn = document.getElementById('carousel-next');
-  const viewport = document.getElementById('family-carousel-viewport');
-  if(!track) return;
 
   let index = 0;
   const total = slides.length;
-  const intervalMs = 10000; // 10s
-  let autoplay = true;
+  const intervalMs = 9000;
   let timer = null;
+  let autoplay = true;
 
+  // Build slides + dots
   slides.forEach((s, i) => {
     const slide = document.createElement('div');
     slide.className = 'family-carousel-slide';
     slide.id = 'slide-' + i;
-    slide.innerHTML = '<div class="family-carousel-card"><div class="family-carousel-title">' + s.title + '</div>'
-                    + '<div class="family-carousel-quote">' + s.text + '</div>'
-                    + '<div class="family-carousel-footer">ይቆዩ — Sit and read</div></div>';
+
+    const card = document.createElement('div');
+    card.className = 'family-carousel-card';
+
+    const title = document.createElement('div');
+    title.className = 'family-carousel-title';
+    title.textContent = s.title;
+
+    const quote = document.createElement('p');
+    quote.className = 'family-carousel-quote';
+    quote.textContent = s.text;
+
+    const footer = document.createElement('div');
+    footer.className = 'family-carousel-footer';
+    footer.textContent = '—';
+
+    card.appendChild(title);
+    card.appendChild(quote);
+    card.appendChild(footer);
+    slide.appendChild(card);
     track.appendChild(slide);
 
     const dot = document.createElement('button');
     dot.className = 'family-carousel-dot';
-    dot.setAttribute('aria-label','Go to slide ' + (i+1));
-    dot.onclick = () => { goTo(i, true); };
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.addEventListener('click', () => { goTo(i, true); });
     dotsContainer.appendChild(dot);
   });
 
-  function setActiveCard(){
-    for(let i=0;i<total;i++){
-      const card = document.querySelector('#slide-' + i + ' .family-carousel-card');
-      if(card) card.classList.toggle('active', i === index);
-    }
-  }
-
-  function updateDots(){
+  function setActive() {
     const dots = dotsContainer.querySelectorAll('.family-carousel-dot');
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    const cards = track.querySelectorAll('.family-carousel-card');
+    cards.forEach((c, i) => c.classList.toggle('active', i === index));
   }
 
-  function refreshTransform(animate=true){
-    track.style.transition = animate ? 'transform 1200ms cubic-bezier(.2,.9,.28,1)' : 'none';
+  function refresh(animate = true) {
+    track.style.transition = animate ? 'transform 700ms cubic-bezier(.2,.9,.28,1)' : 'none';
     track.style.transform = 'translateX(' + (-index * 100) + '%)';
-    updateDots();
-    setActiveCard();
+    setActive();
   }
 
-  function next(){ index = (index + 1) % total; refreshTransform(true); }
-  function prev(){ index = (index - 1 + total) % total; refreshTransform(true); }
-  function goTo(i, userTriggered){
+  function next() { index = (index + 1) % total; refresh(true); }
+  function prev() { index = (index - 1 + total) % total; refresh(true); }
+  function goTo(i, userTriggered) {
     index = ((i % total) + total) % total;
-    refreshTransform(true);
-    if(userTriggered) restartTimer();
+    refresh(true);
+    if (userTriggered) restartTimer();
   }
 
-  function restartTimer(){
-    if(timer) clearInterval(timer);
-    if(autoplay) timer = setInterval(next, intervalMs);
+  function restartTimer() {
+    if (timer) clearInterval(timer);
+    if (autoplay) timer = setInterval(next, intervalMs);
   }
 
   prevBtn.addEventListener('click', () => { prev(); restartTimer(); });
   nextBtn.addEventListener('click', () => { next(); restartTimer(); });
 
+  // pause on hover/focus
   const container = document.getElementById('family-carousel-container');
-  container.addEventListener('mouseenter', () => { if(timer) clearInterval(timer); });
-  container.addEventListener('mouseleave', () => { restartTimer(); });
-  viewport.addEventListener('focus', () => { if(timer) clearInterval(timer); }, true);
-  viewport.addEventListener('blur', () => { restartTimer(); }, true);
+  container.addEventListener('mouseenter', () => { if (timer) clearInterval(timer); }, false);
+  container.addEventListener('mouseleave', () => { restartTimer(); }, false);
+  container.addEventListener('focusin', () => { if (timer) clearInterval(timer); }, false);
+  container.addEventListener('focusout', () => { restartTimer(); }, false);
 
-  viewport.addEventListener('keydown', (e) => {
-    if(e.key === 'ArrowLeft'){ prev(); restartTimer(); }
-    if(e.key === 'ArrowRight'){ next(); restartTimer(); }
+  // keyboard support
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { prev(); restartTimer(); }
+    if (e.key === 'ArrowRight') { next(); restartTimer(); }
   });
 
-  // swipe support
-  let startX=0, deltaX=0, touching=false;
-  viewport.addEventListener('touchstart', (e)=>{ touching=true; if(timer) clearInterval(timer); startX = e.touches[0].clientX; track.style.transition='none'; }, {passive:true});
-  viewport.addEventListener('touchmove', (e)=>{ if(!touching) return; deltaX = e.touches[0].clientX - startX; const percent = (deltaX / viewport.clientWidth) * 100; track.style.transform = 'translateX(' + ((-index*100) + percent) + '%)'; }, {passive:true});
-  viewport.addEventListener('touchend', ()=>{ touching=false; if(Math.abs(deltaX) > (viewport.clientWidth * 0.12)){ if(deltaX>0) prev(); else next(); } else { refreshTransform(true); } deltaX=0; restartTimer(); });
+  // touch support
+  let startX = 0, touching = false;
+  const viewport = document.getElementById('family-carousel-viewport');
+  viewport.addEventListener('touchstart', (e) => { touching = true; startX = e.touches[0].clientX; if (timer) clearInterval(timer); track.style.transition = 'none'; }, {passive: true});
+  viewport.addEventListener('touchmove', (e) => {
+    if (!touching) return;
+    const delta = e.touches[0].clientX - startX;
+    const percent = (delta / viewport.clientWidth) * 100;
+    track.style.transform = 'translateX(' + ((-index * 100) + percent) + '%)';
+  }, {passive: true});
+  viewport.addEventListener('touchend', (e) => {
+    touching = false;
+    const delta = e.changedTouches[0].clientX - startX;
+    if (Math.abs(delta) > viewport.clientWidth * 0.12) {
+      if (delta > 0) prev(); else next();
+    } else {
+      refresh(true);
+    }
+    restartTimer();
+  }, {passive: true});
 
   // init
-  refreshTransform(false);
-  setActiveCard();
+  refresh(false);
   restartTimer();
+
 })();
 </script>
 """
-components.html(carousel_html, height=260, scrolling=False)
+
+# components.html height must equal the fixed pixel height to avoid extra reserved space
+components.html(carousel_html, height=CAROUSEL_PX_HEIGHT, scrolling=False)
 
 # ensure the search form is hidden while quiz not done (guests)
 if not st.session_state.get("quiz_done", False) and not st.session_state.get("is_admin", False):
@@ -1065,6 +1286,7 @@ st.markdown(f"""
     </div>
     """, unsafe_allow_html=True)
 
+
 # ---------------- PDF GENERATION (Summary + Full Tree, include photos where available) ----------------
 def build_tree_lines(data, indent=0, lines=None):
     if lines is None:
@@ -1073,13 +1295,14 @@ def build_tree_lines(data, indent=0, lines=None):
         prefix = "  " * indent + "- "
         partner = node.get("partner", "")
         partner_disp = f" ({disp_name(partner)})" if partner else ""
-        lines.append(f"{prefix}{disp_name(name)}{partner_disp} — {node.get('description','')}")
+        lines.append(f"{prefix}{disp_name(name)}{partner_disp} — {node.get('description', '')}")
         if node.get("phone"):
-            lines.append("  " * (indent+1) + f"📞 {node.get('phone')}")
+            lines.append("  " * (indent + 1) + f"📞 {node.get('phone')}")
         children = node.get("children", {})
         if children:
-            build_tree_lines(children, indent+1, lines)
+            build_tree_lines(children, indent + 1, lines)
     return lines
+
 
 def generate_pdf_bytes(family_data):
     """Return bytes of a PDF containing summary report + full family tree and photos where available."""
@@ -1165,7 +1388,7 @@ def generate_pdf_bytes(family_data):
 
     def draw_member_with_photo(name, node, cur_y):
         img_path = node.get("photo", "")
-        text = f"{disp_name(name)} — {node.get('description','')} ({node.get('phone','-')})"
+        text = f"{disp_name(name)} — {node.get('description', '')} ({node.get('phone', '-')})"
         img_w = 70
         img_h = 70
         if img_path and os.path.exists(img_path):
@@ -1202,7 +1425,8 @@ def generate_pdf_bytes(family_data):
     pdf_canvas.save()
     buf.seek(0)
     return buf.getvalue()
-    
+
+
 def admin_bottom_bar():
     """
     Bottom admin bar — only visible to admins.
@@ -1250,7 +1474,8 @@ def admin_bottom_bar():
                 if ok:
                     st.success(f"✅ Changes saved to {DATA_FILE}")
                     # store a last-saved timestamp in session so UI can show it
-                    st.session_state["last_saved"] = str(round(random.random(), 6))  # cheap change to session; could be timestamp
+                    st.session_state["last_saved"] = str(
+                        round(random.random(), 6))  # cheap change to session; could be timestamp
                 else:
                     st.error("❌ Failed to save changes. Check server logs or file permissions.")
                     print("save_family_data returned False.")
@@ -1279,6 +1504,7 @@ def admin_bottom_bar():
 
     st.markdown('</div></div>', unsafe_allow_html=True)
 
+
 # render bottom admin bar (pinned)
 admin_bottom_bar()
 
@@ -1289,7 +1515,9 @@ if st.session_state.get("is_admin", False) and st.session_state.get("email"):
     if rec and rec.get("must_change", False):
         st.markdown("<div class='section-title'>🔐 Change Your Password</div>", unsafe_allow_html=True)
         st.markdown("<div class='change-card'>", unsafe_allow_html=True)
-        st.markdown(f"<p>👋 Hello <b>{st.session_state['email']}</b>. You are using a default password — please pick a new password now.</p>", unsafe_allow_html=True)
+        st.markdown(
+            f"<p>👋 Hello <b>{st.session_state['email']}</b>. You are using a default password — please pick a new password now.</p>",
+            unsafe_allow_html=True)
         new_pw = st.text_input("New password", type="password", key="new_password")
         confirm_pw = st.text_input("Confirm new password", type="password", key="confirm_password")
         if st.button("Update password", key="update_pwd_btn"):
