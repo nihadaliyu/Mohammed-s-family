@@ -78,7 +78,7 @@ body { font-family: 'Poppins', sans-serif; background: linear-gradient(to bottom
 .muted { color: #3f3f3f; font-size: 0.85rem; }
 .phone-link a { color: #3f72af; text-decoration: none; font-weight: bold; }
 .phone-link a:hover { text-decoration: underline; }
-button[data-baseweb="button"] { background: linear-gradient(45deg, #3f72af, #112d4e) !important; color: white !important; border: none !important; border-radius: 8px !important; padding: 0.5rem 1rem !important; }
+button[data-baseweb="button"] { background: linear-gradient(45deg, #3f72af, #112d4e) !important; color: white !important; border: none !important; border-radius: 8px !important; padding: 0.5rem 1rem; }
 button[data-baseweb="button"]:hover { background: linear-gradient(45deg, #112d4e, #3f72af) !important; transform: scale(1.05); }
 .stTextInput > div > div > input, .stNumberInput input, .stTextArea textarea { border-radius: 8px; border: 1px solid #ccc; padding: 0.5rem; }
 .report-box { border: 1px solid #e6eefc; padding: 10px; border-radius: 8px; background: #f7fbff; margin-top: 10px; }
@@ -131,65 +131,6 @@ button[data-baseweb="button"]:hover { background: linear-gradient(45deg, #112d4e
   box-shadow: 0 6px 20px rgba(17,45,78,0.08);
   border: 1px solid #e6eefc;
 }
-
-/* Carousel / slideshow styles (welcome and quotes) */
-#family-carousel-container {
-  width: 100%;
-  max-width: 920px;
-  margin: 12px auto 20px auto;
-  border-radius: 10px;
-  overflow: hidden;
-  background: linear-gradient(90deg,#ffffffee,#eef6ff);
-  border: 1px solid #e6eefc;
-  padding: 12px;
-  box-shadow: 0 6px 18px rgba(17,45,78,0.04);
-}
-.family-carousel-slide {
-  display: none;
-  text-align: center;
-  padding: 18px 12px;
-  font-size: 1.05rem;
-  color: #123456;
-  transition: opacity 1s ease-in-out, transform 0.8s ease;
-  opacity: 0;
-}
-.family-carousel-slide.visible {
-  display: block;
-  opacity: 1;
-}
-.family-carousel-title {
-  font-size: 1.4rem;
-  color: #0b6cff;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.family-carousel-quote {
-  font-size: 1.05rem;
-  color: #112d4e;
-  margin-top: 6px;
-}
-.family-carousel-footer {
-  margin-top: 10px;
-  font-size: 0.92rem;
-  color: #555;
-}
-.family-carousel-dots {
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  margin-top:10px;
-}
-.family-carousel-dot {
-  width: 10px;
-  height: 10px;
-  background: #d0d8e6;
-  border-radius: 50%;
-  display:inline-block;
-  cursor:pointer;
-  transition: background .25s;
-}
-.family-carousel-dot.active { background: #0b6cff; }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -433,7 +374,7 @@ with st.sidebar:
         st.info("""
         **የእርዳታ መመሪያ**
 
-በዚህ መተግበሪያ ውስጥ፣ ቤተሰባችን ሁሉ በአንድ ቦታ ተያይዞ መቀመጥ ይችላል። እያንዳንዱ አባል ያለውን መረጃ በቀላሉ [...]
+በዚህ መተግበሪያ ውስጥ፣ ቤተሰባችን ሁሉ በአንድ ቦታ ተያይዞ መቀመጥ ይችላል። እያንዳንዱ አባል ያለውን መረጃ በቀላሉ ማስተካከል ይችላሉ።
 
 * 👑 **አድሚኖች** የቤተሰብ መረጃ መጨመር፣ ማስተካከል ወይም ማጥፋት ይችላሉ።
 * 👨‍👩‍👧‍👦 **እንግዶች** የቤተሰብ መረጃን ማየትና የትዳር አጋር እና የልጆች መረጃ መጨመር ይችላሉ።
@@ -446,12 +387,11 @@ with st.sidebar:
         st.success("""
        **የኢማም መሐመድ የቤተሰብ መረጃ መዝገብ**
 
-ይህ የመረጃ መዝገብ የኢማም መሐመድ ቤተሰብን የትውልድ ትውልድ ታሪክና ዘር በመጠበቅ እና በዘመናዊ መንገድ ለማቅረብ የ[...]
-በዚህ መድረክ ላይ የቤተሰቡ አባላት የተለያዩ የዘር ግንኙነቶችን ማየት፣ የታሪክ መረጃ ማካፈል እና በቀላሉ እርስ በእር[...]
+ይህ የመረጃ መዝገብ የኢማም መሐመድ ቤተሰብን የትውልድ ትውልድ ታሪክና ዘር በመጠበቅ እና በዘመናዊ መንገድ ለማቅረብ የተቋቋመ ነው።
+በዚህ መድረክ ላይ የቤተሰቡ አባላት የተለያዩ የዘር ግንኙነቶችን ማየት፣ የታሪክ መረጃ ማካፈል እና በቀላሉ እርስ በእርሳቸው መገናኘት ይችላሉ።
 ይህ ፕሮጀክት የቤተሰብ መረጃ እንዳይጠፋ እና ለወደፊት ትውልድ እንዲቀጥል በመሰረታዊ መንገድ ተሠርቷል።
 
-በዚህ ስራ ላይ በትልቅ ድጋፍና በመንፈስ እንዲሁም በሃላፊነት ሲያግዘኝ ለነበረው የ አክስቴ ልጅ አቡዱሰላም ታላቅ ክብር[...]
-
+በዚህ ስራ ላይ በትልቅ ድጋፍና በመንፈስ እንዲሁም በሃላፊነት ሲያግዘኝ ለነበረው የ አክስቴ ልጅ አቡዱሰላም ታላቅ ክብር እና ምስጋና ማቅረብ እውዳለው። የቤተሰቡን ሥራ በተዋህዶ መንፈስ የሚያበረታታ የእርሱን ድጋፍ እንከብራለን።
 
 💬 ስለ ቤተሰቡ ወቅታዊ መረጃ ለማግኘት እባክዎን በዚህ የተለግራም ሊንክ ያግኙን፦ [@imam_mohammed_delko](https://t.me/imam_mohammed_delko)
   """)
@@ -857,104 +797,6 @@ st.markdown(f'''
       <div></div>
     </div>
     ''', unsafe_allow_html=True)
-
-# ---------------- Animated welcome & quotations slideshow ----------------
-# This is implemented as a small self-contained HTML/CSS/JS component embedded with components.html.
-# It shows: Welcome -> a few quotations -> Thank you, looping slowly.
-carousel_html = """
-<div id="family-carousel-container" aria-hidden="false">
-  <div id="family-carousel">
-    <!-- Slides will be injected by JS -->
-  </div>
-  <div class="family-carousel-dots" id="family-carousel-dots" role="tablist"></div>
-</div>
-
-<script>
-(function(){
-  // Slides content - customize these strings to change what's shown.
-  const slides = [
-    { title: "እንኳን ደህና መጡ", text: "Welcome to Imam Mohammed family hub" },
-    { title: "Quote 1", text: "Family is the compass that guides us." },
-    { title: "Quote 2", text: "Roots run deep — remember your elders." },
-    { title: "Quote 3", text: "Share stories, keep memories alive." },
-    { title: "አመሰግናለሁ", text: "Thank you — እናመሰግናለን" }
-  ];
-
-  const container = document.getElementById('family-carousel');
-  const dotsContainer = document.getElementById('family-carousel-dots');
-  if(!container) return;
-
-  // Build slides
-  slides.forEach((s, idx) => {
-    const div = document.createElement('div');
-    div.className = 'family-carousel-slide';
-    div.id = 'family-carousel-slide-' + idx;
-    div.setAttribute('role','group');
-    div.setAttribute('aria-roledescription','slide');
-    div.innerHTML = '<div class="family-carousel-title">' + s.title + '</div>'
-                  + '<div class="family-carousel-quote">' + s.text + '</div>'
-                  + '<div class="family-carousel-footer">ይቆዩ — Sit and read</div>';
-    container.appendChild(div);
-
-    // dot
-    const dot = document.createElement('button');
-    dot.className = 'family-carousel-dot';
-    dot.setAttribute('aria-label','Go to slide ' + (idx+1));
-    dot.onclick = function() { showSlide(idx, true); };
-    dotsContainer.appendChild(dot);
-  });
-
-  let current = 0;
-  const total = slides.length;
-  const slideDuration = 6000; // milliseconds per slide
-  let slideTimer = null;
-
-  function updateDots() {
-    const dots = dotsContainer.querySelectorAll('.family-carousel-dot');
-    dots.forEach((d,i) => d.classList.toggle('active', i === current));
-  }
-
-  function showSlide(i, userTriggered) {
-    // bounds
-    if(i < 0) i = total - 1;
-    if(i >= total) i = 0;
-    // hide all
-    for(let k=0;k<total;k++){
-      const el = document.getElementById('family-carousel-slide-' + k);
-      if(el) {
-        el.classList.remove('visible');
-      }
-    }
-    const curEl = document.getElementById('family-carousel-slide-' + i);
-    if(curEl) {
-      curEl.classList.add('visible');
-    }
-    current = i;
-    updateDots();
-
-    // reset timer if user triggered
-    if(userTriggered && slideTimer) {
-      clearInterval(slideTimer);
-      slideTimer = setInterval(nextSlide, slideDuration);
-    }
-  }
-
-  function nextSlide() {
-    showSlide((current + 1) % total, false);
-  }
-
-  // initial
-  showSlide(0, false);
-  slideTimer = setInterval(nextSlide, slideDuration);
-
-  // pause on hover to allow reading
-  container.addEventListener('mouseenter', function(){ if(slideTimer) clearInterval(slideTimer); });
-  container.addEventListener('mouseleave', function(){ if(slideTimer) clearInterval(slideTimer); slideTimer = setInterval(nextSlide, slideDuration); });
-
-})();
-</script>
-"""
-components.html(carousel_html, height=220, scrolling=False)
 
 # ensure the search form is hidden while quiz not done (guests)
 if not st.session_state.get("quiz_done", False) and not st.session_state.get("is_admin", False):
