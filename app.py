@@ -1096,8 +1096,8 @@ carousel_html = """
   // Edit these slides to change content
   const slides = [
     { title: "እንኳን ደህና መጡ", text: "Welcome to Imam Mohammed family hub" },
-    { title: "Family Compass", text: "Family is the compass that guides us — keep traditions alive and tell the stories of your elders." },
-    { title: "Rooted in History", text: "Roots run deep. Remember your elders: share their stories, learn from them, and pass their memory on to the next generation." },
+    { title: "Family Compass", text: "Family is the compass that guides us — keep traditions alive and tell the stories of your elder." },
+    { title: "Rooted in History", text: "Imam Mohammed was a gentle men,handsome; He has a legacy , passion." },
     { title: "Share & Remember", text: "Share stories, photos, and memories to preserve family history for years to come." }
   ];
 
