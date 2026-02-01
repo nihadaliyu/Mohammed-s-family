@@ -1128,7 +1128,7 @@ carousel_html = """
   { 
     title: "Enduring Legacy | ዘላቂ ትርፍ", 
     text: "He leaves behind a legacy of kindness, justice, and service for future generations. | የበጎነት፣ የፍትሕና የአገልግሎት አርዓያነትን ለሚቀጥሉ ትውልዶች አኑረዋል።"
-
+}
 ];
 
 
