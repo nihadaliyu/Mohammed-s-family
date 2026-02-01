@@ -1095,36 +1095,40 @@ carousel_html = """
 (function () {const slides = [
   { 
     title: "Humble & Generous | ትሑትና በጎ ሰው", 
-    text: "Our great father Imam Mohammed was a humble and generous man who faithfully served his community. | አባታችን ኢማም ሙሐመድ ትሑትና በጎ ሰው ነበሩ፣ ሕብረተሰቡን በታማኝነት ያገለግሉ ነበር።"
+    text: "Our great father Imam Mohammed was a humble and generous man who faithfully served his community. | አባታችን ኢማም ሙሐመድ ሕብረተሰቡን በታማኝነት የሚያገለግሉ ትሑት እና በጎ ሰው ነበሩ ።"
   },
   { 
     title: "Leader of Elders | የተከበሩ መሪ", 
-    text: "He served as a representative of land distribution authority and a respected chief among local elders. | የመሬት መመያዣ ተወካይ እና በአካባቢ አሳታፊ መሪ ነበሩ።"
+    text: "He served as a representative of land distribution authority and a respected chief among local elders. | ለደካሞች የሚደርሱ የመሬት አስተዳደር ባለስልጣን እና አሳታፊ መሪ ነበሩ።"
   },
   { 
     title: "Helping the Poor | ለድሆች የሚያገለግል", 
-    text: "He worked hard to secure land for the poor and vulnerable in the community. | ለድሆችና ተደናቂ ሰዎች መሬት እንዲያገኙ በጣም ተጋደለ።"
+    text: "He worked hard to secure land for the poor and vulnerable in the community. | በስልጣን ጊዜያቸው ድሆች ና አቅመደካሞች መሬት እንዲያገኙ ተጋድሎ አድርጓል ።"
   },
   { 
     title: "Social Harmony | ማኅበራዊ ሰላም", 
-    text: "He always worked to maintain social stability and unity among the people. | የማኅበራዊ ሰላምና አንድነት እንዲጠናቀቅ ሁልጊዜ ይሰራ ነበር።"
+    text: "He always worked to maintain social stability and unity among the people. | የማኅበራዊ ሰላምና አንድነት እንዲጠበቅ ሁልጊዜ ይሰሩ ነበር።"
   },
   { 
-    title: "Family Legacy | የቤተሰብ ተረፍ", 
-    text: "He was a dedicated husband and a proud father of his 24 children. | ለቤተሰቡ የተዋበ ባል እና ለ24 ልጆቹ የሚመካ አባት ነበሩ።"
+    title: "Family Legacy | ጥሩ ባል እና አባት", 
+    text: "He was a dedicated husband and a proud father of his 24 children. | ለሚስቶቻቸው ጥሩ ባል እና ለ24 ልጆቻቸው ኩሩ አባት ነበሩ።"
   },
   { 
     title: "Love & Guidance | ፍቅርና መመሪያ", 
-    text: "He raised his children with strong moral values that guide the family today. | ልጆቹን በጠንካራ ሥነ-ምግባር አሳደጉ እነዚህም እስከዛሬ ይመራሉ።"
+    text: "He raised his children with strong moral values that guide the family today. | ልጆቻቸውን በጥሩ ሥነ-ምግባር አሳድገው ለማህበረሰቡ አበርክተዋል።"
   },
   { 
     title: "Public Service | የህዝብ አገልግሎት", 
-    text: "He contributed to community development, including road and school projects. | በመንገድ እና ትምህርት ቤት መገንባት ውስጥ ታላቅ ድርሻ ነበረው።"
+    text: "He contributed to community development, including road and school projects. | በመንገድ እና ትምህርት ቤት ግንባታ ውስጥ ታላቅ ድርሻ ነበራቸው።"
+  },
+   { 
+    title: "comunity serving childerens |ማህበረሰቡን ሚያገለግሉ ልጆች ", 
+    text: "he gave his comunity ethical and serving childrens who keep his legacy till now. | በጥሩ ስነምግባር ያደጉ፣ አሁንም ድረስ ማህበረሰቡን በትጋት እና በቅንነት ሚያገለግሉ ልጆችን አበርክተዋል ።"
   },
   { 
     title: "Enduring Legacy | ዘላቂ ትርፍ", 
-    text: "He leaves behind a legacy of kindness, justice, and service for future generations. | የበጎነት፣ የፍትሕና የአገልግሎት ትርፍ ለሚቀጥሉ ትውልዶች ተረፍቷቸዋል።"
-  }
+    text: "He leaves behind a legacy of kindness, justice, and service for future generations. | የበጎነት፣ የፍትሕና የአገልግሎት አርዓያነትን ለሚቀጥሉ ትውልዶች አኑረዋል።"
+
 ];
 
 
