@@ -1092,14 +1092,41 @@ carousel_html = """
 </div>
 
 <script>
-(function () {
-  // Edit these slides to change content
-  const slides = [
-    { title: "እንኳን ደህና መጡ", text: "Welcome to Imam Mohammed family hub" },
-    { title: "Family Compass", text: "Family is the compass that guides us — keep traditions alive and tell the stories of your elder." },
-    { title: "Rooted in History", text: "Imam Mohammed was a gentle men,handsome; He has a legacy , passion." },
-    { title: "Share & Remember", text: "Share stories, photos, and memories to preserve family history for years to come." }
-  ];
+(function () {const slides = [
+  { 
+    title: "Humble & Generous | ትሑትና በጎ ሰው", 
+    text: "Our great father Imam Mohammed was a humble and generous man who faithfully served his community. | አባታችን ኢማም ሙሐመድ ትሑትና በጎ ሰው ነበሩ፣ ሕብረተሰቡን በታማኝነት ያገለግሉ ነበር።"
+  },
+  { 
+    title: "Leader of Elders | የተከበሩ መሪ", 
+    text: "He served as a representative of land distribution authority and a respected chief among local elders. | የመሬት መመያዣ ተወካይ እና በአካባቢ አሳታፊ መሪ ነበሩ።"
+  },
+  { 
+    title: "Helping the Poor | ለድሆች የሚያገለግል", 
+    text: "He worked hard to secure land for the poor and vulnerable in the community. | ለድሆችና ተደናቂ ሰዎች መሬት እንዲያገኙ በጣም ተጋደለ።"
+  },
+  { 
+    title: "Social Harmony | ማኅበራዊ ሰላም", 
+    text: "He always worked to maintain social stability and unity among the people. | የማኅበራዊ ሰላምና አንድነት እንዲጠናቀቅ ሁልጊዜ ይሰራ ነበር።"
+  },
+  { 
+    title: "Family Legacy | የቤተሰብ ተረፍ", 
+    text: "He was a dedicated husband and a proud father of his 24 children. | ለቤተሰቡ የተዋበ ባል እና ለ24 ልጆቹ የሚመካ አባት ነበሩ።"
+  },
+  { 
+    title: "Love & Guidance | ፍቅርና መመሪያ", 
+    text: "He raised his children with strong moral values that guide the family today. | ልጆቹን በጠንካራ ሥነ-ምግባር አሳደጉ እነዚህም እስከዛሬ ይመራሉ።"
+  },
+  { 
+    title: "Public Service | የህዝብ አገልግሎት", 
+    text: "He contributed to community development, including road and school projects. | በመንገድ እና ትምህርት ቤት መገንባት ውስጥ ታላቅ ድርሻ ነበረው።"
+  },
+  { 
+    title: "Enduring Legacy | ዘላቂ ትርፍ", 
+    text: "He leaves behind a legacy of kindness, justice, and service for future generations. | የበጎነት፣ የፍትሕና የአገልግሎት ትርፍ ለሚቀጥሉ ትውልዶች ተረፍቷቸዋል።"
+  }
+];
+
 
   const track = document.getElementById('family-carousel-track');
   const dotsContainer = document.getElementById('family-carousel-dots');
