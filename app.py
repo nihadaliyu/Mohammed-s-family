@@ -1037,7 +1037,7 @@ carousel_html = """
     font-size: 22px;
     color: var(--accent-dark);
     cursor: pointer;
-    transition: transform .12s ease, box-shadow .10s;
+    transition: transform .20s ease, box-shadow .15s;
   }
   .carousel-arrow:hover { transform: translateY(-50%) scale(1.04); box-shadow: 0 12px 28px rgba(2,6,23,0.12); }
   #carousel-prev { left: 14px; }
@@ -1057,7 +1057,7 @@ carousel_html = """
     background: rgba(11,108,255,0.18);
     border: none;
     cursor: pointer;
-    transition: transform .18s, background .5s, box-shadow .18s;
+    transition: transform .25s, background .15s, box-shadow .25s;
   }
   .family-carousel-dot.active {
     background: var(--accent-blue);
