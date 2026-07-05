@@ -1139,7 +1139,7 @@ carousel_html = """
 
   let index = 0;
   const total = slides.length;
-  const intervalMs = 9000;
+  const intervalMs = 10000;
   let timer = null;
   let autoplay = true;
 
