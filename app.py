@@ -478,7 +478,7 @@ if detected_email:
 with st.sidebar:
     st.markdown("## 📋 መግቢያ")
 
-   menu_choice = st.radio("Navigate to:", ["🏠 መግቢያ", "🔐 አገባብ ይለዩ", "ℹ️ እርዳታ ይጠይቁ", "👨‍👩‍👦 ስለ እኛ ያንብቡ", "🎯 ራዕያችን"], index=0)
+    menu_choice = st.radio("Navigate to:", ["🏠 መግቢያ", "🔐 አገባብ ይለዩ", "ℹ️ እርዳታ ይጠይቁ", "👨‍👩‍👦 ስለ እኛ ያንብቡ", "🎯 ራዕያችን"], index=0)
     if menu_choice == "ℹ️ እርዳታ ይጠይቁ":
         st.info("""
         **የእርዳታ መመሪያ**
@@ -505,7 +505,7 @@ with st.sidebar:
 
 💬 ስለ ቤተሰቡ ወቅታዊ መረጃ ለማግኘት እባክዎን በዚህ የተለግራም ሊንክ ያግኙን፦ [@imam_mohammed_delko](https://t.me/imam_mohammed_delko)
   """)
-    elif menu_choice == "🎯 የመተግበሪያው ዓላማ":
+    elif menu_choice == "🎯 ራዕያችን":
             st.info("""
            **የመተግበሪያው ዓላማ**
 
