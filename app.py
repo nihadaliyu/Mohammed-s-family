@@ -58,6 +58,14 @@ DISPLAY_NAME = {
 
 def disp_name(key):
     return DISPLAY_NAME.get(key, key)
+import re
+
+def is_real_phone(value):
+    """True only if value contains a digit (a real phone number),
+    not a blessing phrase like 'አላህ ጀነት-አል ፊርደውስ ይወፍቃት'."""
+    if not value:
+        return False
+    return bool(re.search(r'\d', str(value)))
 
 
 # ---------------- CONFIG & FILES ----------------
@@ -681,8 +689,9 @@ def display_search_results(results):
             f"<div style='font-size:0.9rem;color:#555;'>መንገድ: {path_disp} — ውጤት ውህድ: {score:.2f}</div>",
             unsafe_allow_html=True
         )
+       phone_html = f"📞 {node.get('phone', '')} &nbsp; | &nbsp; " if is_real_phone(node.get('phone')) else ""
         st.markdown(
-            f"<div style='margin-top:6px;'>📞 {node.get('phone', '-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>",
+            f"<div style='margin-top:6px;'>{phone_html}ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>",
             unsafe_allow_html=True)
         col1, col2 = st.columns([1, 4])
         with col1:
@@ -773,11 +782,10 @@ def display_family(name, data, ancestors=None, level=0):
                 st.markdown(
                     f"<div class='family-card'><b style='font-size:1.03rem'>{disp_name(name)}</b><div style='color:#556;margin-top:6px'>{node.get('description', '')}</div></div>",
                     unsafe_allow_html=True)
-                if node.get("phone"):
+               if is_real_phone(node.get("phone")):
                     st.markdown(
                         f"📞 <a href='tel:{node['phone']}' style='color:var(--accent-2);font-weight:600;text-decoration:none'>{node['phone']}</a>",
                         unsafe_allow_html=True)
-
             with bcol:
                 allow_guest_add = True
                 is_admin = st.session_state.get("is_admin", False)
