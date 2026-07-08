@@ -58,6 +58,19 @@ DISPLAY_NAME = {
 
 def disp_name(key):
     return DISPLAY_NAME.get(key, key)
+   
+    
+    import re
+
+def is_real_phone(value):
+    """Return True only if the value looks like an actual phone number (has digits),
+    not a blessing phrase like 'አላህ ጀነት-አል ፊርደውስ ይወፍቃት'."""
+    if not value:
+        return False
+    v = str(value).strip()
+    if not v:
+        return False
+    return bool(re.search(r'\d', v))
 
 
 # ---------------- CONFIG & FILES ----------------
