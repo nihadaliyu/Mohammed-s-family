@@ -695,22 +695,21 @@ def display_search_results(results):
             unsafe_allow_html=True
         )
         phone_html = f"📞 {node.get('phone', '')} &nbsp; | &nbsp; " if is_real_phone(node.get('phone')) else ""
-st.markdown(
-    f"<div style='margin-top:6px;'>📞 {node.get('phone', '-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>",
-    unsafe_allow_html=True
-)
+        st.markdown(
+            f"<div style='margin-top:6px;'>📞 {node.get('phone', '-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>",
+            unsafe_allow_html=True
+        )
         col1, col2 = st.columns([1, 4])
-with col1:
-    if st.button("በዝርር አሳይ", key=f"show_in_tree_{i}_{'_'.join(path)}"):
-        st.session_state.reveal_path = path
-        save_family_data(st.session_state.family_data)
-        st.rerun()
-with col2:
-    img = node.get('photo', '')
-    show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
-    st.image(show_img, width=80)
-st.markdown("</div>", unsafe_allow_html=True)  # ← Move this to the end
-
+        with col1:
+            if st.button("በዝርር አሳይ", key=f"show_in_tree_{i}_{'_'.join(path)}"):
+                st.session_state.reveal_path = path
+                save_family_data(st.session_state.family_data)
+                st.rerun()
+        with col2:
+            img = node.get('photo', '')
+            show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
+            st.image(show_img, width=80)
+        st.markdown("</div>", unsafe_allow_html=True)
 # ---------------- TREE HELPERS / UI ----------------
 def get_node_and_parent_children(path):
     if not path:
