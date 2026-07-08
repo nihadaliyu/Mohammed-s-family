@@ -58,19 +58,6 @@ DISPLAY_NAME = {
 
 def disp_name(key):
     return DISPLAY_NAME.get(key, key)
-   
-    
-    import re
-
-def is_real_phone(value):
-    """Return True only if the value looks like an actual phone number (has digits),
-    not a blessing phrase like 'አላህ ጀነት-አል ፊርደውስ ይወፍቃት'."""
-    if not value:
-        return False
-    v = str(value).strip()
-    if not v:
-        return False
-    return bool(re.search(r'\d', v))
 
 
 # ---------------- CONFIG & FILES ----------------
@@ -694,11 +681,9 @@ def display_search_results(results):
             f"<div style='font-size:0.9rem;color:#555;'>መንገድ: {path_disp} — ውጤት ውህድ: {score:.2f}</div>",
             unsafe_allow_html=True
         )
-        phone_html = f"📞 {node.get('phone', '')} &nbsp; | &nbsp; " if is_real_phone(node.get('phone')) else ""
         st.markdown(
             f"<div style='margin-top:6px;'>📞 {node.get('phone', '-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>",
-            unsafe_allow_html=True
-        )
+            unsafe_allow_html=True)
         col1, col2 = st.columns([1, 4])
         with col1:
             if st.button("በዝርር አሳይ", key=f"show_in_tree_{i}_{'_'.join(path)}"):
@@ -710,6 +695,8 @@ def display_search_results(results):
             show_img = img if (img and os.path.exists(img)) else PLACEHOLDER_IMAGE
             st.image(show_img, width=80)
         st.markdown("</div>", unsafe_allow_html=True)
+
+
 # ---------------- TREE HELPERS / UI ----------------
 def get_node_and_parent_children(path):
     if not path:
@@ -786,7 +773,7 @@ def display_family(name, data, ancestors=None, level=0):
                 st.markdown(
                     f"<div class='family-card'><b style='font-size:1.03rem'>{disp_name(name)}</b><div style='color:#556;margin-top:6px'>{node.get('description', '')}</div></div>",
                     unsafe_allow_html=True)
-                if is_real_phone(node.get("phone")):
+                if node.get("phone"):
                     st.markdown(
                         f"📞 <a href='tel:{node['phone']}' style='color:var(--accent-2);font-weight:600;text-decoration:none'>{node['phone']}</a>",
                         unsafe_allow_html=True)
