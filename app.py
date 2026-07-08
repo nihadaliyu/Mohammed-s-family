@@ -786,7 +786,7 @@ def display_family(name, data, ancestors=None, level=0):
                 st.markdown(
                     f"<div class='family-card'><b style='font-size:1.03rem'>{disp_name(name)}</b><div style='color:#556;margin-top:6px'>{node.get('description', '')}</div></div>",
                     unsafe_allow_html=True)
-                if node.get("phone"):
+                if is_real_phone(node.get("phone")):
                     st.markdown(
                         f"📞 <a href='tel:{node['phone']}' style='color:var(--accent-2);font-weight:600;text-decoration:none'>{node['phone']}</a>",
                         unsafe_allow_html=True)
