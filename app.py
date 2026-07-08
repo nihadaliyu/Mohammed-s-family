@@ -786,6 +786,10 @@ def display_family(name, data, ancestors=None, level=0):
                     st.markdown(
                         f"📞 <a href='tel:{node['phone']}' style='color:var(--accent-2);font-weight:600;text-decoration:none'>{node['phone']}</a>",
                         unsafe_allow_html=True)
+                elif node.get("phone"):
+                    st.markdown(
+                        f"<div style='color:#556;font-style:italic;margin-top:4px;'>{node['phone']}</div>",
+                        unsafe_allow_html=True)
             with bcol:
                 allow_guest_add = True
                 is_admin = st.session_state.get("is_admin", False)
