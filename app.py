@@ -694,9 +694,10 @@ def display_search_results(results):
             f"<div style='font-size:0.9rem;color:#555;'>መንገድ: {path_disp} — ውጤት ውህድ: {score:.2f}</div>",
             unsafe_allow_html=True
         )
-        st.markdown(
-            f"<div style='margin-top:6px;'>📞 {node.get('phone', '-')} &nbsp; | &nbsp; ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>",
-            unsafe_allow_html=True)
+        phone_html = f"📞 {node.get('phone', '')} &nbsp; | &nbsp; " if is_real_phone(node.get('phone')) else ""
+st.markdown(
+    f"<div style='margin-top:6px;'>{phone_html}ልጆች: <b>{rep['gen2']}</b> &nbsp; የልጆች ልጆች: <b>{rep['gen3']}</b></div>",
+    unsafe_allow_html=True)
         col1, col2 = st.columns([1, 4])
         with col1:
             if st.button("በዝርር አሳይ", key=f"show_in_tree_{i}_{'_'.join(path)}"):
