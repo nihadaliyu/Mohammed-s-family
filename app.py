@@ -1401,13 +1401,13 @@ def generate_pdf_bytes(family_data):
        y -= 18
        pdf_canvas.setFont("Helvetica", 11)
        counts = count_levels(family_data)
-    summary_items = [
+       summary_items = [
         ("ሚስቶች (Mothers)", counts["gen1"]),
         ("ልጆች (Children)", counts["gen2"]),
         ("የልጆች ልጆች (Grandchildren)", counts["gen3"]),
         ("ታላቅ የልጆች ልጆች (Great-grandchildren)", counts["gen4"]),
         ("ጠቅላላ የወረዱ ልጆች (Total descendants)", counts["total_descendants"]),
-    ]
+        ]
     for label, value in summary_items:
         pdf_canvas.drawString(margin, y, f"{label}: {value}")
         y -= 14
