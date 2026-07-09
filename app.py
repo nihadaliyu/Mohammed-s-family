@@ -1385,23 +1385,23 @@ def generate_pdf_bytes(family_data):
            FONT_REGULAR = "Helvetica"
            FONT_BOLD = "Helvetica-Bold"
 
-       PAGE_WIDTH, PAGE_HEIGHT = A4
-       pdf_canvas = canvas.Canvas(buf, pagesize=A4)
-       margin = 40
-       y = PAGE_HEIGHT - margin
-    
-        # Title
-       pdf_canvas.setFont("Helvetica-Bold", 16)
-       pdf_canvas.drawString(margin, y, "የጠቅላላ ቤተሰብ ብዛት - Imam Mohammed Family Report")
-       y -= 28
-    
-        # Summary
-       pdf_canvas.setFont("Helvetica-Bold", 12)
-       pdf_canvas.drawString(margin, y, "📊 ጠቅላላ ብዛት ")
-       y -= 18
-       pdf_canvas.setFont("Helvetica", 11)
-       counts = count_levels(family_data)
-       summary_items = [
+           PAGE_WIDTH, PAGE_HEIGHT = A4
+           pdf_canvas = canvas.Canvas(buf, pagesize=A4)
+           margin = 40
+           y = PAGE_HEIGHT - margin
+        
+            # Title
+           pdf_canvas.setFont("Helvetica-Bold", 16)
+           pdf_canvas.drawString(margin, y, "የጠቅላላ ቤተሰብ ብዛት - Imam Mohammed Family Report")
+           y -= 28
+        
+            # Summary
+           pdf_canvas.setFont("Helvetica-Bold", 12)
+           pdf_canvas.drawString(margin, y, "📊 ጠቅላላ ብዛት ")
+           y -= 18
+           pdf_canvas.setFont("Helvetica", 11)
+           counts = count_levels(family_data)
+    summary_items = [
         ("ሚስቶች (Mothers)", counts["gen1"]),
         ("ልጆች (Children)", counts["gen2"]),
         ("የልጆች ልጆች (Grandchildren)", counts["gen3"]),
