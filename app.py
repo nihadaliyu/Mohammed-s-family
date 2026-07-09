@@ -1362,59 +1362,59 @@ def build_tree_lines(data, indent=0, lines=None):
 
 
 def generate_pdf_bytes(family_data):
-       """Return bytes of a PDF containing summary report + full family tree and photos where available."""
-       buf = BytesIO()
-       if not REPORTLAB_AVAILABLE:
-           return None
+    """Return bytes of a PDF containing summary report + full family tree and photos where available."""
+    buf = BytesIO()
+    if not REPORTLAB_AVAILABLE:
+        return None
 
-       from reportlab.pdfbase import pdfmetrics
-       from reportlab.pdfbase.ttfonts import TTFont
-       import os as _os
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+    import os as _os
 
-       FONT_REGULAR = "NotoEthiopic"
-       FONT_BOLD = "NotoEthiopic-Bold"
-       try:
-           pdfmetrics.registerFont(TTFont(FONT_REGULAR, _os.path.join("fonts", "NotoSansEthiopic-Regular.ttf")))
-           bold_path = _os.path.join("fonts", "NotoSansEthiopic-Bold.ttf")
-           if _os.path.exists(bold_path):
-               pdfmetrics.registerFont(TTFont(FONT_BOLD, bold_path))
-           else:
-               FONT_BOLD = FONT_REGULAR
-       except Exception as e:
-           print("Font load error:", e)
-           FONT_REGULAR = "Helvetica"
-           FONT_BOLD = "Helvetica-Bold"
+    FONT_REGULAR = "NotoEthiopic"
+    FONT_BOLD = "NotoEthiopic-Bold"
+    try:
+        pdfmetrics.registerFont(TTFont(FONT_REGULAR, _os.path.join("fonts", "NotoSansEthiopic-Regular.ttf")))
+        bold_path = _os.path.join("fonts", "NotoSansEthiopic-Bold.ttf")
+        if _os.path.exists(bold_path):
+            pdfmetrics.registerFont(TTFont(FONT_BOLD, bold_path))
+        else:
+            FONT_BOLD = FONT_REGULAR
+    except Exception as e:
+        print("Font load error:", e)
+        FONT_REGULAR = "Helvetica"
+        FONT_BOLD = "Helvetica-Bold"
 
-           PAGE_WIDTH, PAGE_HEIGHT = A4
-           pdf_canvas = canvas.Canvas(buf, pagesize=A4)
-           margin = 40
-           y = PAGE_HEIGHT - margin
-        
-            # Title
-           pdf_canvas.setFont("Helvetica-Bold", 16)
-           pdf_canvas.drawString(margin, y, "የጠቅላላ ቤተሰብ ብዛት - Imam Mohammed Family Report")
-           y -= 28
-        
-            # Summary
-           pdf_canvas.setFont("Helvetica-Bold", 12)
-           pdf_canvas.drawString(margin, y, "📊 ጠቅላላ ብዛት ")
-           y -= 18
-           pdf_canvas.setFont("Helvetica", 11)
-           counts = count_levels(family_data)
+    PAGE_WIDTH, PAGE_HEIGHT = A4
+    pdf_canvas = canvas.Canvas(buf, pagesize=A4)
+    margin = 40
+    y = PAGE_HEIGHT - margin
+
+    # Title
+    pdf_canvas.setFont(FONT_BOLD, 16)
+    pdf_canvas.drawString(margin, y, "የጠቅላላ ቤተሰብ ብዛት - Imam Mohammed Family Report")
+    y -= 28
+
+    # Summary
+    pdf_canvas.setFont(FONT_BOLD, 12)
+    pdf_canvas.drawString(margin, y, "📊 ጠቅላላ ብዛት ")
+    y -= 18
+    pdf_canvas.setFont(FONT_REGULAR, 11)
+    counts = count_levels(family_data)
     summary_items = [
         ("ሚስቶች (Mothers)", counts["gen1"]),
         ("ልጆች (Children)", counts["gen2"]),
         ("የልጆች ልጆች (Grandchildren)", counts["gen3"]),
         ("ታላቅ የልጆች ልጆች (Great-grandchildren)", counts["gen4"]),
         ("ጠቅላላ የወረዱ ልጆች (Total descendants)", counts["total_descendants"]),
-        ]
+    ]
     for label, value in summary_items:
         pdf_canvas.drawString(margin, y, f"{label}: {value}")
         y -= 14
         if y < margin + 120:
             pdf_canvas.showPage()
             y = PAGE_HEIGHT - margin
-            pdf_canvas.setFont("Helvetica", 11)
+            pdf_canvas.setFont(FONT_REGULAR, 11)
 
     # Horizontal rule
     y -= 6
