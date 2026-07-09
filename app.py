@@ -1387,8 +1387,8 @@ def generate_pdf_bytes(family_data):
 
        PAGE_WIDTH, PAGE_HEIGHT = A4
        pdf_canvas = canvas.Canvas(buf, pagesize=A4)
-    margin = 40
-    y = PAGE_HEIGHT - margin
+       margin = 40
+       y = PAGE_HEIGHT - margin
 
     # Title
     pdf_canvas.setFont("Helvetica-Bold", 16)
