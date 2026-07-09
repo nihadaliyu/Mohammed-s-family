@@ -1362,14 +1362,31 @@ def build_tree_lines(data, indent=0, lines=None):
 
 
 def generate_pdf_bytes(family_data):
-    """Return bytes of a PDF containing summary report + full family tree and photos where available."""
-    buf = BytesIO()
-    if not REPORTLAB_AVAILABLE:
-        buf.write("PDF generation libs not available on server.\n".encode("utf-8"))
-        return buf.getvalue()
+       """Return bytes of a PDF containing summary report + full family tree and photos where available."""
+       buf = BytesIO()
+       if not REPORTLAB_AVAILABLE:
+           return None
 
-    PAGE_WIDTH, PAGE_HEIGHT = A4
-    pdf_canvas = canvas.Canvas(buf, pagesize=A4)
+       from reportlab.pdfbase import pdfmetrics
+       from reportlab.pdfbase.ttfonts import TTFont
+       import os as _os
+
+       FONT_REGULAR = "NotoEthiopic"
+       FONT_BOLD = "NotoEthiopic-Bold"
+       try:
+           pdfmetrics.registerFont(TTFont(FONT_REGULAR, _os.path.join("fonts", "NotoSansEthiopic-Regular.ttf")))
+           bold_path = _os.path.join("fonts", "NotoSansEthiopic-Bold.ttf")
+           if _os.path.exists(bold_path):
+               pdfmetrics.registerFont(TTFont(FONT_BOLD, bold_path))
+           else:
+               FONT_BOLD = FONT_REGULAR
+       except Exception as e:
+           print("Font load error:", e)
+           FONT_REGULAR = "Helvetica"
+           FONT_BOLD = "Helvetica-Bold"
+
+       PAGE_WIDTH, PAGE_HEIGHT = A4
+       pdf_canvas = canvas.Canvas(buf, pagesize=A4)
     margin = 40
     y = PAGE_HEIGHT - margin
 
